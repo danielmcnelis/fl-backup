@@ -1,12 +1,10 @@
 {
-	"folder": [
+	"folders": [
 		{
 			"path": "/Users/david/Development/danielmcnelis/fl"
 		}
 	],
-	"folders": [
-		{
-			"path": "."
-		}
-	]
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
 }
