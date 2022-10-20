@@ -78,12 +78,14 @@ export const cardsId = async (req, res, next) => {
     })
 
     const statuses =
-      (await Status.findAll({
-        where: {
-          cardId: card.id
-        },
-        attributes: { exclude: ['createdAt', 'updatedAt'] }
-      }).map((s) => [s.banlist, s.restriction])) || []
+      (
+        await Status.findAll({
+          where: {
+            cardId: card.id
+          },
+          attributes: { exclude: ['createdAt', 'updatedAt'] }
+        })
+      ).map((s) => [s.banlist, s.restriction]) || []
 
     const prints = await Print.findAll({
       where: {

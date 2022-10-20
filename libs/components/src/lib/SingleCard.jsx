@@ -1,6 +1,7 @@
 /* eslint-disable max-statements */
 
 import { useState, useEffect, useLayoutEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { NotFound } from './NotFound'
 import { PrintRow } from './PrintRow'
@@ -81,11 +82,14 @@ export const SingleCard = (props = {}) => {
   // USE LAYOUT EFFECT
   useLayoutEffect(() => window.scrollTo(0, 0))
 
+  let { id } = useParams()
+
   // USE EFFECT SET CARD
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/api/cards/${props.match.params.id}`)
+        console.log('id: ', props)
+        const { data } = await axios.get(`/api/cards/${id}`)
         setCard(data.card)
         setStatuses(data.statuses)
         setPrints(data.prints)
@@ -103,36 +107,36 @@ export const SingleCard = (props = {}) => {
 
   const template =
     card.category === 'Spell'
-      ? `/images/templates/spellCard.png`
+      ? `/assets/images/templates/spellCard.png`
       : card.category === 'Trap'
-      ? `/images/templates/trapCard.jpeg`
+      ? `/assets/images/templates/trapCard.jpeg`
       : card.fusion
-      ? `/images/templates/fusionCard.jpg`
+      ? `/assets/images/templates/fusionCard.jpg`
       : card.ritual
-      ? `/images/templates/ritualCard.jpg`
+      ? `/assets/images/templates/ritualCard.jpg`
       : card.synchro
-      ? `/images/templates/synchroCard.png`
+      ? `/assets/images/templates/synchroCard.png`
       : card.xyz
-      ? `/images/templates/xyzCard.png`
+      ? `/assets/images/templates/xyzCard.png`
       : card.pendulum
-      ? `/images/templates/pendulumCard.png`
+      ? `/assets/images/templates/pendulumCard.png`
       : card.link
-      ? `/images/templates/linkCard.png`
+      ? `/assets/images/templates/linkCard.png`
       : card.normal
-      ? `/images/templates/monsterCard.jpg`
+      ? `/assets/images/templates/monsterCard.jpg`
       : card.effect
-      ? `/images/templates/effectCard.png`
+      ? `/assets/images/templates/effectCard.png`
       : null
 
-  const attribute = card.attribute ? `/images/symbols/${card.attribute.toLowerCase()}.png` : null
-  const type = card.type ? `/images/symbols/${card.type.replace(/\s/g, '-').toLowerCase()}.png` : null
+  const attribute = card.attribute ? `/assets/images/symbols/${card.attribute.toLowerCase()}.png` : null
+  const type = card.type ? `/assets/images/symbols/${card.type.replace(/\s/g, '-').toLowerCase()}.png` : null
 
   const starType = card.xyz
-    ? `/images/symbols/rank.png`
+    ? `/assets/images/symbols/rank.png`
     : card.link
-    ? `/images/symbols/link.png`
+    ? `/assets/images/symbols/link.png`
     : card.category === 'Monster'
-    ? `/images/symbols/star.png`
+    ? `/assets/images/symbols/star.png`
     : null
 
   const starWord = card.xyz ? `Rank` : card.link ? `Link` : card.category === 'Monster' ? `Level` : null
@@ -141,22 +145,22 @@ export const SingleCard = (props = {}) => {
     card.category === 'Monster'
       ? null
       : card.icon === 'Continuous'
-      ? `/images/symbols/continuous.png`
+      ? `/assets/images/symbols/continuous.png`
       : card.icon === 'Field'
-      ? `/images/symbols/field.png`
+      ? `/assets/images/symbols/field.png`
       : card.icon === 'Ritual'
-      ? `/images/symbols/ritual.png`
+      ? `/assets/images/symbols/ritual.png`
       : card.icon === 'Quick-Play'
-      ? `/images/symbols/quick-play.png`
+      ? `/assets/images/symbols/quick-play.png`
       : card.icon === 'Normal'
-      ? `/images/symbols/normal.png`
+      ? `/assets/images/symbols/normal.png`
       : card.icon === 'Equip'
-      ? `/images/symbols/equip.png`
+      ? `/assets/images/symbols/equip.png`
       : card.icon === 'Counter'
-      ? `/images/symbols/counter.png`
+      ? `/assets/images/symbols/counter.png`
       : null
 
-  const imagePath = `/images/cards/${card.ypdId}.jpg`
+  const imagePath = `/assets/images/cards/${card.ypdId}.jpg`
   let cardType = `${card.category}`
   if (card.fusion) cardType += ` / Fusion`
   if (card.ritual) cardType += ` / Ritual`

@@ -55,7 +55,7 @@ export const MobileCardRow = (props) => {
 
   const symbol = symbols[card.attribute] || symbols[card.category]
   const symbol2 = card.link
-    ? `/images/arrows/${card.arrows}.png`
+    ? `/assets/images/arrows/${card.arrows}.png`
     : card.xyz
     ? symbol.Rank
     : category === 'Monster'
@@ -68,7 +68,7 @@ export const MobileCardRow = (props) => {
 
   const symbol3 = category === 'Monster' && card.type ? symbols[card.type.replace(/[\s-]/g, '')] : null
   const evenOrOdd = props.index % 2 ? 'even' : 'odd'
-  const filePath = `/images/cards/${card.ypdId}.jpg`
+  const filePath = `/assets/images/cards/${card.ypdId}.jpg`
 
   return (
     <tr className={`${evenOrOdd}-search-results-row`}>
@@ -84,7 +84,11 @@ export const MobileCardRow = (props) => {
         >
           <div className="card-image-cell">
             <img className="card-image" src={filePath} style={{ width: '82px' }} alt={card.name} />
-            {status ? <img className="small-status-icon" src={`/images/emojis/${status}.png`} alt={status} /> : ''}
+            {status ? (
+              <img className="small-status-icon" src={`/assets/images/emojis/${status}.png`} alt={status} />
+            ) : (
+              ''
+            )}
           </div>
         </Link>
       </td>

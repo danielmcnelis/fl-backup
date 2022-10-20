@@ -83,7 +83,7 @@ export const UserProfile = (props = {}) => {
           <div className="user-profile-title">{user.discordName}</div>
           <img
             className="user-pfp"
-            src={`/images/pfps/${user.id}.png`}
+            src={`/assets/images/pfps/${user.id}.png`}
             onError={(e) => {
               e.target.onerror = null
               e.target.src = 'https://cdn.discordapp.com/embed/avatars/1.png'

@@ -11,7 +11,7 @@ export const DeckRow = (props) => {
       <td className="no-padding">
         <Link className="black-text" to={`/decks/${deck.id}`}>
           <div className="format-cell-flexbox">
-            <img src={`/images/emojis/${deck.format.icon}.png`} />
+            <img src={`/assets/images/emojis/${deck.format.icon}.png`} />
             <div>{deck.formatName}</div>
           </div>
         </Link>
@@ -31,7 +31,7 @@ export const DeckRow = (props) => {
           <div className="player-cell">
             <img
               className="player-cell-pfp"
-              src={`/images/pfps/${deck.player.discordId}.png`}
+              src={`/assets/images/pfps/${deck.player.discordId}.png`}
               onError={(e) => {
                 e.target.onerror = null
                 e.target.src = 'https://cdn.discordapp.com/embed/avatars/1.png'
@@ -49,7 +49,7 @@ export const DeckRow = (props) => {
       <td className="no-padding">
         <Link className="black-text" to={`/decks/${deck.id}`}>
           <div className="community-cell-flexbox">
-            <img src={`/images/logos/${deck.community}.png`} />
+            <img src={`/assets/images/logos/${deck.community}.png`} />
             <div>{deck.eventName || '-'}</div>
           </div>
         </Link>

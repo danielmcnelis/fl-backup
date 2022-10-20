@@ -12,7 +12,7 @@ export const DeckThumbnail = (props) => {
         <div className="deckThumbnail-flexbox">
           <img
             className="deckThumbnail-image"
-            src={`/images/artworks/${deck.leftCardYpdId}.jpg`}
+            src={`/assets/images/artworks/${deck.leftCardYpdId}.jpg`}
             onError={(e) => {
               e.target.onerror = null
               e.target.src = '/images/artworks/question.jpg'
@@ -20,7 +20,7 @@ export const DeckThumbnail = (props) => {
           />
           <img
             className="deckThumbnail-image"
-            src={`/images/artworks/${deck.centerCardYpdId}.jpg`}
+            src={`/assets/images/artworks/${deck.centerCardYpdId}.jpg`}
             onError={(e) => {
               e.target.onerror = null
               e.target.src = '/images/artworks/question.jpg'
@@ -28,7 +28,7 @@ export const DeckThumbnail = (props) => {
           />
           <img
             className="deckThumbnail-image"
-            src={`/images/artworks/${deck.rightCardYpdId}.jpg`}
+            src={`/assets/images/artworks/${deck.rightCardYpdId}.jpg`}
             onError={(e) => {
               e.target.onerror = null
               e.target.src = '/images/artworks/question.jpg'

@@ -136,7 +136,7 @@ export const SingleDeck = (props) => {
                     <p>{displayName}</p>
                     <img
                       className="single-deck-builder-cell-pfp"
-                      src={`/images/pfps/${deck.player.discordId}.png`}
+                      src={`/assets/images/pfps/${deck.player.discordId}.png`}
                       onError={(e) => {
                         e.target.onerror = null
                         e.target.src = 'https://cdn.discordapp.com/embed/avatars/1.png'

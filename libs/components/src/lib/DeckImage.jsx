@@ -17,7 +17,7 @@ export const DeckImage = (props = {}) => {
         <div id="main" className="DeckImages">
           <h4 style={{ width }}>{title}</h4>
           <div id="main" style={{ width, margin, padding }} className="deck-flexbox">
-            <img src={`/images/decks/thumbnails/${deck.id}.png`}></img>
+            <img src={`/assets/images/decks/thumbnails/${deck.id}.png`}></img>
           </div>
         </div>
       </Link>

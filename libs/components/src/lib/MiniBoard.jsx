@@ -32,9 +32,9 @@ export const MiniBoard = (props) => {
       <div className="divider" />
       <div id="leaderboard" className="miniboard">
         <div onClick={() => goToLeaderBoard()} className="miniboard-title-flexbox">
-          <img style={{ width: '64px' }} src={`/images/emojis/${format.icon}.png`} />
+          <img style={{ width: '64px' }} src={`/assets/images/emojis/${format.icon}.png`} />
           <h2 className="subheading">{capitalize(format.name, true)} Leaderboard</h2>
-          <img style={{ width: '64px' }} src={`/images/emojis/${format.icon}.png`} />
+          <img style={{ width: '64px' }} src={`/assets/images/emojis/${format.icon}.png`} />
         </div>
         <table id="miniboard-table">
           <thead>
