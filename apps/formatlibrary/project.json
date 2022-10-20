@@ -16,13 +16,10 @@
         "main": "apps/formatlibrary/src/main.tsx",
         "polyfills": "apps/formatlibrary/src/polyfills.ts",
         "tsConfig": "apps/formatlibrary/tsconfig.app.json",
-        "assets": [
-          "apps/formatlibrary/src/favicon.ico",
-          "apps/formatlibrary/src/assets"
-        ],
+        "assets": ["apps/formatlibrary/src/favicon.ico", "apps/formatlibrary/src/assets"],
         "styles": ["apps/formatlibrary/src/styles.css"],
         "scripts": [],
-        "webpackConfig": "@nrwl/react/plugins/webpack"
+        "webpackConfig": "apps/formatlibrary/webpack.config.js"
       },
       "configurations": {
         "development": {

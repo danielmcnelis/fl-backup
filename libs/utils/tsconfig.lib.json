@@ -7,5 +7,12 @@
     "types": ["node"]
   },
   "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "src/lib/utility.js",
+    "src/lib/sort.ts",
+    "src/lib/inspect.js",
+    "src/lib/sort.ts",
+    "src/lib/utility.js"
+  ]
 }

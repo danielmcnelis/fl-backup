@@ -1,21 +1,43 @@
-import { CustomError } from '@fl/errors'
+import { Player, Stats } from '@fl/models'
+import { Op } from 'sequelize'
 
-export const statsAll = async (req, res, next) => {
+export const statsLeaders = async (req, res, next) => {
   try {
-    // throw new CustomError('boom')
-    const test = {}
-    //@ts-ignore
-    test.nonExistingMethod()
-    res.json({ x: 1 })
+    const stats = await Stats.findAll({
+      where: {
+        format: { [Op.iLike]: req.params.format.replace(' ', '_').replace('-', '_') },
+        games: { [Op.gte]: 3 },
+        inactive: false,
+        serverId: '414551319031054346',
+        '$player.hidden$': false
+      },
+      attributes: ['id', 'format', 'elo', 'wins', 'losses', 'playerId'],
+      include: [{ model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }],
+      limit: parseInt(req.params.limit) || 10,
+      order: [['elo', 'DESC']]
+    })
+
+    res.json(stats)
   } catch (err) {
     next(err)
   }
-  // try {
-  //   const onlyUnique = (value, index, self) => self.indexOf(value) === index
-  //   const banlists = [...await Status.findAll()].map((s) => s.banlist).filter(onlyUnique).sort()
+}
 
-  //   res.json(banlists)
-  // } catch (err) {
-  //   next(err)
-  // }
+export const statsPlayer = async (req, res, next) => {
+  try {
+    const stats = await Stats.findAll({
+      where: {
+        playerId: req.params.playerId,
+        games: { [Op.gte]: 3 },
+        serverId: '414551319031054346'
+      },
+      attributes: ['id', 'format', 'elo', 'wins', 'losses', 'playerId'],
+      order: [['elo', 'DESC']],
+      limit: 10
+    })
+
+    res.json(stats)
+  } catch (err) {
+    next(err)
+  }
 }

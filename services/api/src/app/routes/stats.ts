@@ -1,9 +1,10 @@
 import { Router } from 'express'
-import { statsAll } from '../middleware'
-// const {Card, Status} = require('../db/models')
+import { statsLeaders, statsPlayer } from '../middleware'
 
 const router = Router()
 
-router.get('/api/stats/all', statsAll)
+router.get('/api/stats/leaders/:limit/:format', statsLeaders)
+
+router.get('/api/stats/:playerId', statsPlayer)
 
 export default router

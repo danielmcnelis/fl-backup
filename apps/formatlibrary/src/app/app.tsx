@@ -1,14 +1,10 @@
-import { Footer, NavBar } from '@fl/components'
-import Routes from './routes'
-
+import { Router } from './Router'
 const App = () => {
-	return (
-		<div className="app">
-			<NavBar />
-			<Routes />
-			<Footer />
-		</div>
-	)
+  return (
+    <div className="app">
+      <Router />
+    </div>
+  )
 }
 
 export default App

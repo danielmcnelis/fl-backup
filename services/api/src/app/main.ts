@@ -1,12 +1,47 @@
 import * as express from 'express'
+import * as compression from 'compression'
+import * as morgan from 'morgan'
 import * as chalk from 'chalk'
-import { stats, welcome } from './routes'
-import { error } from './middleware'
+import {
+  banlists,
+  blogposts,
+  cards,
+  decks,
+  deckTypes,
+  events,
+  formats,
+  images,
+  players,
+  sets,
+  stats,
+  statuses
+} from './routes'
+import { error } from '@fl/middleware'
 import config from './config'
 
 const app = express()
 
-const routes = { stats, welcome }
+// rewrite
+app.use('/api', (req, _res, next) => {
+  const from = req.url
+  const to = from.replace('/api', '')
+  req.url = to
+  next()
+})
+console.log(chalk.cyan(`Rewrite /api/.* to /`))
+
+// logging
+app.use(morgan('dev'))
+
+// compression
+app.use(compression())
+
+// body parsing
+app.use(express.json({ limit: '1mb' }))
+app.use(express.urlencoded({ extended: true, limit: '1mb' }))
+
+// routes
+const routes = { banlists, blogposts, cards, decks, deckTypes, events, formats, images, players, sets, stats, statuses }
 Object.values(routes).forEach((route) => {
   route.stack.forEach((route) => {
     const path = route.route.path
@@ -17,13 +52,14 @@ Object.values(routes).forEach((route) => {
       return reduced
     }, [])
     methods.forEach((method) => {
-      console.log(`${chalk.yellow(method)} ${chalk.green(path)}`)
+      console.log(`Route ${chalk.yellow(method)} ${chalk.green(path)}`)
     })
   })
 
   app.use(route)
 })
 
+// error
 app.use(error)
 
 const port = config.service.port

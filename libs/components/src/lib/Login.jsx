@@ -1,44 +1,43 @@
-
-import React, { useState, useEffect, useLayoutEffect } from 'react'
+import { useState, useLayoutEffect } from 'react'
 import axios from 'axios'
 
 export const Login = () => {
-	const [username, setUsername] = useState(null)
-	const [password, setPassword] = useState(null)
+  const [username, setUsername] = useState(null)
+  const [password, setPassword] = useState(null)
 
-	// USE LAYOUT EFFECT
-	useLayoutEffect(() => window.scrollTo(0, 0))
+  // USE LAYOUT EFFECT
+  useLayoutEffect(() => window.scrollTo(0, 0))
 
-	const login = async () => {
-		const { data } = await axios.get(`/authX/login/${username}/${password}`)
-		localStorage.setItem('username', data.username)
-		localStorage.setItem('password', data.password)
-		localStorage.setItem('isAdmin', data.isAdmin)
-	}
+  const login = async () => {
+    const { data } = await axios.get(`/authX/login/${username}/${password}`)
+    localStorage.setItem('username', data.username)
+    localStorage.setItem('password', data.password)
+    localStorage.setItem('isAdmin', data.isAdmin)
+  }
 
-	return (
-		<div className="body">
-			<p>Username:</p>
-			<input
-				id="username"
-				className="login"
-				type="text"
-				onChange={(e) => setUsername(e.target.value)}
-				onKeyDown={(e) => {
-					if (e.key === 'Enter') return login()
-				}}
-			/>
+  return (
+    <div className="body">
+      <p>Username:</p>
+      <input
+        id="username"
+        className="login"
+        type="text"
+        onChange={(e) => setUsername(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') return login()
+        }}
+      />
 
-			<p>Password:</p>
-			<input
-				id="username"
-				className="login"
-				type="text"
-				onChange={(e) => setPassword(e.target.value)}
-				onKeyDown={(e) => {
-					if (e.key === 'Enter') return login()
-				}}
-			/>
-		</div>
-	)
+      <p>Password:</p>
+      <input
+        id="username"
+        className="login"
+        type="text"
+        onChange={(e) => setPassword(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') return login()
+        }}
+      />
+    </div>
+  )
 }
