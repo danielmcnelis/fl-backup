@@ -17,12 +17,12 @@ export const Event = db.define('events', {
   referenceUrl: {
     type: Sequelize.STRING
   },
-  tournamentId: {
-    type: Sequelize.STRING
-  },
   display: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  tournamentId: {
+    type: Sequelize.STRING
   },
   winner: {
     type: Sequelize.STRING

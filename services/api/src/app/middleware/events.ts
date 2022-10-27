@@ -203,7 +203,7 @@ export const eventsId = async (req, res, next) => {
         const main = ydk
           .split('#extra')[0]
           .split('\n')
-          .filter((el) => !el.includes('created') && el.charAt(0) !== '#' && el.charAt(0) !== '!' && el !== '')
+          .filter((el) => !el.includes('by') && !el.includes('created') && el.charAt(0) !== '#' && el.charAt(0) !== '!' && el !== '')
         mainDeckCards.push(...main)
         const side = ydk
           .split('!side')[1]
@@ -278,7 +278,7 @@ export const eventsId = async (req, res, next) => {
 export const eventsCreate = async (req, res, next) => {
   try {
     const buffer = req.body.bracket.replace(/^data:image\/png;base64,/, '')
-    fs.writeFileSync(`./public/images/brackets/${req.body.abbreviation}.png`, buffer, 'base64')
+    fs.writeFileSync(`./assets/images/brackets/${req.body.abbreviation}.png`, buffer, 'base64')
 
     if (req.body.id) {
       await Tournament.create({

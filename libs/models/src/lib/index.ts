@@ -1,21 +1,25 @@
+
 import { BlogPost } from './BlogPost'
 import { Card } from './Card'
 import { Deck } from './Deck'
 import { DeckThumb } from './DeckThumb'
 import { DeckType } from './DeckType'
+import { Entry } from './Entry'
 import { Event } from './Event'
 import { Format } from './Format'
+import { Iron } from './Iron'
+import { Match } from './Match'
+import { Matchup } from './Matchup'
+import { Membership } from './Membership'
 import { Player } from './Player'
 import { Print } from './Print'
-import { Set } from './Set'
+import { RatedPool } from './RatedPool'
+import { Role } from './Role'
 import { Server } from './Server'
+import { Set } from './Set'
 import { Stats } from './Stats'
 import { Status } from './Status'
 import { Tournament } from './Tournament'
-
-//DECK
-Format.hasMany(Deck)
-Deck.belongsTo(Format)
 
 //DECKTYPE
 DeckType.hasMany(Deck)
@@ -24,12 +28,45 @@ Deck.belongsTo(DeckType)
 DeckType.hasMany(DeckThumb)
 DeckThumb.belongsTo(DeckType)
 
+//ENTRY
+Entry.belongsTo(Player)
+Player.hasMany(Entry)
+
+Entry.belongsTo(Tournament)
+Tournament.hasMany(Entry)
+
 //EVENT
 Event.hasMany(Deck)
 Deck.belongsTo(Event)
 
 Event.belongsTo(Tournament)
 Tournament.hasOne(Event)
+
+//FORMAT
+Format.hasMany(Deck)
+Deck.belongsTo(Format)
+
+//IRON
+Iron.belongsTo(Player)
+Player.hasMany(Iron)
+
+//MATCH
+Match.belongsTo(Server)
+Server.hasMany(Match)
+
+//MATCHUP
+Matchup.belongsTo(Match)
+Match.hasOne(Matchup)
+
+Matchup.belongsTo(Tournament)
+Tournament.hasMany(Matchup)
+
+//MEMBERSHIP
+Membership.belongsTo(Player)
+Player.hasMany(Membership)
+
+Membership.belongsTo(Server)
+Server.hasMany(Membership)
 
 //PLAYER
 Player.hasMany(Deck)
@@ -47,6 +84,14 @@ Card.hasMany(Print)
 
 Print.belongsTo(Set)
 Set.hasMany(Print)
+
+//RATED POOL
+RatedPool.belongsTo(Player)
+Player.hasMany(RatedPool)
+
+//ROLE
+Role.belongsTo(Membership)
+Membership.hasMany(Role)
 
 //STATS
 Stats.belongsTo(Player)

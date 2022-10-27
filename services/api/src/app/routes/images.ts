@@ -1,7 +1,9 @@
 import { Router } from 'express'
-import { imagesCreate } from '../middleware'
+import { imagesCreate, imagesUpdateCard } from '../middleware'
 
 const router = Router()
+
+router.post('/api/images/update-card', imagesUpdateCard)
 
 router.post('/api/images/create', imagesCreate)
 

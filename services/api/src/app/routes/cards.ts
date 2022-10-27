@@ -1,14 +1,16 @@
 import { Router } from 'express'
-import { cardsQuery, cardsAll, cardsFirst, cardsId } from '../middleware'
+import { cards, cardsCount, cardsCreate, cardsId, cardsQuery,  } from '../middleware'
 
 const router = Router()
 
 router.get('/api/cards/query/:query', cardsQuery)
 
-router.get('/api/cards/all', cardsAll)
-
-router.get('/api/cards/first/:x', cardsFirst)
+router.get('/api/cards/count', cardsCount)
 
 router.get('/api/cards/:id', cardsId)
+
+router.get('/api/cards', cards)
+
+router.post('/api/cards/create', cardsCreate)
 
 export default router

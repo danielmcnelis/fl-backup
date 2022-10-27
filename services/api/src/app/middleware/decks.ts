@@ -1,6 +1,271 @@
 import { Card, Deck, DeckThumb, DeckType, Format, Player } from '@fl/models'
 import { Op } from 'sequelize'
 
+export const decksReadYdk = async (req, res, next) => {
+    try {
+        const main = []
+        const extra = []
+        const side = []
+        const mainKonamiCodes = req.body.ydk.split('#main')[1].split('#extra')[0].split('\n').filter((e) => e.length)
+        const extraKonamiCodes = req.body.ydk.split('#extra')[1].split('!side')[0].split('\n').filter((e) => e.length)
+        const sideKonamiCodes = req.body.ydk.split('!side')[1].split('\n').filter((e) => e.length)
+
+        for (let i = 0; i < mainKonamiCodes.length; i++) {
+            let konamiCode = mainKonamiCodes[i]
+            while (konamiCode.length < 8) konamiCode = '0' + konamiCode
+            const card = await Card.findOne({ 
+                where: { 
+                    konamiCode: konamiCode
+                },
+                attributes: ['name', 'id', 'konamiCode', 'ypdId', 'sortPriority'],
+            })
+
+            if (!card) continue
+            main.push(card)
+        }
+
+        for (let i = 0; i < extraKonamiCodes.length; i++) {
+            let konamiCode = extraKonamiCodes[i]
+            while (konamiCode.length < 8) konamiCode = '0' + konamiCode
+            const card = await Card.findOne({ 
+                where: { 
+                    konamiCode: konamiCode
+                },
+                attributes: ['name', 'id', 'konamiCode', 'ypdId', 'sortPriority'],
+            })
+
+            if (!card) continue
+            extra.push(card)
+        }
+
+        for (let i = 0; i < sideKonamiCodes.length; i++) {
+            let konamiCode = sideKonamiCodes[i]
+            while (konamiCode.length < 8) konamiCode = '0' + konamiCode
+            const card = await Card.findOne({ 
+                where: { 
+                    konamiCode: konamiCode
+                },
+                attributes: ['name', 'id', 'konamiCode', 'ypdId', 'sortPriority'],
+            })
+            
+            if (!card) continue
+            side.push(card)
+        }
+
+        const data = {
+            name: req.body.name,
+            main, 
+            extra, 
+            side
+        }
+
+        res.json(data)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const decksDeleteId = async (req, res, next) => {
+    try {
+        const deck = await Deck.findOne({ 
+            where: {
+                id: req.params.id
+            }
+        })
+
+        await deck.destroy()
+        res.sendStatus(200)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const decksUpdateId = async (req, res, next) => {
+    try {
+        const deck = await Deck.findOne({ 
+            where: {
+                id: req.params.id
+            }
+        })
+
+        const legal = await Deck.verifyLegality(req.body.ydk, req.body.formatName, req.body.formatDate, req.body.formatBanlist)
+
+        if (!legal) {
+            res.sendStatus(409)
+        } else {
+            await deck.update({ 
+                name: req.body.name,
+                formatName: req.body.formatName,
+                formatId: req.body.formatId,
+                type: req.body.type,
+                deckTypeId: req.body.deckTypeId,
+                suggestedType: req.body.suggestedType,
+                ydk: req.body.ydk
+             })
+
+            res.sendStatus(200)
+        }
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const decksPublishId = async (req, res, next) => {
+    try {
+        const deck = await Deck.findOne({ 
+            where: {
+                id: req.params.id
+            }
+        })
+
+        await deck.update({ display: true })
+        res.sendStatus(200)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const decksUnpublishId = async (req, res, next) => {
+    try {
+        const deck = await Deck.findOne({ 
+            where: {
+                id: req.params.id
+            }
+        })
+
+        await deck.update({ display: false })
+        res.sendStatus(200)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const decksShareId = async (req, res, next) => {
+    try { 
+        const deck = await Deck.findOne({ 
+            where: {
+                id: req.params.id
+            }
+        })
+
+        const shareLink = await Deck.generateShareLink()
+        
+        await deck.update({
+            shareLink: shareLink,
+            linkExpiration: req.body.linkExpiration
+        })
+
+        res.json({ shareLink })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+export const decksBuilderId = async (req, res, next) => {
+    try {
+        const deck = await Deck.findOne({ 
+            where: {
+                id: req.params.id,
+                eventName: null,
+                eventId: null
+            }, 
+            attributes: ['id', 'name', 'url', 'ydk', 'builder', 'playerId', 'type', 'deckTypeId', 'suggestedType', 'formatName', 'formatId', 'display', 'shareLink', 'linkExpiration'],            
+            include: [
+                { model: Format, attributes: ['id', 'name', 'date', 'banlist', 'icon']},
+                { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId']}
+            ],
+        })
+
+        const main = []
+        const extra = []
+        const side = []
+        const mainKonamiCodes = deck.ydk.split('#main')[1].split('#extra')[0].split('\n').filter((e) => e.length)
+        const extraKonamiCodes = deck.ydk.split('#extra')[1].split('!side')[0].split('\n').filter((e) => e.length)
+        const sideKonamiCodes = deck.ydk.split('!side')[1].split('\n').filter((e) => e.length)
+
+        for (let i = 0; i < mainKonamiCodes.length; i++) {
+            let konamiCode = mainKonamiCodes[i]
+            while (konamiCode.length < 8) konamiCode = '0' + konamiCode
+            const card = await Card.findOne({ 
+                where: { 
+                    konamiCode: konamiCode
+                },
+                attributes: ['name', 'id',  'konamiCode', 'ypdId', 'sortPriority'],
+            })
+
+            if (!card) continue
+            main.push(card)
+        }
+
+        for (let i = 0; i < extraKonamiCodes.length; i++) {
+            let konamiCode = extraKonamiCodes[i]
+            while (konamiCode.length < 8) konamiCode = '0' + konamiCode
+            const card = await Card.findOne({ 
+                where: { 
+                    konamiCode: konamiCode
+                },
+                attributes: ['name', 'id',  'konamiCode', 'ypdId', 'sortPriority'],
+            })
+
+            if (!card) continue
+            extra.push(card)
+        }
+
+        for (let i = 0; i < sideKonamiCodes.length; i++) {
+            let konamiCode = sideKonamiCodes[i]
+            while (konamiCode.length < 8) konamiCode = '0' + konamiCode
+            const card = await Card.findOne({ 
+                where: { 
+                    konamiCode: konamiCode
+                },
+                attributes: ['name', 'id',  'konamiCode', 'ypdId', 'sortPriority'],
+            })
+            
+            if (!card) continue
+            side.push(card)
+        }
+
+        const data = {
+            ...deck.dataValues, 
+            main, 
+            extra, 
+            side
+        }
+
+        res.json(data)
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const decksMyDecks = async (req, res, next) => {
+    try {
+        const player = await Player.findOne({
+            where: {
+                name: req.headers.username,
+                hash: req.headers.password
+            }
+        })
+
+        if (!player) return res.json([])
+
+        const decks = await Deck.findAll({ 
+            where: {
+                playerId: player.id,
+                eventName: null,
+                eventId: null
+            },
+            attributes: ['id', 'name', 'type', 'deckTypeId', 'formatName', 'formatId'],
+            include: Format,
+            order: [['name', 'ASC']]
+        })
+
+        return res.json(decks)
+    } catch (err) {
+        next(err)
+    }
+}
+
 export const decksPopular = async (req, res, next) => {
   try {
     const decks = await Deck.findAll({
@@ -216,7 +481,6 @@ export const decksPlayer = async (req, res, next) => {
 }
 
 export const decksLike = async (req, res, next) => {
-  console.log('req.params.id', req.params.id)
   try {
     const deck = await Deck.findOne({
       where: {

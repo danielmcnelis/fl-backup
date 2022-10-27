@@ -26,5 +26,12 @@ export const Stats = db.define('stats', {
   },
   internal: {
     type: Sequelize.BOOLEAN
+  },
+  inactive: {
+      type: Sequelize.BOOLEAN,  
+      defaultValue: false
+  },
+  playerId: {
+      type: Sequelize.STRING
   }
 })

@@ -1,8 +1,10 @@
 export const signup = (options) => {
+    console.log('signup route ln2')
   const { app, providers } = options
   const title = 'Signup'
 
   return (req, res, next) => {
+    console.log('signup route ln7')
     const method = req.method
 
     if (method === 'GET') {

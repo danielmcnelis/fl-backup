@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import {
   Home,
   AdminPortal,
+  Builder,
   SingleCard,
   CardTable,
   SingleDeck,
@@ -13,9 +14,8 @@ import {
   FormatMenu,
   FormatIntro,
   LeaderBoard,
-  Login,
   SingleBanList,
-	Page,
+  Page,
   PlayerProfile,
   NotFound
 } from '@fl/components'
@@ -26,6 +26,8 @@ export const Router = () => {
 				<Routes>
 					<Route path="/" element=<Page element=<Home /> /> />
 					<Route path="/home" element=<Page element=<Home /> /> />
+                    <Route path="/auth/"/>
+					<Route path="/builder" element=<Page element=<Builder /> /> />
 					<Route path="/great-library.html" element=<Page element= <CardTable /> /> />
 					<Route path="/great-library" element=<Page element= <CardTable /> /> />
 					<Route path="/cards-by-format.html" element=<Page element= <CardTable /> /> />
@@ -59,7 +61,6 @@ export const Router = () => {
 					<Route path="/banlists/:id" element=<Page element= <SingleBanList /> /> />
 					<Route path="/players/:id" element=<Page element= <PlayerProfile /> /> />
 					<Route path="/admin-portal" element=<Page element= <AdminPortal /> /> />
-					<Route path="/login" element=<Page element= <Login /> /> />
 					<Route path="/may-2002---yugi-kaiba" element={<Navigate to="/formats/Yugi-Kaiba" />} />
 					<Route path="/jul-2002---critter" element={<Navigate to="/formats/Critter" />} />
 					<Route path="/apr-2003---android" element={<Navigate to="/formats/Android" />} />

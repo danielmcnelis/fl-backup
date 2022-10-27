@@ -26,5 +26,8 @@ export const Print = db.define('prints', {
   },
   tcgPlayerUrl: {
     type: Sequelize.TEXT
+  },
+  cardId: {
+    type: Sequelize.INTEGER
   }
 })

@@ -3,7 +3,7 @@ import { Op } from 'sequelize'
 import axios from 'axios'
 import * as fs from 'fs'
 
-export const deckTypesAll = async (req, res, next) => {
+export const deckTypes = async (req, res, next) => {
   try {
     const deckTypes = await DeckType.findAll({
       attributes: ['id', 'name', 'category'],
@@ -16,12 +16,26 @@ export const deckTypesAll = async (req, res, next) => {
   }
 }
 
-export const deckTypesId = async (req, res, next) => {
+export const deckTypesName = async (req, res, next) => {
+    try {
+        const deckType = await DeckType.findOne({
+            where: { name: req.params.name },
+            attributes: ['id', 'name', 'category'],
+            order: [['name', 'ASC']]
+        })
+    
+        res.json(deckType)
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const deckTypesSummary = async (req, res, next) => {
   try {
     const decks =
       (await Deck.findAll({
         where: {
-          type: { [Op.iLike]: req.params.id }
+          type: { [Op.iLike]: req.query.id }
         },
         attributes: ['id', 'type', 'category', 'ydk', 'formatName']
       })) || []
@@ -34,7 +48,7 @@ export const deckTypesId = async (req, res, next) => {
     const topFormat = sortedFreqs[0][0]
     const format = await Format.findOne({
       where: {
-        name: { [Op.iLike]: req.headers.format || topFormat }
+        name: { [Op.iLike]: req.body.format || topFormat }
       },
       attributes: ['id', 'name', 'banlist', 'date', 'icon']
     })
@@ -276,7 +290,7 @@ export const deckTypesCreate = async (req, res, next) => {
       (deckThumb.rightCardYpdId = req.body.rightCardYpdId),
       await deckThumb.save()
 
-    if (!fs.existsSync(`./public/images/artworks/${deckThumb.leftCardYpdId}.jpg`)) {
+    if (!fs.existsSync(`./assets/images/artworks/${deckThumb.leftCardYpdId}.jpg`)) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -284,16 +298,16 @@ export const deckTypesCreate = async (req, res, next) => {
           responseType: 'stream'
         })
 
-        data.pipe(fs.createWriteStream(`./public/images/artworks/${deckThumb.leftCardYpdId}.jpg`))
+        data.pipe(fs.createWriteStream(`./assets/images/artworks/${deckThumb.leftCardYpdId}.jpg`))
         console.log(
-          `saved ${deckThumb.leftCard} artwork to ${`./public/images/artworks/${deckThumb.leftCardYpdId}.jpg`}`
+          `saved ${deckThumb.leftCard} artwork to ${`./assets/images/artworks/${deckThumb.leftCardYpdId}.jpg`}`
         )
       } catch (err) {
         console.log(err)
       }
     }
 
-    if (!fs.existsSync(`./public/images/artworks/${deckThumb.centerCardYpdId}.jpg`)) {
+    if (!fs.existsSync(`./assets/images/artworks/${deckThumb.centerCardYpdId}.jpg`)) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -301,16 +315,16 @@ export const deckTypesCreate = async (req, res, next) => {
           responseType: 'stream'
         })
 
-        data.pipe(fs.createWriteStream(`./public/images/artworks/${deckThumb.centerCardYpdId}.jpg`))
+        data.pipe(fs.createWriteStream(`./assets/images/artworks/${deckThumb.centerCardYpdId}.jpg`))
         console.log(
-          `saved ${deckThumb.centerCard} artwork to ${`./public/images/artworks/${deckThumb.centerCardYpdId}.jpg`}`
+          `saved ${deckThumb.centerCard} artwork to ${`./assets/images/artworks/${deckThumb.centerCardYpdId}.jpg`}`
         )
       } catch (err) {
         console.log(err)
       }
     }
 
-    if (!fs.existsSync(`./public/images/artworks/${deckThumb.rightCardYpdId}.jpg`)) {
+    if (!fs.existsSync(`./assets/images/artworks/${deckThumb.rightCardYpdId}.jpg`)) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -318,9 +332,9 @@ export const deckTypesCreate = async (req, res, next) => {
           responseType: 'stream'
         })
 
-        data.pipe(fs.createWriteStream(`./public/images/artworks/${deckThumb.rightCardYpdId}.jpg`))
+        data.pipe(fs.createWriteStream(`./assets/images/artworks/${deckThumb.rightCardYpdId}.jpg`))
         console.log(
-          `saved ${deckThumb.rightCard} artwork to ${`./public/images/artworks/${deckThumb.rightCardYpdId}.jpg`}`
+          `saved ${deckThumb.rightCard} artwork to ${`./assets/images/artworks/${deckThumb.rightCardYpdId}.jpg`}`
         )
       } catch (err) {
         console.log(err)

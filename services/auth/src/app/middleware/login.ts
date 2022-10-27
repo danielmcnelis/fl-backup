@@ -1,8 +1,10 @@
 export const login = (options) => {
+    console.log('login route ln2')
   const { app, providers } = options
   const title = 'Login'
 
   return (req, res, next) => {
+    console.log('login route ln7')
     const method = req.method
 
     if (method === 'GET') {

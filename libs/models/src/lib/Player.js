@@ -1,7 +1,13 @@
+
 import { Sequelize } from 'sequelize'
 import { db } from './db'
 
 export const Player = db.define('players', {
+  id: {
+      type: Sequelize.STRING,
+      primaryKey: true,
+      unique: true
+  },
   name: {
     type: Sequelize.STRING
   },
@@ -48,82 +54,90 @@ export const Player = db.define('players', {
   hidden: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
+  },
+  oldId: {
+      type: Sequelize.STRING
   }
 })
 
 Player.generateId = async () => {
-  const base58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-  return import('nanoid').then(({ customAlphabet }) => customAlphabet(base58, 22)())
-}
-
-Player.findByDiscordId = (id) => Player.findOne({ where: { discordId: id } })
-
-Player.discordLogin = async (user) => {
-  const existingPlayer =
-    (await Player.findOne({
-      where: {
-        discordId: user.id
-      }
-    })) ||
-    (await Player.findOne({
-      where: {
-        email: user.email
-      }
-    }))
-
-  if (existingPlayer) {
-    const googleId = user.email.includes('@gmail.com') ? user.email.slice(0, -10) : null
-    return await existingPlayer.update({
-      name: existingPlayer.name || user.username,
-      discordName: user.username,
-      discriminator: user.discriminator,
-      discordPfp: user.avatar,
-      email: existingPlayer.email || user.email,
-      googleId: existingPlayer.googleId || googleId
-    })
-  } else {
-    return await Player.create({
-      name: user.username,
-      discordName: user.username,
-      discriminator: user.discriminator,
-      discordPfp: user.avatar,
-      email: user.email
-    })
+    const base58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
+    return import('nanoid').then(({ customAlphabet }) => customAlphabet(base58, 22)())
   }
-}
-
-Player.googleLogin = async (payload) => {
-  const existingPlayer =
-    (await Player.findOne({
-      where: {
-        googleId: payload.email.slice(0, -10)
+  
+  Player.findByDiscordId = (id) => Player.findOne({ where: { discordId: id }})
+  
+  Player.findByEmail = (email) => {
+      if (email.includes('@gmail.com')) {
+          const googleId = email.replace('@gmail.com', '')
+          return Player.findOne({ where: { [Op.or]: [{ email: email}, {googleId: googleId }] } })
+      } else {
+          return Player.findOne({ where: { email: email }})
       }
-    })) ||
-    (await Player.findOne({
-      where: {
-        email: payload.email
-      }
-    }))
-
-  if (existingPlayer) {
-    return await existingPlayer.update({
-      name: existingPlayer.name || payload.name,
-      googleId: payload.email.slice(0, -10),
-      googlePfp: payload.picture,
-      firstName: existingPlayer.firstName || payload.given_name,
-      lastName: existingPlayer.lastName || payload.family_name,
-      email: existingPlayer.email || payload.email
-    })
-  } else {
-    return await Player.create({
-      name: payload.name,
-      googleId: payload.email.slice(0, -10),
-      googlePfp: payload.picture,
-      firstName: payload.given_name,
-      lastName: payload.family_name,
-      email: payload.email
-    })
   }
-}
-
-Player.prototype.hide = () => this.update({ hidden: true })
+  
+  Player.discordLogin = async (user) => {
+      const existingPlayer = await Player.findOne({ 
+          where: { 
+              discordId: user.id
+          }
+      }) || await Player.findOne({ 
+          where: { 
+              email: user.email
+          }
+      })
+  
+      if (existingPlayer) {
+          const googleId = user.email.includes('@gmail.com') ? user.email.slice(0, -10) : null
+          return await existingPlayer.update({
+              name: existingPlayer.name || user.username,
+              discordName: user.username,
+              discriminator: user.discriminator,
+              discordPfp: user.avatar,
+              email: existingPlayer.email || user.email,
+              googleId: existingPlayer.googleId || googleId
+          })
+      } else {
+          return await Player.create({
+              name: user.username,
+              discordName: user.username,
+              discriminator: user.discriminator,
+              discordPfp: user.avatar,
+              email: user.email
+          })
+      }
+  }
+  
+  Player.googleLogin = async (payload) => {
+      const existingPlayer = await Player.findOne({ 
+          where: { 
+              googleId: payload.email.slice(0, -10)
+          }
+      }) || await Player.findOne({ 
+          where: { 
+              email: payload.email
+          }
+      })
+  
+      if (existingPlayer) {
+          return await existingPlayer.update({
+              name: existingPlayer.name || payload.name,
+              googleId: payload.email.slice(0, -10),
+              googlePfp: payload.picture,
+              firstName: existingPlayer.firstName || payload.given_name,
+              lastName: existingPlayer.lastName || payload.family_name,
+              email: existingPlayer.email || payload.email
+          })
+      } else {
+          return await Player.create({
+              name: payload.name,
+              googleId: payload.email.slice(0, -10),
+              googlePfp: payload.picture,
+              firstName: payload.given_name,
+              lastName: payload.family_name,
+              email: payload.email
+          })
+      }
+  }
+  
+  Player.prototype.hide = () => this.update({ hidden: true })
