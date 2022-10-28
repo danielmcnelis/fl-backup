@@ -14,5 +14,5 @@
     "src/lib/inspect.js",
     "src/lib/sort.ts",
     "src/lib/utility.js"
-  ]
+, "src/lib/temp.js"  ]
 }

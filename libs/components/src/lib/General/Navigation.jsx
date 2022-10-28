@@ -33,9 +33,9 @@ export const Navigation = () => (
       <Link to="/formats/">
         <h2 className="navigation-item">FORMATS</h2>
       </Link>
-      <Link to="/auth/login/">
+      <a href="/auth/login/">
         <h1 id="login" className="navigation-item">LOGIN</h1>
-      </Link>
+      </a>
     </div>
     <div id="hamburger-menu" className="closed" onClick={() => toggle()}>
       <div id="hamburger-button" className="closed-b">

@@ -540,7 +540,7 @@ export const Builder = () => {
         
         <Modal show={showUploadModal} onHide={() => setShowUploadModal(false)}>
             <Modal.Header closeButton> 
-                <Modal.Title>Upload Deck:</Modal.Title> 
+                <Modal.Title>Import YDK:</Modal.Title> 
             </Modal.Header>
             <Modal.Body>
                 <label>YDK:

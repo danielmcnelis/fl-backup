@@ -13,13 +13,13 @@ import config from './config'
 const app = express()
 
 // rewrite
-app.use('/auth', (req, _res, next) => {
-  const from = req.url
-  const to = from.replace('/auth', '')
-  req.url = to
-  next()
-})
-console.log(chalk.cyan(`Rewrite /auth/.* to /`))
+// app.use('/auth', (req, _res, next) => {
+//   const from = req.url
+//   const to = from.replace('/auth', '')
+//   req.url = to
+//   next()
+// })
+// console.log(chalk.cyan(`Rewrite /auth/.* to /`))
 
 // logging
 app.use(morgan('dev'))
