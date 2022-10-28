@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-authbind --deep pm2 serve site --name site 
+authbind --deep pm2 nx serve site --name site 
