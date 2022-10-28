@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-authbind --deep pm2 start ~/code/fl/dist/apps/formatlibrary/main.8d51fbbcf1d184f0.js --name site 
+authbind --deep pm2 serve site --name site 
