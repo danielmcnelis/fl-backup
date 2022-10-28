@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-authbind --deep pm2 nx serve site --name site 
+cd ~/code/fl/dist/apps/formatlibrary
+authbind --deep pm2 start ../../services/site/main.js --name site 

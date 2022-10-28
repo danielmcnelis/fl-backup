@@ -6,9 +6,8 @@ import { Pagination } from '../General/Pagination'
 
 export const Home = () => {
     const [page, setPage] = useState(1)
+    const [count, setCount] = useState(0)
     const [blogPosts, setBlogPosts] = useState([])
-    const [firstXFetched, setFirstXFetched] = useState(false)
-    const [allFetched, setAllFetched] = useState(false)
     
     // GO TO PAGE
     const goToPage = (num) => {
@@ -25,7 +24,7 @@ export const Home = () => {
   
     // NEXT PAGE
     const nextPage = () => {
-      if (page >= Math.ceil(blogPosts.length / 10)) return
+      if (page >= Math.ceil(count / 10)) return
       setPage(page + 1)
       window.scrollTo(0, 0)  
     }
@@ -33,40 +32,32 @@ export const Home = () => {
     // USE LAYOUT EFFECT
     useLayoutEffect(() => window.scrollTo(0, 0))
   
-    // USE EFFECT firstXFetched
+    // USE EFFECT
     useEffect(() => {
-      if (!firstXFetched) {
         const fetchData = async () => {
-          const {data} = await axios.get(`/api/blogposts/first/10`)
+          const {data} = await axios.get(`/api/blogposts?page=${page}`)
           setBlogPosts(data)
-          setFirstXFetched(true)
         } 
   
         fetchData()
-      }
-    }, [])
+      }, [page])
   
-    // USE EFFECT allFetched
+    // USE EFFECT
     useEffect(() => {
-      if (!allFetched) {
         const fetchData = async () => {
-          const {data} = await axios.get(`/api/blogposts/all`)
-          setBlogPosts(data)
-          setAllFetched(true)
+          const {data} = await axios.get(`/api/blogposts/count`)
+          setCount(data)
         } 
   
         fetchData()
-      }
-    }, [])
+      }, [])
   
-    if (!blogPosts.length) return <div></div>
-    const lastIndex = page * 10
-    const firstIndex = lastIndex - 10
+    if (!blogPosts.length) return <div/>
   
     return (
         <div className="blog">
           {
-            blogPosts.slice(firstIndex, lastIndex).map((bp, index) => {
+            blogPosts.map((bp, index) => {
               return (
                   <BlogPost 
                         key={bp.title} 
@@ -89,7 +80,7 @@ export const Home = () => {
                 nextPage={nextPage}
                 previousPage={previousPage}
                 goToPage={goToPage}
-                length={blogPosts.length}
+                length={count}
                 page={page}
                 itemsPerPage={10}
               />

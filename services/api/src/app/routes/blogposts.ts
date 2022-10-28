@@ -1,10 +1,11 @@
 import { Router } from 'express'
-import { blogpostsAll, blogpostsFirst } from '../middleware'
+import { countBlogPosts, getBlogPosts } from '../middleware'
 
 const router = Router()
 
-router.get('/api/blogposts/all', blogpostsAll)
+router.get('/api/blogposts/count', countBlogPosts)
 
-router.get('/api/blogposts/first/:x', blogpostsFirst)
+router.get('/api/blogposts/', getBlogPosts)
+
 
 export default router
