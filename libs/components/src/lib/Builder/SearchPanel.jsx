@@ -26,6 +26,7 @@ const now = new Date()
 export const SearchPanel = (props) => {
     const cardsPerPage = 20
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
+    const [format, setFormat] = useState({})
     const [page, setPage] = useState(1)
     const [cards, setCards] = useState([])
     const [sortBy, setSortBy] = useState('name:asc')
@@ -353,23 +354,31 @@ export const SearchPanel = (props) => {
         })
     }
 
-    // USE EFFECT FETCH CARDS
+    // USE EFFECT FETCH CURRENT FORMAT
     useEffect(() => {
-        count()
-        search()
+        const fetchData = async () => {
+            try {
+                const {data} = await axios.get(`/api/formats/current`)
+                setFormat(data.format)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+
+        fetchData()
     }, [])
 
     // USE EFFECT IF FORMAT CHANGES
     useEffect(() => {
-        const year = props.format.date ? parseInt(props.format.date.slice(0, 4)) : now.getFullYear() || 2022
-        const month = props.format.date ? parseInt(props.format.date.slice(6, 7)) : 12
-        const day = props.format.date ? parseInt(props.format.date.slice(-2)) : 31
-        setCutoff(props.format.date || `${year}-12-31`)
+        const year = format.date ? parseInt(format.date.slice(0, 4)) : now.getFullYear() || 2022
+        const month = format.date ? parseInt(format.date.slice(6, 7)) : 12
+        const day = format.date ? parseInt(format.date.slice(-2)) : 31
+        setCutoff(format.date || `${year}-12-31`)
         setSliders({ ...sliders, year, month, day })
 
         const fetchData = async () => {
             try {
-                const {data} = await axios.get(`/api/banlists/simple/${props.format.banlist || 'oct22'}`)
+                const {data} = await axios.get(`/api/banlists/simple/${format.banlist || 'oct22'}`)
                 setBanlist(data)
             } catch (err) {
                 console.log(err)
@@ -377,22 +386,22 @@ export const SearchPanel = (props) => {
         }
 
         fetchData()
-    }, [props.format])
+    }, [format])
 
     // USE EFFECT IF DATE SLIDERS CHANGE
     useEffect(() => {
-        if (!props.format || !props.format.id) {
+        if (!format || !format.id) {
             const month = sliders.month >= 10 ? sliders.month : `0${sliders.month}`
             const day = sliders.day >= 10 ? sliders.day : `0${sliders.day}`
             setCutoff(`${sliders.year}-${month}-${day}`)
         }
-    }, [props.format, sliders])
+    }, [format])
 
     // USE EFFECT IF RELEVANT SEARCH PARAM STATES CHANGE
     useEffect(() => {
         count()
         search()
-    }, [page, sortBy, cutoff, banlist, sliders, queryParams, groupParams, iconParams, attributeParams, typeParams])
+    }, [format, page, sortBy, cutoff, queryParams, groupParams, iconParams, attributeParams, typeParams])
 
     const advancedButtons = {
     icon: [
@@ -491,7 +500,7 @@ export const SearchPanel = (props) => {
 
                 <select
                     id="format"
-                    value={props.format.name || ""}
+                    value={format.name || ""}
                     style={{maxWidth: '35vw'}}
                     className="filter"
                     onChange={(e) => updateFormat(e)}
@@ -504,26 +513,24 @@ export const SearchPanel = (props) => {
             </div>
 
             {!advanced ? (
-                <div>
-                <a
+                <div
                     className="refinedButton"
                     type="submit"
                     style={{width:"240px"}}
                     onClick={() => setAdvanced(!advanced)}
                 >
                     Show Advanced Options
-                </a>
                 </div>
             ) : (
                 <div style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <a
+                    <div
                         className="refinedButton"
                         type="submit"
                         style={{width:"240px"}}
                         onClick={() => setAdvanced(!advanced)}
                     >
                         Hide Advanced Options
-                    </a>
+                    </div>
                     <br />
                     {
                         advancedButtonKeys.map((buttonClass) => (
@@ -631,13 +638,13 @@ export const SearchPanel = (props) => {
                         <option value="level:desc nulls last,rating:desc nulls last">Level: Desc. ⬇</option>
                         <option value="level:asc nulls last,rating:asc nulls last">Level: Asc. ⬆</option>
                     </select>
-                    <a
+                    <div
                         className="searchButton desktop-only"
                         type="submit"
                         onClick={() => reset()}
                     >
                         Reset
-                    </a>
+                    </div>
                     <div id="builderGalleryFlexBox" >
                         {total ? (
                             cards.map((card) => {

@@ -1,23 +1,24 @@
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import {
-  Home,
   AdminPortal,
   Builder,
-  SingleCard,
   CardTable,
-  SingleDeck,
   DeckGallery,
   DeckTable,
   DeckType,
   EventTable,
-  SingleEvent,
+  FormatMaker,
   FormatMenu,
   FormatIntro,
+  Home,
   LeaderBoard,
-  SingleBanList,
+  NotFound,
   Page,
   PlayerProfile,
-  NotFound
+  SingleBanList,
+  SingleCard,
+  SingleDeck,
+  SingleEvent
 } from '@fl/components'
 
 export const Router = () => {
@@ -28,6 +29,7 @@ export const Router = () => {
 					<Route path="/home" element=<Page element=<Home /> /> />
                     <Route path="/auth/"/>
 					<Route path="/builder" element=<Page element=<Builder /> /> />
+					<Route path="/format-maker" element=<Page element=<FormatMaker /> /> />
 					<Route path="/great-library.html" element=<Page element= <CardTable /> /> />
 					<Route path="/great-library" element=<Page element= <CardTable /> /> />
 					<Route path="/cards-by-format.html" element=<Page element= <CardTable /> /> />
