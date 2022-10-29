@@ -44,7 +44,13 @@ router.get(
   })
 )
 
-//router.post('/login', login)
+router.post('/auth/login', async (req, res, next) => {
+    res.render('/auth/login', login({
+        method: 'POST',
+        email: req.body.email, 
+        password: req.body.password
+    }))
+})
 
 router.get('/auth/signup', async (req, res, next) => {
   res.render('auth/signup', {
@@ -61,16 +67,8 @@ router.get('/auth/signup', async (req, res, next) => {
 
 //router.post('/signup', signup)
 
-// clientId: process.env.DISCORD_CLIENT_ID,
-// 		clientSecret: process.env.DISCORD_CLIENT_SECRET,
-// 		redirectUrl: process.env.DISCORD_REDIRECT_URI,
-// 		scope: 'identify email',
-// 		authorizeUrl: 'https://discord.com/api/oauth2/authorize',
-// 		tokenUrl: 'https://discord.com/api/oauth2/token',
-// 		userInfoUrl: 'https://discord.com/api/users/@me'
-
 router.get(
-  '/auth/discord/authorize',
+  '/auth/discord/authorize/',
   oauth2Authorize({
     clientId: discord.clientId,
     clientSecret: discord.clientSecret,
@@ -105,8 +103,6 @@ router.get(
     returnTo: siteUrl
   })
 )
-
-//	const { clientId, clientSecret, redirectUrl, discoveryUrl } = options
 
 router.get(
   '/auth/google/response',

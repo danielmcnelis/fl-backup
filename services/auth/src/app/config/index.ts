@@ -1,5 +1,6 @@
 const config = {
   siteUrl: process.env.SITE_URL,
+  siteProxy: process.env.SITE_PROXY,
   siteJWKS: JSON.parse(process.env.SITE_JWKS),
   siteIKS: JSON.parse(process.env.SITE_IKS),
   sessionSecret: process.env.SESSION_SECRET,

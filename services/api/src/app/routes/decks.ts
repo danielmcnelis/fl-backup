@@ -14,8 +14,8 @@ import {
   decksPlayer,
   decksLike,
   decksDownload,
-  decksAll,
-  decksFirst,
+  getDecks,
+  countDecks,
   decksId,
   decksCreate
 } from '../middleware'
@@ -26,7 +26,7 @@ router.put('/api/decks/read-ydk', decksReadYdk)
 
 router.delete('/api/decks/delete/:id', decksDeleteId)
 
-router.put('/api/decks/delete/:id', decksUpdateId)
+router.put('/api/decks/update/:id', decksUpdateId)
 
 router.put('/api/decks/publish/:id', decksPublishId)
 
@@ -50,9 +50,9 @@ router.get('/api/decks/like/:id', decksLike)
 
 router.get('/api/decks/download/:id', decksDownload)
 
-router.get('/api/decks/all', decksAll)
+router.get('/api/decks/count', countDecks)
 
-router.get('/api/decks/first/:x', decksFirst)
+router.get('/api/decks/', getDecks)
 
 router.get('/api/decks/:id', decksId)
 

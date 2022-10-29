@@ -1,4 +1,6 @@
-import { Sequelize } from 'sequelize'
+import { Op, Sequelize } from 'sequelize'
+import { Format } from './Format'
+import { Player } from './Player'
 import { db } from './db'
 
 export const Event = db.define('events', {
@@ -49,3 +51,107 @@ export const Event = db.define('events', {
     type: Sequelize.DATE
   }
 })
+
+Event.countResults = async (filter = {}) => {
+    filter = Object.entries(filter).reduce((reduced, [key, by]) => {
+        let value = by.value
+        if (typeof value === 'string') value.replaceAll('%20', ' ')
+        let operator = by.operator
+        if (['display', 'series'].includes(key)) { value = value.toLowerCase() === 'true' }
+        if (['size', 'tournamentId', 'formatId'].includes(key)) { value = parseInt(value) }
+        
+        if (operator === 'eq') {
+            operator = Op.eq
+        } else if (operator === 'not') {
+            operator = Op.not
+        } else if (operator === 'like') {
+            operator = Op.iLike
+        } else if (operator === 'gt') {
+            operator = Op.gt
+        } else if (operator === 'gte') {
+            operator = Op.gte
+        } else if (operator === 'lt') {
+            operator = Op.lt
+        } else if (operator === 'lte') {
+            operator = Op.lte
+        } else if (operator === 'or') {
+            operator = Op.or
+        } else if (operator === 'and') {
+            operator = Op.and
+        } else if (operator === 'inc') {
+            operator = Op.iLike
+            value = '%' + value + '%'
+        } else if (operator === 'btw') {
+            operator = Op.and
+            value = {[Op.gte]: parseInt(value[0]), [Op.lte]: parseInt(value[1])}
+        }
+
+        reduced[key] = {[operator]: value}
+        return reduced
+    }, {})
+
+    const query = filter.name
+    delete filter.name
+    if (query) filter = {[Op.or]: [{name: query}, {abbreviation: query}], ...filter}
+
+    const count = await Event.count({ 
+        where: filter
+    })
+
+    return count
+}
+
+Event.find = async (filter = {}, limit = 12, page = 1, sort = []) => {
+    filter = Object.entries(filter).reduce((reduced, [key, by]) => {
+        let value = by.value
+        if (typeof value === 'string') value.replaceAll('%20', ' ')
+        let operator = by.operator
+        if (['display'].includes(key)) { value = value.toLowerCase() === 'true' }
+        if (['deckTypeId', 'downloads', 'views', 'rating'].includes(key)) { value = parseInt(value) }
+       
+        if (operator === 'eq') {
+            operator = Op.eq
+        } else if (operator === 'not') {
+            operator = Op.not
+        } else if (operator === 'like') {
+            operator = Op.iLike
+        } else if (operator === 'gt') {
+            operator = Op.gt
+        } else if (operator === 'gte') {
+            operator = Op.gte
+        } else if (operator === 'lt') {
+            operator = Op.lt
+        } else if (operator === 'lte') {
+            operator = Op.lte
+        } else if (operator === 'or') {
+            operator = Op.or
+        } else if (operator === 'and') {
+            operator = Op.and
+        } else if (operator === 'inc') {
+            operator = Op.iLike
+            value = '%' + value + '%'
+        } else if (operator === 'btw') {
+            operator = Op.and
+            value = {[Op.gte]: parseInt(value[0]), [Op.lte]: parseInt(value[1])}
+        }
+
+        reduced[key] = {[operator]: value}
+        return reduced
+    }, {})
+
+    const query = filter.name
+    delete filter.name
+    if (query) filter = {[Op.or]: [{name: query}, {abbreviation: query}], ...filter}
+
+    const events = await Event.findAll({
+        where: filter,
+        offset: (page - 1) * limit,
+        limit: limit,
+        subQuery: false,
+        attributes: { exclude: ['tournamentId', 'type', 'series', 'createdAt', 'updatedAt'] },        
+        include: [{ model: Player, attributes: ['name', 'discordId'] }, {model: Format, attributes: ['name', 'icon']}],
+        order: sort
+    })
+
+    return events
+}

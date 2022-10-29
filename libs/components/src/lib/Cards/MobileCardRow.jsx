@@ -32,7 +32,7 @@ const symbols = {
   Reptile: '/assets/images/symbols/reptile.png',
   Ritual: '/assets/images/symbols/ritual.png',
   Rock: '/assets/images/symbols/rock.png',
-  Scale: '/assets/images/symbols/scale.png',
+  Scale: '/assets/images/symbols/Scale.png',
   SeaSerpent: '/assets/images/symbols/sea-serpent.png',
   Spell: '/assets/images/symbols/spell.png',
   Spellcaster: '/assets/images/symbols/spellcaster.png',

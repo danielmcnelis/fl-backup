@@ -32,14 +32,14 @@ export const nameDESC = (a, b) => {
 }
 
 export const uploadedASC = (a, b) => {
-  if (a.eventDate < b.eventDate) return -1
-  if (a.eventDate > b.eventDate) return 1
+  if (a.publishDate < b.publishDate) return -1
+  if (a.publishDate > b.publishDate) return 1
   return 0
 }
 
 export const uploadedDESC = (a, b) => {
-  if (a.eventDate < b.eventDate) return 1
-  if (a.eventDate > b.eventDate) return -1
+  if (a.publishDate < b.publishDate) return 1
+  if (a.publishDate > b.publishDate) return -1
   return 0
 }
 

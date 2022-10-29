@@ -54,7 +54,7 @@ export const DeckCreator = () => {
                 ydk: ydk,
                 eventName: event.abbreviation,
                 eventId: event.id,
-                eventDate: event.startDate,
+                publishDate: event.startDate,
                 placement: placement,
                 community: community,
                 display: display

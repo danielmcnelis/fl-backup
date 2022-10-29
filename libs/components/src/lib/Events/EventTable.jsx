@@ -5,21 +5,19 @@ import { EventRow } from './EventRow.jsx'
 import { MobileEventRow } from './MobileEventRow'
 // import { EventImage } from './EventImage'
 import { Pagination } from '../General/Pagination'
-import * as sortFunctions from '@fl/utils'
 import { useMediaQuery } from 'react-responsive'
 
 export const EventTable = (props) => {
-    const [page, setPage] = useState(1)
+    const [community, setCommunity] = useState(null)
     const [events, setEvents] = useState([])
-    const [filteredEvents, setFilteredEvents] = useState([])
     const [eventsPerPage, setEventsPerPage] = useState(10)
-    const [view, setView] = useState('table')
-    const [sortBy, setSortBy] = useState(null)
     const [format, setFormat] = useState(null)
     const [formats, setFormats] = useState([])
-    const [allFetched, setAllFetched] = useState(false)
-    const [firstXFetched, setFirstXFetched] = useState(false)
-    
+    const [page, setPage] = useState(1)
+    const [sortBy, setSortBy] = useState('startDate:desc')
+    const [total, setTotal] = useState(0)
+    const [view, setView] = useState('table')
+
     const [queryParams, setQueryParams] = useState({
       name: null,
       winner: null
@@ -27,12 +25,6 @@ export const EventTable = (props) => {
   
     // USE LAYOUT EFFECT
     useLayoutEffect(() => window.scrollTo(0, 0), [])
-  
-    // CHANGE EVENTS PER PAGE
-    const changeEventsPerPage = () => {
-      setEventsPerPage(Number(document.getElementById('eventsPerPageSelector').value))
-      setPage(1)
-    }
   
     // SORT EVENTS
     const sortEvents = () => {
@@ -61,7 +53,7 @@ export const EventTable = (props) => {
   
     // NEXT PAGE
     const nextPage = (location) => {
-      if (page >= Math.ceil(props.events.length / eventsPerPage)) return
+      if (page >= Math.ceil(total / eventsPerPage)) return
       setPage(page + 1)
       if (location === 'bottom') {
         const tableTop = document.getElementById('resultsWrapper0').offsetTop - 10
@@ -69,33 +61,34 @@ export const EventTable = (props) => {
       }
     }
   
+    // COUNT
+    const count = async () => {
+        let url = `/api/events/count`
+        let filter = ''
+  
+        if (queryParams.name) filter += `,name:inc:${queryParams.name}`
+        if (queryParams.winner) filter += `,winner:inc:${queryParams.winner}`
+        if (community) filter += `,community:eq:${community}`
+        if (format) filter += `,formatName:eq:${format}`
+        if (filter.length) url += ('?filter=' + filter.slice(1))
+  
+        const { data } = await axios.get(url)
+        setTotal(data)
+    }
+
     // SEARCH
-    const search = () => {
-      let data = [...events]
-      const params = Object.keys(queryParams) 
+    const search = async () => {
+        let url = `/api/events?page=${page}&limit=${eventsPerPage}&sort=${sortBy}`
+        let filter = ''
   
-      for (let i = 0; i < params.length; i++) {
-        const param = params[i]
-        const query = queryParams[param]
+        if (queryParams.name) filter += `,name:inc:${queryParams.name}`
+        if (queryParams.winner) filter += `,winner:inc:${queryParams.winner}`
+        if (community) filter += `,community:eq:${community}`
+        if (format) filter += `,formatName:eq:${format}`
+        if (filter.length) url += ('&filter=' + filter.slice(1))
   
-        if (query) {
-          if (param === 'name') {
-            data = data.filter(
-              (d) => d.name && d.name.toLowerCase().includes(query.toLowerCase()) || 
-              d.abbreviation && d.abbreviation.toLowerCase().includes(query.toLowerCase())
-            )
-          } else {
-            data = data.filter((d) => d[param] && d[param].toLowerCase().includes(query.toLowerCase()))
-          }
-        }
-  
-        if (format) {
-          data = data.filter((d) => d.formatName.toLowerCase().includes(format.toLowerCase()))
-        }
-      }
-      
-      setFilteredEvents(data)
-      setPage(1)
+        const { data } = await axios.get(url)
+        setEvents(data)
     }
   
     // RESET
@@ -104,7 +97,7 @@ export const EventTable = (props) => {
       document.getElementById('searchBar').value = null
       setPage(1)
       setFormat(null)
-      setFilteredEvents(events)
+      setEvents(events)
       setQueryParams({
         name: null,
         winner: null
@@ -123,52 +116,40 @@ export const EventTable = (props) => {
           [otherIds[0]]: null
         }
       })
+
+      setPage(1)
     }
-  
-    // USE EFFECT FETCH FIRST X
+
+    // USE EFFECT
     useEffect(() => {
-      if (!firstXFetched && !allFetched) {
-        const fetchData = async () => {
-          const {data} = await axios.get(`/api/events/first/10`)
+        const fetchEvents = async () => {
+          const {data} = await axios.get(`/api/events?page=1&limit=10&sortBy=startDate:desc`)
           setEvents(data)
-          setFilteredEvents(data)
-          setFirstXFetched(true)
-        } 
+        }
   
         const fetchFormats = async () => {
           const {data} = await axios.get(`/api/formats/`)
           setFormats(data)
         }
   
-        fetchData()
+        count()
+        fetchEvents()
         fetchFormats()
-      }
     }, [])
   
-    // USE EFFECT FETCH ALL
-    useEffect(() => {
-      if (firstXFetched && !allFetched) {
-        const fetchData = async () => {
-          const {data} = await axios.get(`/api/events/all`)
-          setEvents(data)
-          setFilteredEvents(data)
-          setAllFetched(true)
-        } 
-  
-        fetchData()
-      }
-    }, [firstXFetched])
-  
+
     // USE EFFECT SEARCH
     useEffect(() => {
-      search(false)
-    }, [format, queryParams])
+        count()
+      }, [format, community, queryParams])
+
+
+    // USE EFFECT SEARCH
+    useEffect(() => {
+      search()
+    }, [page, eventsPerPage, format, community, queryParams, sortBy])
   
-    const lastIndex = page * eventsPerPage
-    const firstIndex = lastIndex - eventsPerPage
-    if (filteredEvents.length) filteredEvents.sort(sortFunctions[sortBy] || undefined)
-    const formatKeys = formats.map((f) => f.name)
-  
+
     // RENDER
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
     
@@ -176,7 +157,7 @@ export const EventTable = (props) => {
       <div className="body">
         <div className="event-database-flexbox">
           <h1>Event Database</h1>
-          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'}/>
+          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'} alt="trophy"/>
         </div>
   
         <div className="searchWrapper">
@@ -210,33 +191,23 @@ export const EventTable = (props) => {
             >
               <option key={'All Formats'} value={''}>All Formats</option>
               {
-                formatKeys.map((f) => <option key={f} value={f}>{f}</option>)
+                formats.map((f) => <option key={f.id} value={f.name}>{f.name}</option>)
               }
             </select>
   
-            <a
+            <div
               className="searchButton desktop-only"
               type="submit"
               onClick={() => search()}
             >
               Search
-            </a>
+            </div>
           </div>
         </div>
   
         <div id="resultsWrapper0" className="resultsWrapper0 desktop-only">
           <div className="desktop-only results" style={{width: '360px'}}>
-            Results:{' '}
-            {firstXFetched && allFetched
-              ? filteredEvents.length
-                ? `${eventsPerPage * page - eventsPerPage + 1} - ${
-                    filteredEvents.length >=
-                    eventsPerPage * page
-                      ? eventsPerPage * page
-                      : filteredEvents.length
-                  } of ${filteredEvents.length}`
-                : '0'
-              : ''}
+            Results:{events.length? ` ${eventsPerPage * (page - 1) + 1} - ${total < (eventsPerPage * page) ? total : (eventsPerPage * page)} of ${total}` : ''}
           </div>
   
           <div className="buttonWrapper">
@@ -244,33 +215,33 @@ export const EventTable = (props) => {
               id="eventsPerPageSelector"
               defaultValue="10"
               style={{width: '195px'}}
-              onChange={() => changeEventsPerPage()}
+              onChange={(e) => {setEventsPerPage(e.target.value); setPage(1)}}
             >
-              <option value="10">10 / Page</option>
-              <option value="25">25 / Page</option>
-              <option value="50">50 / Page</option>
-              <option value="100">100 / Page</option>
+              <option value={10}>10 / Page</option>
+              <option value={25}>25 / Page</option>
+              <option value={50}>50 / Page</option>
+              <option value={100}>100 / Page</option>
             </select>
   
             <select
               id="sortSelector"
               defaultValue="startDateDESC"
               style={{width: '230px'}}
-              onChange={() => sortEvents()}
+              onChange={(e) => {setSortBy(e.target.value); setPage(1)}}
             >
-              <option value="startDateDESC">Date: New ⮕ Old</option>
-              <option value="startDateASC">Date: Old ⮕ New</option>
-              <option value="nameASC">Event: A ⮕ Z</option>
-              <option value="nameDESC">Event: Z ⮕ A</option>
+              <option value="startDate:desc">Date: New ⮕ Old</option>
+              <option value="startDate:asc">Date: Old ⮕ New</option>
+              <option value="name:asc">Event: A ⮕ Z</option>
+              <option value="name:desc">Event: Z ⮕ A</option>
             </select>
   
-            <a
+            <div
               className="searchButton desktop-only"
               type="submit"
               onClick={() => reset()}
             >
               Reset
-            </a>
+            </div>
           </div>
         </div>
   
@@ -284,13 +255,7 @@ export const EventTable = (props) => {
               </tr>
             </thead>
             <tbody>
-              {filteredEvents.length ? (
-                filteredEvents.slice(firstIndex, lastIndex).map((event, index) => {
-                  return <MobileEventRow key={event.id} index={index} event={event} />
-                })
-              ) : (
-                <tr />
-              )}
+              {events.map((event, index) =>  <MobileEventRow key={event.id} index={index} event={event} />)}
             </tbody>
           </table>
         </div>
@@ -301,7 +266,7 @@ export const EventTable = (props) => {
             nextPage={nextPage}
             previousPage={previousPage}
             goToPage={goToPage}
-            length={filteredEvents.length}
+            length={total}
             page={page}
             itemsPerPage={eventsPerPage}
           />
@@ -312,9 +277,9 @@ export const EventTable = (props) => {
     return (
       <div className="body">
         <div className="event-database-flexbox">
-          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'}/>
+          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'} alt="trophy"/>
           <h1>Event Database</h1>
-          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'}/>
+          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'} alt="trophy"/>
         </div>
         
         <br />
@@ -346,9 +311,9 @@ export const EventTable = (props) => {
               id="community"
               defaultValue="All Communities"
               className="filter"
-              onChange={(e) => setQueryParams({ ...queryParams, community: e.target.value })}
+              onChange={(e) => {setCommunity(e.target.value); setPage(1)}}
             >
-              <option value="All Communities">All Communities</option>
+              <option value={null}>All Communities</option>
               <option value="EdisonFormat.com">EdisonFormat.com</option>
               <option value="Format Library">Format Library</option>
               <option value="GoatFormat.com">GoatFormat.com</option>
@@ -369,7 +334,7 @@ export const EventTable = (props) => {
               id="format"
               defaultValue={null}
               className="filter"
-              onChange={(e) => setFormat(e.target.value)}
+              onChange={(e) => {setFormat(e.target.value); setPage(1)}}
             >
               <option key={'All Formats'} value={''}>All Formats</option>
               {
@@ -377,29 +342,19 @@ export const EventTable = (props) => {
               }
             </select>
   
-            <a
+            <div
               className="searchButton desktop-only"
               type="submit"
               onClick={() => search()}
             >
               Search
-            </a>
+            </div>
           </div>
         </div>
   
         <div id="resultsWrapper0" className="resultsWrapper0">
           <div className="results" style={{width: '360px'}}>
-            Results:{' '}
-            {firstXFetched && allFetched
-              ? filteredEvents.length
-                ? `${eventsPerPage * page - eventsPerPage + 1} - ${
-                    filteredEvents.length >=
-                    eventsPerPage * page
-                      ? eventsPerPage * page
-                      : filteredEvents.length
-                  } of ${filteredEvents.length}`
-                : '0'
-              : ''}
+            Results:{events.length? ` ${eventsPerPage * (page - 1) + 1} - ${total < (eventsPerPage * page) ? total: (eventsPerPage * page)} of ${total}` : ''}
           </div>
   
           <div className="buttonWrapper">
@@ -417,35 +372,35 @@ export const EventTable = (props) => {
               id="eventsPerPageSelector"
               defaultValue="10"
               style={{width: '195px'}}
-              onChange={() => changeEventsPerPage()}
+              onChange={(e) => { setEventsPerPage(e.target.value); setPage(1) }}
             >
-              <option value="10">Show 10 Events / Page</option>
-              <option value="25">Show 25 Events / Page</option>
-              <option value="50">Show 50 Events / Page</option>
-              <option value="100">Show 100 Events / Page</option>
+              <option value={10}>Show 10 Events / Page</option>
+              <option value={25}>Show 25 Events / Page</option>
+              <option value={50}>Show 50 Events / Page</option>
+              <option value={100}>Show 100 Events / Page</option>
             </select>
   
             <select
               id="sortSelector"
-              defaultValue="startDateDESC"
+              defaultValue="startDate:desc"
               style={{width: '230px'}}
               onChange={() => sortEvents()}
             >
-              <option value="startDateDESC">Sort Date: New ⮕ Old</option>
-              <option value="startDateASC">Sort Date: Old ⮕ New</option>
-              <option value="nameASC">Sort Event: A ⮕ Z</option>
-              <option value="nameDESC">Sort Event: Z ⮕ A</option>
-              <option value="sizeASC">Sort Size: Large ⮕ Small </option>
-              <option value="sizeDESC">Sort Size: Small ⮕ Large </option>
+              <option value="startDate:desc">Sort Date: New ⮕ Old</option>
+              <option value="startDate:asc">Sort Date: Old ⮕ New</option>
+              <option value="name:asc">Sort Event: A ⮕ Z</option>
+              <option value="name:desc">Sort Event: Z ⮕ A</option>
+              <option value="size:asc">Sort Size: Large ⮕ Small </option>
+              <option value="size:desc">Sort Size: Small ⮕ Large </option>
             </select>
   
-            <a
+            <div
               className="searchButton desktop-only"
               type="submit"
               onClick={() => reset()}
             >
               Reset
-            </a>
+            </div>
           </div>
         </div>
   
@@ -456,7 +411,7 @@ export const EventTable = (props) => {
               nextPage={nextPage}
               previousPage={previousPage}
               goToPage={goToPage}
-              length={filteredEvents.length}
+              length={total}
               page={page}
               itemsPerPage={eventsPerPage}
             />
@@ -477,33 +432,12 @@ export const EventTable = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {filteredEvents.length ? (
-                  filteredEvents.slice(firstIndex, lastIndex).map((event, index) => {
-                    return <EventRow key={event.id} index={index} event={event} />
-                  })
-                ) : (
-                  <tr />
-                )}
+                {events.map((event, index) => <EventRow key={event.id} index={index} event={event} />)}
               </tbody>
             </table>
           </div>
         ) : (
           <div id="eventGalleryFlexBox">
-            {/* {filteredEvents.length ? (
-              filiteredEvents.slice(firstIndex, lastIndex).map((event, index) => {
-                return <
-                          EventImage 
-                          key={event.id} 
-                          index={index} 
-                          event={event}
-                          width="360px"
-                          margin="10px 5px"
-                          padding="5px"
-                        />
-              })
-            ) : (
-              <div />
-            )} */}
           </div>
         )}
   
@@ -513,7 +447,7 @@ export const EventTable = (props) => {
             nextPage={nextPage}
             previousPage={previousPage}
             goToPage={goToPage}
-            length={filteredEvents.length}
+            length={total}
             page={page}
             itemsPerPage={eventsPerPage}
           />

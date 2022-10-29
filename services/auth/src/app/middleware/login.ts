@@ -1,11 +1,15 @@
+
+import { Player } from "@fl/models"
+
 export const login = (options) => {
-    console.log('login route ln2')
-  const { app, providers } = options
+  const { app, providers, email, password } = options
   const title = 'Login'
+  console.log('email ln7', email)
+  console.log('password ln8', password)
 
   return (req, res, next) => {
-    console.log('login route ln7')
     const method = req.method
+    console.log('method', method)
 
     if (method === 'GET') {
       res.render('auth/login', {
@@ -15,8 +19,21 @@ export const login = (options) => {
         signup: false
       })
     } else if (method === 'POST') {
+        console.log('email ln21', email)
+        console.log('password ln22', password)
+        const idToken = Player.verifyLogin({
+            email: email,
+            password: password
+        })
+
       // TODO: handle signup form post (local user/password)
-      res.status(404).send('Sorry, we cannot find that!')
+        if (idToken) {
+            res.cookie('id', idToken, {
+        	    maxAge: 15 * 60 * 1000 // 15 minutes
+            })
+        } else {
+            res.status(404).send('Sorry, we cannot find that!')
+        }
     }
 
     next()

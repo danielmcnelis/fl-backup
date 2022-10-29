@@ -32,7 +32,6 @@ export const Builder = () => {
     const [showShareModal, setShowShareModal] = useState(false)
     const [showUploadModal, setShowUploadModal] = useState(false)
     const location = useLocation()
-    console.log('format', format)
 
     // SORT FUNCTION
     const sortFn = (a, b) => {

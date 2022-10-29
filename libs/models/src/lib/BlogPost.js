@@ -15,7 +15,7 @@ export const BlogPost = db.define('blogposts', {
   publishDate: {
     type: Sequelize.STRING
   },
-  eventDate: {
+  publishDate: {
     type: Sequelize.DATE
   }
 })

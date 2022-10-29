@@ -2,29 +2,17 @@ import { AuthorizationCode } from 'simple-oauth2'
 import { generators } from 'openid-client'
 
 export const oauth2Authorize = (options) => {
-    // console.log('oauth2Authorize() options', options)
   const { clientId, clientSecret, redirectUrl, scope, authorizeUrl, tokenUrl, returnTo } = options
-  console.log('middleware.oauth2Authorize: clientId: ', clientId)
-  console.log('middleware.oauth2Authorize: clientSecret: ', clientSecret)
-  console.log('middleware.oauth2Authorize: redirectUrl: ', redirectUrl)
-  console.log('middleware.oauth2Authorize: scope: ', scope)
-  console.log('middleware.oauth2Authorize: authorizeUrl: ', authorizeUrl)
-  console.log('middleware.oauth2Authorize: returnTo: ', returnTo)
 
   const authorize_url = new URL(authorizeUrl)
   const authorizeHost = authorize_url.origin
   const authorizePath = authorize_url.pathname
-  console.log('middleware.oauth2Authorize: authorizeHost: ', authorizeHost)
-  console.log('middleware.oauth2Authorize: authorizePath: ', authorizePath)
+  
   const token_url = new URL(tokenUrl)
   const tokenHost = token_url.origin
   const tokenPath = token_url.pathname
-  console.log('middleware.oauth2Authorize: tokenHost: ', tokenHost)
-  console.log('middleware.oauth2Authorize: tokenPath: ', tokenPath)
 
   return async (req, res, next) => {
-    console.log('!!! middleware.oauth2Authorize: !!!')
-
     const client = new AuthorizationCode({
       client: {
         id: clientId,
@@ -45,8 +33,6 @@ export const oauth2Authorize = (options) => {
       scope,
       state
     })
-
-    // console.log('middleware.oauth2Authorize: authorizationUrl: ', authorizationUrl)
 
     req.session = {
       state,

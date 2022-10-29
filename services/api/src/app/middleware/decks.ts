@@ -118,7 +118,7 @@ export const decksPublishId = async (req, res, next) => {
             }
         })
 
-        await deck.update({ display: true })
+        await deck.update({ display: true, publishDate: new Date() })
         res.sendStatus(200)
     } catch (err) {
         console.log(err)
@@ -467,10 +467,10 @@ export const decksPlayer = async (req, res, next) => {
         playerId: req.params.id,
         display: true
       },
-      attributes: ['placement', 'eventId', 'eventName', 'eventDate'],
+      attributes: ['placement', 'eventId', 'eventName', 'publishDate'],
       order: [
         ['placement', 'ASC'],
-        ['eventDate', 'DESC']
+        ['publishDate', 'DESC']
       ]
     })
 
@@ -516,116 +516,57 @@ export const decksDownload = async (req, res, next) => {
   }
 }
 
-export const decksAll = async (req, res, next) => {
-  try {
-    const isAdmin = await Player.count({
-      where: {
-        name: req.headers.username,
-        hash: req.headers.password,
-        admin: true
-      }
-    })
+export const countDecks = async (req, res, next) => {
+    try {
+        const filter = req.query.filter ? req.query.filter.split(',').reduce((reduced, val) => {
+            let [field, operator, value] = val.split(':')
+            if (value.startsWith('arr(') && value.endsWith(')')) value = (value.slice(4, -1)).split(';')
+            reduced[field] = {operator, value}
+            return reduced
+        }, { display: {operator: 'eq', value: 'true'} }) : { display: {operator: 'eq', value: 'true'} }
 
-    const decks = await Deck.findAll({
-      where: { display: isAdmin ? { [Op.any]: [true, false] } : true },
-      attributes: [
-        'id',
-        'builder',
-        'playerId',
-        'type',
-        'category',
-        'formatName',
-        'formatId',
-        'community',
-        'eventName',
-        'eventId',
-        'eventDate',
-        'placement',
-        'downloads',
-        'views',
-        'rating'
-      ],
-      order: [
-        ['eventDate', 'DESC'],
-        ['placement', 'ASC'],
-        ['builder', 'ASC']
-      ],
-      include: [
-        { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
-      ]
-    })
-
-    res.json(decks)
-  } catch (err) {
-    next(err)
-  }
+        const count = await Deck.countResults(filter)
+        res.json(count)
+    } catch (err) {
+        next(err)
+    }
 }
 
-export const decksFirst = async (req, res, next) => {
-  try {
-    const isAdmin = await Player.count({
-      where: {
-        name: req.headers.username,
-        hash: req.headers.password,
-        admin: true
-      }
-    })
+export const getDecks = async (req, res, next) => {
+    try {
+        const limit = parseInt(req.query.limit || 10)
+        const page = parseInt(req.query.page || 1)
 
-    const decks = await Deck.findAll({
-      where: { display: isAdmin ? { [Op.any]: [true, false] } : true },
-      attributes: [
-        'id',
-        'builder',
-        'playerId',
-        'type',
-        'category',
-        'formatName',
-        'formatId',
-        'community',
-        'eventName',
-        'eventId',
-        'eventDate',
-        'placement',
-        'downloads',
-        'views',
-        'rating'
-      ],
-      order: [
-        ['eventDate', 'DESC'],
-        ['placement', 'ASC'],
-        ['builder', 'ASC']
-      ],
-      include: [
-        { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
-      ],
-      limit: req.params.x
-    })
+        const filter = req.query.filter ? req.query.filter.split(',').reduce((reduced, val) => {
+            let [field, operator, value] = val.split(':')
+            if (value.startsWith('arr(') && value.endsWith(')')) value = (value.slice(4, -1)).split(';')
+            reduced[field] = {operator, value}
+            return reduced
+        }, { display: {operator: 'eq', value: 'true'} }) : { display: {operator: 'eq', value: 'true'} }
 
-    res.json(decks)
-  } catch (err) {
-    next(err)
-  }
+        const sort = req.query.sort ? req.query.sort.split(',').reduce((reduced, val) => {
+            const [field, value] = val.split(':')
+            reduced.push([field, value])
+            return reduced
+        }, []) : [['publishDate', 'desc']]
+
+        const decks = await Deck.find(filter, limit, page, sort)
+        res.json(decks)
+    } catch (err) {
+        next(err)
+    }
 }
 
 export const decksId = async (req, res, next) => {
   try {
-    const isAdmin = await Player.count({
-      where: {
-        name: req.headers.username,
-        hash: req.headers.password,
-        admin: true
-      }
-    })
-
     const deck = await Deck.findOne({
       where: {
         id: req.params.id,
-        display: isAdmin ? { [Op.any]: [true, false] } : true
+        display: true
       },
       attributes: [
         'id',
+        'name',
         'ydk',
         'builder',
         'playerId',
@@ -636,7 +577,7 @@ export const decksId = async (req, res, next) => {
         'community',
         'eventName',
         'eventId',
-        'eventDate',
+        'publishDate',
         'placement',
         'downloads',
         'views',
@@ -758,7 +699,7 @@ export const decksCreate = async (req, res, next) => {
       ydk: req.body.ydk,
       eventName: req.body.eventName,
       eventId: req.body.eventId,
-      eventDate: req.body.eventDate,
+      publishDate: req.body.publishDate,
       placement: req.body.placement,
       community: req.body.community,
       display: req.body.display

@@ -14,10 +14,10 @@ export const countBlogPosts = async (req, res, next) => {
 export const getBlogPosts = async (req, res, next) => {
   try {
     const blogposts = await BlogPost.findAll({
-      attributes: ['content', 'eventDate'],
+      attributes: ['content', 'publishDate'],
       offset: (req.query.page - 1) * 10,
       limit: 10,
-      order: [['eventDate', 'DESC']]
+      order: [['publishDate', 'DESC']]
     })
 
     res.json(blogposts)

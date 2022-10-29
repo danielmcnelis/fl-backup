@@ -35,6 +35,48 @@ export const eventsAll = async (req, res, next) => {
   }
 }
 
+
+export const countEvents = async (req, res, next) => {
+    try {
+        const filter = req.query.filter ? req.query.filter.split(',').reduce((reduced, val) => {
+            let [field, operator, value] = val.split(':')
+            if (value.startsWith('arr(') && value.endsWith(')')) value = (value.slice(4, -1)).split(';')
+            reduced[field] = {operator, value}
+            return reduced
+        }, { display: {operator: 'eq', value: 'true'} }) : { display: {operator: 'eq', value: 'true'} }
+
+        const count = await Event.countResults(filter)
+        res.json(count)
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const getEvents = async (req, res, next) => {
+    try {
+        const limit = parseInt(req.query.limit || 10)
+        const page = parseInt(req.query.page || 1)
+
+        const filter = req.query.filter ? req.query.filter.split(',').reduce((reduced, val) => {
+            let [field, operator, value] = val.split(':')
+            if (value.startsWith('arr(') && value.endsWith(')')) value = (value.slice(4, -1)).split(';')
+            reduced[field] = {operator, value}
+            return reduced
+        }, { display: {operator: 'eq', value: 'true'} }) : { display: {operator: 'eq', value: 'true'} }
+
+        const sort = req.query.sort ? req.query.sort.split(',').reduce((reduced, val) => {
+            const [field, value] = val.split(':')
+            reduced.push([field, value])
+            return reduced
+        }, []) : [['startDate', 'desc']]
+
+        const events = await Event.find(filter, limit, page, sort)
+        res.json(events)
+    } catch (err) {
+        next(err)
+    }
+}
+
 export const eventsCommunity = async (req, res, next) => {
   try {
     const events = await Event.findAll({

@@ -89,7 +89,7 @@ Player.generateId = async () => {
   
       if (existingPlayer) {
           const googleId = user.email.includes('@gmail.com') ? user.email.slice(0, -10) : null
-          return await existingPlayer.update({
+          await existingPlayer.update({
               name: existingPlayer.name || user.username,
               discordName: user.username,
               discriminator: user.discriminator,
@@ -97,14 +97,18 @@ Player.generateId = async () => {
               email: existingPlayer.email || user.email,
               googleId: existingPlayer.googleId || googleId
           })
+
+          return existingPlayer.id
       } else {
-          return await Player.create({
+          const newPlayer = await Player.create({
               name: user.username,
               discordName: user.username,
               discriminator: user.discriminator,
               discordPfp: user.avatar,
               email: user.email
           })
+
+          return newPlayer.id
       }
   }
   
@@ -120,7 +124,7 @@ Player.generateId = async () => {
       })
   
       if (existingPlayer) {
-          return await existingPlayer.update({
+          await existingPlayer.update({
               name: existingPlayer.name || payload.name,
               googleId: payload.email.slice(0, -10),
               googlePfp: payload.picture,
@@ -128,8 +132,10 @@ Player.generateId = async () => {
               lastName: existingPlayer.lastName || payload.family_name,
               email: existingPlayer.email || payload.email
           })
+
+          return existingPlayer.id
       } else {
-          return await Player.create({
+          const newPlayer = await Player.create({
               name: payload.name,
               googleId: payload.email.slice(0, -10),
               googlePfp: payload.picture,
@@ -137,7 +143,23 @@ Player.generateId = async () => {
               lastName: payload.family_name,
               email: payload.email
           })
+
+          return newPlayer.id
       }
+  }
+
+  Player.verifyLogin = async (payload) => {
+    console.log('verifyLogin !!!')
+    console.log('payload', payload)
+    const player = await Player.findOne({
+        where: {
+            email: payload.email,
+            hash: payload.password
+        }
+    })
+
+    console.log('!!player', !!player)
+    return player.id
   }
   
   Player.prototype.hide = () => this.update({ hidden: true })

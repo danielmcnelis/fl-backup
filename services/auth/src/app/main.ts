@@ -12,14 +12,20 @@ import config from './config'
 
 const app = express()
 
-// rewrite
-// app.use('/auth', (req, _res, next) => {
-//   const from = req.url
-//   const to = from.replace('/auth', '')
-//   req.url = to
-//   next()
-// })
-// console.log(chalk.cyan(`Rewrite /auth/.* to /`))
+if (config.siteProxy === 'true') {
+    app.use('/auth', (req, _res, next) => {
+        const from = req.url
+        const to = from.replace('/auth', '')
+        req.url = to
+        next()
+    })
+    
+    console.log(chalk.cyan(`Rewrite /auth/.* to /`))
+}
+
+// body parsing
+app.use(express.urlencoded())
+// app.use(express.json())
 
 // logging
 app.use(morgan('dev'))

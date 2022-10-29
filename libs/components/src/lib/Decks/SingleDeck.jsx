@@ -163,7 +163,7 @@ export const SingleDeck = (props) => {
               </div>       
             </td>
             {
-                deck.category && deck.eventDate ? (
+                deck.category && deck.publishDate ? (
                     <td>
                       <div className="single-deck-cell">
                         <div className="single-deck-category" style={{paddingRight:'7px'}}><b>Category:</b> {deck.category}</div>
@@ -181,7 +181,7 @@ export const SingleDeck = (props) => {
             }
           </tr>
           {
-            deck.eventName && deck.placement && deck.eventDate ? (
+            deck.eventName && deck.placement && deck.publishDate ? (
                 <tr className="single-deck-info-2">
                 <td>
                   <div onClick={() => goToEvent()} className="single-deck-cell">
@@ -197,8 +197,8 @@ export const SingleDeck = (props) => {
                 </td>
                 <td>
                   <div className="single-deck-cell">
-                    <div className="desktop-only"><b>Uploaded:</b> {dateToVerbose(deck.eventDate, false, false)}</div>
-                    <div id="single-deck-uploaded-mobile" className="mobile-only"><b>Uploaded:</b> {dateToSimple(deck.eventDate)}</div>
+                    <div className="desktop-only"><b>Uploaded:</b> {dateToVerbose(deck.publishDate, false, false)}</div>
+                    <div id="single-deck-uploaded-mobile" className="mobile-only"><b>Uploaded:</b> {dateToSimple(deck.publishDate)}</div>
                   </div>
                 </td>
               </tr>

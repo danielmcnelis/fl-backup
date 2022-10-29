@@ -59,13 +59,13 @@ export const oauth2Response = (options) => {
     }
 
     console.log('middleware.oauth2Response: userinfo: ', userinfo.data)
-
     console.log('middleware.discordResponse: userinfo: ', userinfo.data)
-    await Player.discordLogin(userinfo.data)
+    
+    const idToken = await Player.discordLogin(userinfo.data)
 
-    // res.cookie('id', idToken, {
-    // 	maxAge: 15 * 60 * 1000 // 15 minutes
-    // })
+    res.cookie('id', idToken, {
+    	maxAge: 15 * 60 * 1000 // 15 minutes
+    })
 
     res.redirect(returnTo)
 
