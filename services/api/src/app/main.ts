@@ -30,7 +30,7 @@ const app = express()
         next()
     })
     
-    // console.log(chalk.cyan(`Rewrite /api/.* to /`))
+    console.log(chalk.cyan(`Rewrite /api/.* to /`))
 // }
   
 // logging
