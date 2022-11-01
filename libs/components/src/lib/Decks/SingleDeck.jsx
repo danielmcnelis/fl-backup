@@ -112,7 +112,7 @@ export const SingleDeck = (props) => {
     <div className="body">
       <div className="single-deck-title-flexbox">
         <a
-            className="link"
+            className="link desktop-only"
             href={`/api/decks/download/${deck.id}`} 
             download={`${deck.builder}-${deck.type || deck.name}.ydk`}
             onClick={()=> addDownload()}
@@ -123,7 +123,7 @@ export const SingleDeck = (props) => {
             </div>
         </a>
         <div className="single-deck-title">{deck.type || deck.name}</div>
-        <Link to="/builder" state={{ deck: deck }}>                                    
+        <Link to="/builder" state={{ deck: deck }} className="desktop-only">                                    
             <div className="deck-button">
                 <b style={{padding: '0px 6px'}}>Open Deck</b>
                 <img style={{width:'28px'}} src={`/assets/images/emojis/open-file.png`}/>
@@ -259,7 +259,7 @@ export const SingleDeck = (props) => {
             <td>
               <div className="deck-stats-cell">
                 <div style={{paddingRight:'7px'}}><b className="deck-stats-label">Views: </b>{deck.views}</div> 
-                <img style={{width:'28px'}} src={Eye}/>
+                <img style={{width:'28px'}} src={Eye} alt="eye"/>
               </div>   
             </td>
           </tr>

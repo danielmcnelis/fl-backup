@@ -146,25 +146,50 @@
         font-size: 20pt;
     }
 
-    #nav-menu {
+    #navigation-menu {
         display: none;
     }
 
     #hamburger-menu {
-        display: flex;
-        flex-direction: column;
-        height: 60px;
-        z-index: 1;
-        padding: 0px;
-        text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 60px;
+    z-index: 1;
+    padding: 0px;
+    text-align: center;
     }
 
     #hamburger-menu.closed {
-        overflow: hidden;
+    overflow: hidden;
     }
 
     #hamburger-menu.open {
+    overflow: visible;
+    }
+
+    #hamburger-button.open-b {
+    font-size: 36pt;
+    vertical-align: middle;
+    text-align: top;
+    padding-bottom: 2px;
+    }
+
+    #hamburger-button.closed-b {
+    font-size: 36pt;
+    vertical-align: middle;
+    text-align: center;
+    padding-top: 5px;
+      }
+            
+    .hamburger-item {
+        color: #ede6e6;
+        background-color: #000000;
         overflow: visible;
+        border: 5px solid black;
+        padding: 15px 4px;
+        vertical-align: middle;
+        text-align: center;
+        font-size: 13pt;
     }
 
     #hamburger-menu.open div.open-b {
@@ -181,17 +206,6 @@
 
     #hamburger-menu.closed div.closed {
         display: contents;
-    }
-
-    .hamburger-item {
-        color: #ede6e6;
-        background-color: #000000;
-        overflow: visible;
-        border: 5px solid black;
-        padding: 15px 4px;
-        vertical-align: middle;
-        text-align: center;
-        font-size: 13pt;
     }
 }
 

@@ -4,20 +4,9 @@ import { Player } from '@fl/models'
 
 export const oidcResponse = (options) => {
   const { clientId, clientSecret, redirectUrl, discoveryUrl } = options
-  // console.log('middleware.oidcResponse: clientId: ', clientId)
-  // console.log('middleware.oidcResponse: clientSecret: ', clientSecret)
-  // console.log('middleware.oidcResponse: redirectUrl: ', redirectUrl)
-  // console.log('middleware.oidcResponse: discoveryUrl: ', discoveryUrl)
 
   return async (req, res, next) => {
-    // console.log('middleware.oidcResponse:')
-
-    // console.log('middleware.oidcResponse: query:', req.query)
     const { state, code } = req.query
-    // console.log('middleware.oidcResponse: state: ', state)
-    // console.log('middleware.oidcResponse: code: ', code)
-
-    // console.log('middleware.oidcResponse: session:', req.session)
     const {
       state: sessionState,
       nonce: sessionNonce,
@@ -25,11 +14,7 @@ export const oidcResponse = (options) => {
       codeChallenge: sessionCodeChallenge,
       returnTo
     } = req.session
-    // console.log('middleware.oidcResponse: sessionState: ', sessionState)
-    // console.log('middleware.oidcResponse: sessionNonce: ', sessionNonce)
-    // console.log('middleware.oidcResponse: sessionCodeVerifier: ', sessionCodeVerifier)
-    // console.log('middleware.oidcResponse: sessionCodeChallenge: ', sessionCodeChallenge)
-    // console.log('middleware.oidcResponse: returnTo: ', returnTo)
+
     req.session = null
 
     const issuer = await Issuer.discover(discoveryUrl)
@@ -41,7 +26,7 @@ export const oidcResponse = (options) => {
     })
 
     const params = client && client.callbackParams(req)
-    // console.log('middleware.oidcResponse: params: ', params)
+
     const tokenSet =
       client &&
       (await client.callback(redirectUrl, params, {
@@ -49,22 +34,19 @@ export const oidcResponse = (options) => {
         state: sessionState,
         code_verifier: sessionCodeVerifier
       }))
-    // console.log('middleware.oidcResponse: tokenSet: ', tokenSet)
 
     const { id_token: idToken } = tokenSet
-    // console.log('middleware.oidcResponse: idToken: ', idToken)
-
     const payload = decodeJwt(idToken)
-    console.log('middleware.oidcResponse: payload: ', payload)
+    const {name, id, googlePfp} = await Player.googleLogin(payload)
 
-    await Player.googleLogin(payload)
-
-    res.cookie('id', idToken, {
-      maxAge: 15 * 60 * 1000 // 15 minutes
-    })
-
-    res.redirect(returnTo)
-
-    // next()
+    res.cookie('playerId', id, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).clearCookie('discordId')
+    .clearCookie('discordPfp')
+    .cookie('playerName', name, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('googlePfp', googlePfp, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).redirect(returnTo)
   }
 }

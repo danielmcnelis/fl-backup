@@ -55,14 +55,18 @@ export const discordResponse = (options) => {
       console.error('middleware.discordResponse: error: ', error.message)
     }
 
-    console.log('middleware.discordResponse: userinfo: ', userinfo.data)
-    await Player.discordLogin(userinfo.data)
+    const {playerName, playerId, discordId, discordPfp} = await Player.discordLogin(userinfo.data)
 
-    // res.cookie('id', idToken, {
-    // 	maxAge: 15 * 60 * 1000 // 15 minutes
-    // })
-
-    res.redirect(returnTo)
+    res.cookie('playerId', playerId, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('discordId', discordId, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('discordPfp', discordPfp, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('playerName', playerName, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).clearCookie('googlePfp')
+    .redirect(returnTo)
     next()
   }
 }

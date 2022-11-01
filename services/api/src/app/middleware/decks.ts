@@ -242,8 +242,7 @@ export const decksMyDecks = async (req, res, next) => {
     try {
         const player = await Player.findOne({
             where: {
-                name: req.headers.username,
-                hash: req.headers.password
+                id: req.query.id
             }
         })
 

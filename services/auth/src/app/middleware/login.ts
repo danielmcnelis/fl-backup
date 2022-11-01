@@ -2,14 +2,12 @@
 import { Player } from "@fl/models"
 
 export const login = (options) => {
-  const { app, providers, email, password } = options
+  const { app, providers } = options
   const title = 'Login'
-  console.log('email ln7', email)
-  console.log('password ln8', password)
 
-  return (req, res, next) => {
+  return async (req, res, next) => {
+    const { email, password } = req.body
     const method = req.method
-    console.log('method', method)
 
     if (method === 'GET') {
       res.render('auth/login', {
@@ -19,20 +17,25 @@ export const login = (options) => {
         signup: false
       })
     } else if (method === 'POST') {
-        console.log('email ln21', email)
-        console.log('password ln22', password)
-        const idToken = Player.verifyLogin({
+        const {name, id, discordId, discordPfp, googlePfp} = await Player.verifyLogin({
             email: email,
             password: password
         })
 
-      // TODO: handle signup form post (local user/password)
-        if (idToken) {
-            res.cookie('id', idToken, {
-        	    maxAge: 15 * 60 * 1000 // 15 minutes
-            })
+        if (id) {
+            res.cookie('playerId', id, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).cookie('discordId', discordId, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).cookie('discordPfp', discordPfp, {
+                maxAge: 24 * 60 * 60 * 1000
+            }).cookie('playerName', name, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).cookie('googlePfp', googlePfp, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).redirect(`http://localhost:8080`)
         } else {
-            res.status(404).send('Sorry, we cannot find that!')
+            res.status(404).send('Invalid username and/or password.')
         }
     }
 

@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { oauth2Authorize, oauth2Response, oidcAuthorize, oidcResponse } from '@fl/middleware-auth'
-import { login } from '../middleware'
+import { login, signup } from '../middleware'
 import config from '../config'
 
 const { siteUrl, google, discord } = config
@@ -44,13 +44,7 @@ router.get(
   })
 )
 
-router.post('/auth/login', async (req, res, next) => {
-    res.render('/auth/login', login({
-        method: 'POST',
-        email: req.body.email, 
-        password: req.body.password
-    }))
-})
+router.post('/auth/login', login({}))
 
 router.get('/auth/signup', async (req, res, next) => {
   res.render('auth/signup', {
@@ -65,7 +59,7 @@ router.get('/auth/signup', async (req, res, next) => {
   })
 })
 
-//router.post('/signup', signup)
+router.post('/auth/signup', signup({}))
 
 router.get(
   '/auth/discord/authorize/',

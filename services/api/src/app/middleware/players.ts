@@ -2,6 +2,25 @@ import { Player } from '@fl/models'
 import { Op } from 'sequelize'
 import * as fs from 'fs'
 
+export const playersAdmin = async (req, res, next) => {
+    try {
+        const player = await Player.findOne({
+          where: {
+            id: req.params.id,
+            admin: true
+          }
+        })
+
+        if (player) {
+            res.send(200)
+        } else {
+            res.send(404)
+        }
+      } catch (err) {
+        next(err)
+      }
+}
+
 export const playersQuery = async (req, res, next) => {
   try {
     const players = await Player.findAll({
@@ -19,16 +38,17 @@ export const playersQuery = async (req, res, next) => {
 }
 
 export const playersId = async (req, res, next) => {
-    console.log('req.query', req.query)
-    console.log('req.params', req.params)
   try {
     const player = await Player.findOne({
-      where: {
-        name: { [Op.iLike]: req.params.id },
-        discriminator: req.query.discriminator,
-        hidden: false
-      },
-      attributes: ['id', 'name', 'discordId', 'discriminator', 'firstName', 'lastName', 'duelingBook']
+        where: req.query.discriminator ? ({
+                name: { [Op.iLike]: req.params.id },
+                discriminator: req.query.discriminator,
+                hidden: false
+        }) : ({
+                id: { [Op.iLike]: req.params.id },
+                hidden: false            
+        }),
+        attributes: ['id', 'email', 'name', 'discordId', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
     })
 
     res.json(player)
@@ -48,6 +68,39 @@ export const playersAll = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+}
+
+export const playersUpdateId = async (req, res, next) => {
+    try {
+        const player = await Player.findOne({ 
+            where: {
+                id: req.params.id
+            },
+            attributes: ['id', 'email', 'name', 'discordId', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
+        })
+
+        if (!req.body.name || !req.body.name.length) {
+            res.sendStatus(400)
+        } else if (req.body.youtube && req.body.youtube.length && !req.body.youtube.includes('youtube.com/channel/')) {
+            res.sendStatus(400)
+        } else {
+            await player.update({ 
+                name: req.body.name,
+                duelingBook: req.body.duelingBook,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                country: req.body.country,
+                timeZone: req.body.timeZone,
+                youtube: req.body.youtube,
+                twitch: req.body.twitch,
+                twitter: req.body.twitter,
+            })
+    
+            res.json(player)
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export const playersCreate = async (req, res, next) => {

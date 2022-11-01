@@ -28,7 +28,7 @@
 						</div>
 						<% } %>
 
-							<form class="w-100 mb-2" action="/auth/login" method="post" novalidate>
+							<form class="w-100 mb-2" action="/auth/login" method="post" type="submit" novalidate>
 								<fieldset class="w-100 mb-2">
 									<div class="field-wrapper w-100  <%= locals.errors && locals.errors.accountError ? 'error' : '' %>"
 										pt-1 pb-0">

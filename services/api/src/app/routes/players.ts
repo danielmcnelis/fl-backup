@@ -1,9 +1,13 @@
 import { Router } from 'express'
-import { playersQuery, playersCreate, playersId, playersAll } from '../middleware'
+import { playersAdmin, playersQuery, playersCreate, playersId, playersAll, playersUpdateId } from '../middleware'
 
 const router = Router()
 
 router.get('/api/players/query/:query', playersQuery)
+
+router.put('/api/players/update/:id', playersUpdateId)
+
+router.get('/api/players/admin/:id', playersAdmin)
 
 router.get('/api/players/:id', playersId)
 

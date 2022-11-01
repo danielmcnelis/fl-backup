@@ -17,7 +17,7 @@ export const getBlogPosts = async (req, res, next) => {
       attributes: ['content', 'publishDate'],
       offset: (req.query.page - 1) * 10,
       limit: 10,
-      order: [['publishDate', 'DESC']]
+      order: [['eventDate', 'DESC']]
     })
 
     res.json(blogposts)

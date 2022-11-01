@@ -15,6 +15,7 @@ import {
   NotFound,
   Page,
   PlayerProfile,
+  Settings,
   SingleBanList,
   SingleCard,
   SingleDeck,
@@ -29,6 +30,7 @@ export const Router = () => {
 					<Route path="/home" element=<Page element=<Home /> /> />
                     <Route path="/auth/"/>
 					<Route path="/builder" element=<Page element=<Builder /> /> />
+					<Route path="/settings" element=<Page element=<Settings /> /> />
 					<Route path="/format-maker" element=<Page element=<FormatMaker /> /> />
 					<Route path="/great-library.html" element=<Page element= <CardTable /> /> />
 					<Route path="/great-library" element=<Page element= <CardTable /> /> />
@@ -91,6 +93,7 @@ export const Router = () => {
 					<Route path="/flc3" element={<Navigate to="/events/FLC3" />} />
 					<Route path="/flc4" element={<Navigate to="/events/FLC4" />} />
 					<Route path="/flc5" element={<Navigate to="/events/FLC5" />} />
+					<Route path="/not-found" element= <NotFound /> />
 					<Route element= <NotFound /> />
 				</Routes>
 			</BrowserRouter>

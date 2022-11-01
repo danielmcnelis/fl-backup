@@ -61,14 +61,17 @@ export const oauth2Response = (options) => {
     console.log('middleware.oauth2Response: userinfo: ', userinfo.data)
     console.log('middleware.discordResponse: userinfo: ', userinfo.data)
     
-    const idToken = await Player.discordLogin(userinfo.data)
+    const {name, id, discordId, discordPfp} = await Player.discordLogin(userinfo.data)
 
-    res.cookie('id', idToken, {
-    	maxAge: 15 * 60 * 1000 // 15 minutes
-    })
-
-    res.redirect(returnTo)
-
-    // next()
+    res.cookie('playerId', id, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('discordId', discordId, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('discordPfp', discordPfp, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).cookie('playerName', name, {
+        maxAge: 24 * 60 * 60 * 1000
+    }).clearCookie('googlePfp')
+    .redirect(returnTo)
   }
 }

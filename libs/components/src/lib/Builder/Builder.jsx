@@ -6,6 +6,7 @@ import {SearchPanel} from './SearchPanel'
 import { useLocation } from 'react-router-dom'
 import axios from 'axios'
 import {Button, Form, Modal} from 'react-bootstrap'
+import { getCookie } from '@fl/utils'
 
 export const Builder = () => {
     const [decks, setDecks] = useState([])
@@ -51,13 +52,7 @@ export const Builder = () => {
     // GET DECKS
     const getDecks = async () => {
         try {
-            const {data} = await axios.get(`/api/decks/my-decks/`, {
-                headers: {
-                    username: localStorage.getItem('username'),
-                    password: localStorage.getItem('password')
-                }
-            })
-
+            const {data} = await axios.get(`/api/decks/my-decks?id=${getCookie('playerId')}`)
             setDecks(data)
         } catch (err) {
             console.log(err)
@@ -160,8 +155,7 @@ export const Builder = () => {
             try {
                 const { data } = await axios.post(`/api/decks/create`, {
                     name: name,
-                    username: localStorage.getItem('username'),
-                    password: localStorage.getItem('password'),
+                    playerId: getCookie('playerId'),
                     type: deck.type,
                     deckTypeId: deck.deckTypeId,
                     suggestedType: deck.suggestedType,
@@ -387,13 +381,7 @@ export const Builder = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const {data} = await axios.get(`/api/decks/my-decks/`, {
-            headers: {
-                username: localStorage.getItem('username'),
-                password: localStorage.getItem('password')
-            }
-        })
-
+        const {data} = await axios.get(`/api/decks/my-decks?id=${getCookie('playerId')}`)
         setDecks(data)
       } catch (err) {
         console.log(err)
@@ -478,7 +466,7 @@ export const Builder = () => {
   return (
     <>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossOrigin="anonymous"/>
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/styles.css" />
     <div className="body" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
         <Modal show={showOpenModal} onHide={() => {setShowOpenModal(false); setControlPanelFormat(null)}}>
             <Modal.Header closeButton>

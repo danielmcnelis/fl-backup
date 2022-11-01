@@ -84,6 +84,7 @@ export const StatsRow = (props) => {
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
                             }
                         }
+                        alt={stats.player.name}
                     />
                     <div>{displayName}</div>
                 </div>

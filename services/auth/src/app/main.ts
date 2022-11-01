@@ -41,7 +41,7 @@ app.use(
     keys,
 
     // Cookie Options
-    maxAge: 15 * 60 * 1000 // 15 minutes
+    maxAge: 24 * 60 * 60 * 1000
   })
 )
 

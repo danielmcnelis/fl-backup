@@ -2,8 +2,11 @@
 import { Sequelize } from 'sequelize'
 import { db } from './db'
 
-export const BlogPost = db.define('blogposts', {
+export const Article = db.define('articles', {     
   title: {
+    type: Sequelize.STRING
+  },
+  author: {
     type: Sequelize.STRING
   },
   content: {
@@ -15,7 +18,12 @@ export const BlogPost = db.define('blogposts', {
   publishDate: {
     type: Sequelize.STRING
   },
-  eventDate: {
-    type: Sequelize.DATE
+  rating: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
+  },
+  views: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0
   }
 })

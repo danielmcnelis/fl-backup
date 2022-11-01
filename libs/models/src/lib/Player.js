@@ -1,6 +1,8 @@
 
-import { Sequelize } from 'sequelize'
+import { Op, Sequelize } from 'sequelize'
 import { db } from './db'
+import * as bcrypt from 'bcrypt'
+import { customAlphabet } from 'nanoid'
 
 export const Player = db.define('players', {
   id: {
@@ -44,10 +46,20 @@ export const Player = db.define('players', {
   lastName: {
     type: Sequelize.STRING
   },
+  country: {
+    type: Sequelize.STRING
+  },
+  timeZone: {
+    type: Sequelize.STRING
+  },
   hash: {
     type: Sequelize.STRING
   },
   admin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
+  },
+  creator: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   },
@@ -57,12 +69,22 @@ export const Player = db.define('players', {
   },
   oldId: {
       type: Sequelize.STRING
+  },
+  youtube: {
+      type: Sequelize.STRING
+  },
+  twitch: {
+      type: Sequelize.STRING
+  },
+  twitter: {
+      type: Sequelize.STRING
   }
 })
 
 Player.generateId = async () => {
     const base58 = '123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz'
-    return import('nanoid').then(({ customAlphabet }) => customAlphabet(base58, 22)())
+    const id = customAlphabet(base58, 22)()
+    return id
   }
   
   Player.findByDiscordId = (id) => Player.findOne({ where: { discordId: id }})
@@ -98,9 +120,11 @@ Player.generateId = async () => {
               googleId: existingPlayer.googleId || googleId
           })
 
-          return existingPlayer.id
+          return existingPlayer
       } else {
           const newPlayer = await Player.create({
+              id: await Player.generateId(),
+              discordId: user.id,
               name: user.username,
               discordName: user.username,
               discriminator: user.discriminator,
@@ -108,7 +132,7 @@ Player.generateId = async () => {
               email: user.email
           })
 
-          return newPlayer.id
+          return newPlayer
       }
   }
   
@@ -127,39 +151,40 @@ Player.generateId = async () => {
           await existingPlayer.update({
               name: existingPlayer.name || payload.name,
               googleId: payload.email.slice(0, -10),
-              googlePfp: payload.picture,
+              googlePfp: payload.picture.slice(36),
               firstName: existingPlayer.firstName || payload.given_name,
               lastName: existingPlayer.lastName || payload.family_name,
               email: existingPlayer.email || payload.email
           })
 
-          return existingPlayer.id
+          return existingPlayer
       } else {
           const newPlayer = await Player.create({
+              id: await Player.generateId(),
               name: payload.name,
               googleId: payload.email.slice(0, -10),
-              googlePfp: payload.picture,
+              googlePfp: payload.picture.slice(36),
               firstName: payload.given_name,
               lastName: payload.family_name,
               email: payload.email
           })
 
-          return newPlayer.id
+          return newPlayer
       }
   }
 
   Player.verifyLogin = async (payload) => {
-    console.log('verifyLogin !!!')
-    console.log('payload', payload)
     const player = await Player.findOne({
         where: {
-            email: payload.email,
-            hash: payload.password
+            email: payload.email
         }
     })
-
-    console.log('!!player', !!player)
-    return player.id
+    
+    if (player && await bcrypt.compare(payload.password, player.hash)) {
+        return player
+    } else {
+        return false
+    }
   }
   
   Player.prototype.hide = () => this.update({ hidden: true })

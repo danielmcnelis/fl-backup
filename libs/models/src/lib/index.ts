@@ -1,6 +1,8 @@
 
+import { Article } from './Article'
 import { BlogPost } from './BlogPost'
 import { Card } from './Card'
+import { Cube } from './Cube'
 import { Deck } from './Deck'
 import { DeckThumb } from './DeckThumb'
 import { DeckType } from './DeckType'
@@ -20,6 +22,12 @@ import { Set } from './Set'
 import { Stats } from './Stats'
 import { Status } from './Status'
 import { Tournament } from './Tournament'
+import { Upvote } from './Upvote'
+import { Video } from './Video'
+
+//ARTICLE
+Article.belongsTo(Player)
+Player.hasMany(Article)
 
 //DECKTYPE
 DeckType.hasMany(Deck)
@@ -46,6 +54,9 @@ Tournament.hasOne(Event)
 Format.hasMany(Deck)
 Deck.belongsTo(Format)
 
+Format.hasMany(Event)
+Event.belongsTo(Format)
+
 //IRON
 Iron.belongsTo(Player)
 Player.hasMany(Iron)
@@ -69,14 +80,14 @@ Membership.belongsTo(Server)
 Server.hasMany(Membership)
 
 //PLAYER
+Player.hasMany(Cube)
+Cube.belongsTo(Player)
+
 Player.hasMany(Deck)
 Deck.belongsTo(Player)
 
 Player.hasMany(Event)
 Event.belongsTo(Player)
-
-Format.hasMany(Event)
-Event.belongsTo(Format)
 
 //PRINT
 Print.belongsTo(Card)
@@ -108,19 +119,37 @@ Card.hasMany(Status)
 Tournament.belongsTo(Server)
 Server.hasMany(Tournament)
 
+//UPVOTE
+Upvote.belongsTo(Player)
+Player.hasMany(Upvote)
+
+//VIDEO
+Video.belongsTo(Player)
+Player.hasMany(Video)
+
 export {
+  Article,
   BlogPost,
   Card,
+  Cube,
   Deck,
   DeckThumb,
   DeckType,
+  Entry,
   Event,
   Format,
+  Iron,
+  Match,
+  Matchup,
+  Membership,
   Player,
   Print,
+  Role,
   Server,
   Set,
   Stats,
   Status,
-  Tournament
+  Tournament,
+  Upvote,
+  Video
 }

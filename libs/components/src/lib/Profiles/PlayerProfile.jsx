@@ -78,56 +78,76 @@ export const PlayerProfile = () => {
 
   if (player === null) return <NotFound />
   if (!player.id) return <div />
+  const regionNames = new Intl.DisplayNames(['en'], {type: 'region'})
 
   return (
     <div className="body">
       <div className="player-profile-flexbox">
         <div className="player-info">
           <div className="player-profile-title">{player.name}</div>
-          <img
-            className="player-pfp"
-            src={`/assets/images/pfps/${player.discordId}.png`} 
-            alt={player.name}
-            onError={(e) => {
-              e.target.onerror = null
-              e.target.src = 'https://cdn.discordapp.com/embed/avatars/1.png'
-            }}
-          />
-          <table className="player-profile-table">
-            <tbody>
-              <tr className="player-profile-info">
-                <td>
-                  <div className="player-profile-cell">
-                    <div>
-                      <b>Name:</b>{' '}
-                      {player.firstName && player.lastName ? `${player.firstName} ${player.lastName}` : 'N/A'}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr className="player-profile-info">
-                <td>
-                  <div className="player-profile-cell">
-                    <div>
-                      <span>
-                        <b>Discord:</b> {player.name}
-                      </span>
-                      <span style={{ color: 'gray' }}>{'#' + player.discriminator}</span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
-              <tr className="player-profile-info">
-                <td>
-                  <div className="player-profile-cell">
-                    <div>
-                      <b>DuelingBook:</b> {player.duelingBook || 'N/A'}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <img
+                className="player-pfp"
+                src={`/assets/images/pfps/${player.discordId}.png`} 
+                alt={player.name}
+                onError={(e) => {
+                e.target.onerror = null
+                e.target.src = 'https://cdn.discordapp.com/embed/avatars/1.png'
+                }}
+            />
+            <div className="profile-info"> 
+                {
+                    player.firstName && player.lastName ? (
+                        <div className="profile-line"><b>Name:</b> {player.firstName} {player.lastName}</div>
+                    ) : ''
+                }
+                <div className="profile-line"><b>DuelingBook:</b> {player.duelingBook || 'N/A'} {player.lastName}</div>   
+                <div className="profile-line"><b>Discord:</b> {player.discordName && player.discriminator ? (<><span>{player.discordName}</span><span style={{ color: 'gray' }}>#{player.discriminator}</span></>): 'N/A'}</div>
+                {
+                    player.country ? (
+                        <div className="profile-line"><b>Country:</b> {regionNames.of(player.country)} <img className="country" src={`https://www.worldometers.info/img/flags/${player.country.toLowerCase()}-flag.gif`} alt={player.country + '-flag'}/></div>
+                    ) : ''
+                }
+                {
+                    player.timeZone ? (
+                        <div className="profile-line"><b>Time Zone:</b> {player.timeZone}</div>
+                    ) : ''
+                }
+            </div>
+            <div className="social-links">
+                {
+                    player.youtube ? (
+                        <a 
+                            href={player.youtube}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            <img className="social-icon" src="/assets/images/logos/youtube.png" alt="youtube"/>
+                        </a>
+                    ) : ''
+                }
+                {
+                    player.twitch ? (
+                        <a 
+                            href={"https://twitch.tv/" + player.twitch}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            <img className="social-icon" src="/assets/images/logos/twitch.png" alt="twitch"/>
+                        </a>
+                    ) : ''
+                }
+                {
+                    player.twitter ? (
+                        <a 
+                            href={"https://twitter.com/" + player.twitter}
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                        >
+                            <img className="social-icon" src="/assets/images/logos/twitter.png" alt="twitter"/>
+                        </a>
+                    ) : ''
+                }
+            </div>
         </div>
         <div className="player-awards">
           {stats.length ? (
