@@ -25,13 +25,10 @@ const app = express()
     // rewrite
     app.use('/api', (req, _res, next) => {
         const from = req.url
-        const to = from.replace('/api/api/', '/api/')
+        const to = from.replace('/api/', '/')
         req.url = to
         next()
     })
-    
-    console.log(`Rewrite /api/.* to /`)
-    console.log(chalk.cyan(`Rewrite /api/.* to /`))
 // }
   
 // logging

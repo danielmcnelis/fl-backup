@@ -15,7 +15,7 @@ const app = express()
 // if (config.siteProxy === 'true') {
     app.use('/auth', (req, _res, next) => {
         const from = req.url
-        const to = from.replace('/auth/auth/', '/auth/')
+        const to = from.replace('/auth/', '/')
         req.url = to
         next()
     })
