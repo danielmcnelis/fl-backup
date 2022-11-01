@@ -686,7 +686,7 @@ export const decksId = async (req, res, next) => {
 
 export const decksCreate = async (req, res, next) => {
   try {
-    const format = await Format.findOne({ where: { name: { [Op.iLike]: req.body.format } } })
+    const format = await Format.findOne({ where: { name: { [Op.iLike]: req.body.format || req.body.formatName } } })
     const deck = await Deck.create({
       builder: req.body.builder,
       playerId: req.body.playerId,

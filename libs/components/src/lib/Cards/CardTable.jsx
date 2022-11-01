@@ -9,6 +9,7 @@ import { PrettoSlider } from '../General/Slider'
 import { Pagination } from '../General/Pagination'
 import { capitalize } from '@fl/utils'
 import { useMediaQuery } from 'react-responsive'
+import { useLocation } from 'react-router-dom'
 
 const symbols = {
   Star: '/assets/images/symbols/star.png'
@@ -28,7 +29,7 @@ const now = new Date()
 
 export const CardTable = (props) => {
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
-    const formatName = props.location && props.location.search ? props.location.search.slice(8) : null
+    const formatName = location && location.search ? location.search.slice(8) : null
     const [page, setPage] = useState(1)
     const [cards, setCards] = useState([])
     const [cardsPerPage, setCardsPerPage] = useState(10)
@@ -42,6 +43,7 @@ export const CardTable = (props) => {
     const [booster, setBooster] = useState(null)
     const [advanced, setAdvanced] = useState(false)
     const [cutoff, setCutoff] = useState(`${now.getFullYear()}-12-31`)
+    const location = useLocation()
   
     const [sliders, setSliders] = useState({
       year: now.getFullYear(),

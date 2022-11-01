@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { DeckThumbnail } from './DeckThumbnail'
 
-export const DeckGallery = (props) => {
+export const DeckGallery = () => {
     const [decks, setDecks] = useState([])
     const [format, setFormat] = useState({})
     const { id } = useParams()

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { CardImage } from '../Cards/CardImage'
 import { NotFound } from '../General/NotFound'
+import { useLocation } from 'react-router-dom'
 
 const emojis = {
   Helmet: '/assets/images/emojis/helmet.png',
@@ -14,12 +15,13 @@ const emojis = {
 }
 const { Helmet, Controller, Orb, Lock, Thinking } = emojis
 
-export const DeckType = (props) => {
+export const DeckType = () => {
     const [summary, setSummary] = useState({})
     const [banlist, setBanList] = useState({})
     const navigate = useNavigate()
     const goToFormat = () => navigate(`/formats/${summary.format ? summary.format.name : ''}`)
     const { id } = useParams()
+    const location = useLocation()
 
     // USE LAYOUT EFFECT
     useLayoutEffect(() => window.scrollTo(0, 0), [])
@@ -27,7 +29,7 @@ export const DeckType = (props) => {
     // USE EFFECT SET CARD
     useEffect(() => {
       const fetchData = async () => {
-        const search = props.location ? props.location.search : null
+        const search = location ? location.search : null
         const format = search ? search.slice(search.indexOf('?format=') + 8) : null
   
         try {

@@ -100,7 +100,7 @@ export const PlayerProfile = () => {
                         <div className="profile-line"><b>Name:</b> {player.firstName} {player.lastName}</div>
                     ) : ''
                 }
-                <div className="profile-line"><b>DuelingBook:</b> {player.duelingBook || 'N/A'} {player.lastName}</div>   
+                <div className="profile-line"><b>DuelingBook:</b> {player.duelingBook || 'N/A'}</div>   
                 <div className="profile-line"><b>Discord:</b> {player.discordName && player.discriminator ? (<><span>{player.discordName}</span><span style={{ color: 'gray' }}>#{player.discriminator}</span></>): 'N/A'}</div>
                 {
                     player.country ? (
