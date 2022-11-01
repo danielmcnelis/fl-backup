@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd ~/Desktop/projects/fl/dist/apps/formatlibrary
+cd ~/code/fl/dist/apps/formatlibrary
 #authbind --deep
 pm2 start ../../services/site/main.js --name site 

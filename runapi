@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pm2 start ~/Desktop/projects/fl/dist/services/api/main.js  --name api 
+pm2 start ~/code/fl/dist/services/api/main.js  --name api 

@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-pm2 start ~/Desktop/projects/fl/dist/services/auth/main.js --name auth 
+pm2 start ~/code/fl/dist/services/auth/main.js --name auth 
