@@ -149,7 +149,9 @@ export const decksShareId = async (req, res, next) => {
         })
 
         const shareLink = await Deck.generateShareLink()
-        
+        console.log('shareLink', shareLink)
+        console.log('req.body.linkExpiration', req.body.linkExpiration)
+
         await deck.update({
             shareLink: shareLink,
             linkExpiration: req.body.linkExpiration
