@@ -558,35 +558,43 @@ export const getDecks = async (req, res, next) => {
 
 export const decksId = async (req, res, next) => {
   try {
+    const id = parseInt(req.params.id)
+    const shareLink = req.params.id
+    
     const deck = await Deck.findOne({
-      where: {
-        id: req.params.id,
-        display: true
-      },
-      attributes: [
-        'id',
-        'name',
-        'ydk',
-        'builder',
-        'playerId',
-        'type',
-        'category',
-        'formatName',
-        'formatId',
-        'community',
-        'eventName',
-        'eventId',
-        'publishDate',
-        'placement',
-        'downloads',
-        'views',
-        'rating'
-      ],
-      include: [
-        { model: Format, attributes: ['id', 'name', 'icon', 'banlist'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
-      ]
+        where: !isNaN(id) ? {
+            id: id,
+            display: true
+        } : {
+            shareLink: shareLink,
+            linkExpiration: {[Op.gte]: new Date()}
+        },
+        attributes: [
+            'id',
+            'name',
+            'ydk',
+            'builder',
+            'playerId',
+            'type',
+            'category',
+            'formatName',
+            'formatId',
+            'community',
+            'eventName',
+            'eventId',
+            'publishDate',
+            'placement',
+            'downloads',
+            'views',
+            'rating'
+        ],
+        include: [
+            { model: Format, attributes: ['id', 'name', 'icon', 'banlist'] },
+            { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+        ]
     })
+
+    if (!deck) return res.sendStatus(404)
 
     const main = []
     const extra = []

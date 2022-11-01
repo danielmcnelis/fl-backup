@@ -52,9 +52,9 @@ router.get('/api/decks/download/:id', decksDownload)
 
 router.get('/api/decks/count', countDecks)
 
-router.get('/api/decks/', getDecks)
-
 router.get('/api/decks/:id', decksId)
+
+router.get('/api/decks/', getDecks)
 
 router.post('/api/decks/create', decksCreate)
 

@@ -23,7 +23,7 @@ const emojis = {
 
 const { Helmet, Controller, Orb, Lock, Thinking, First, Second, Third, Consolation, Heart, Disk, Eye } = emojis
 
-export const SingleDeck = (props) => {
+export const SingleDeck = () => {
     const [deck, setDeck] = useState({})
     const [banlist, setBanlist] = useState({})
     const navigate = useNavigate()
@@ -36,13 +36,7 @@ export const SingleDeck = (props) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const {data} = await axios.get(`/api/decks/${id}`, {
-          headers: {
-            username: localStorage.getItem('username'),
-            password: localStorage.getItem('password')
-          }
-        })
-
+        const {data} = await axios.get(`/api/decks/${id}`)
         setDeck(data)
       } catch (err) {
         console.log(err)
@@ -55,7 +49,7 @@ export const SingleDeck = (props) => {
 
   // USE EFFECT SET DECK
   useEffect(() => {
-    if (!deck.id) return
+    if (!deck || !deck.format) return
     const fetchData = async () => {
       try {
         const {data} = await axios.get(`/api/banlists/simple/${deck.format.banlist}`)
