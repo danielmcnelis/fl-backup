@@ -49,7 +49,7 @@ export const signup = (options) => {
             .cookie('playerName', player.name, {
         	    maxAge: 24 * 60 * 60 * 1000
             }).clearCookie('googlePfp')
-            .redirect(`http://localhost:8080`)
+            .redirect(`https://formatlibrary.com`)
         } else {
             res.status(404).send('Error creating account.')   
         }

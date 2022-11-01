@@ -33,7 +33,7 @@ export const login = (options) => {
         	    maxAge: 24 * 60 * 60 * 1000
             }).cookie('googlePfp', googlePfp, {
         	    maxAge: 24 * 60 * 60 * 1000
-            }).redirect(`http://localhost:8080`)
+            }).redirect(`https://formatlibrary.com`)
         } else {
             res.status(404).send('Invalid username and/or password.')
         }
