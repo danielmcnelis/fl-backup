@@ -20,6 +20,8 @@ export const Builder = () => {
     const myFormats = [...new Set(decks.map((d) => d.formatName))]
     const myDeckTypes = [...new Set(decks.map((d) => d.type))]
     const [format, setFormat] = useState({})
+    console.log('format B', format)
+
     const [controlPanelDeckType, setControlPanelDeckType] = useState(null)
     const [controlPanelFormat, setControlPanelFormat] = useState(null)
     const [formats, setFormats] = useState([])

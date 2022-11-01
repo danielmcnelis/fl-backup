@@ -24,9 +24,9 @@ const { Shield, Swords } = emojis
 const now = new Date()
 
 export const SearchPanel = (props) => {
+    const {format} = props
     const cardsPerPage = 20
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
-    const [format, setFormat] = useState({})
     const [page, setPage] = useState(1)
     const [cards, setCards] = useState([])
     const [sortBy, setSortBy] = useState('name:asc')
@@ -309,8 +309,10 @@ export const SearchPanel = (props) => {
 
     // UPDATE FORMAT
     const updateFormat = async (e) => {
+        console.log('e.target.value', e.target.value)
         if (e.target.value.length) {
             const {data} = await axios.get(`/api/formats/${e.target.value}`) 
+            console.log(data.format)
             props.setFormat(data.format)
         } else {
             props.setFormat({})
@@ -354,20 +356,6 @@ export const SearchPanel = (props) => {
         })
     }
 
-    // USE EFFECT FETCH CURRENT FORMAT
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const {data} = await axios.get(`/api/formats/current`)
-                setFormat(data.format)
-            } catch (err) {
-                console.log(err)
-            }
-        }
-
-        fetchData()
-    }, [])
-
     // USE EFFECT IF FORMAT CHANGES
     useEffect(() => {
         const year = format.date ? parseInt(format.date.slice(0, 4)) : now.getFullYear() || 2022
@@ -386,7 +374,7 @@ export const SearchPanel = (props) => {
         }
 
         fetchData()
-    }, [format])
+    }, [props, format])
 
     // USE EFFECT IF DATE SLIDERS CHANGE
     useEffect(() => {
@@ -395,13 +383,13 @@ export const SearchPanel = (props) => {
             const day = sliders.day >= 10 ? sliders.day : `0${sliders.day}`
             setCutoff(`${sliders.year}-${month}-${day}`)
         }
-    }, [format])
+    }, [props])
 
     // USE EFFECT IF RELEVANT SEARCH PARAM STATES CHANGE
     useEffect(() => {
         count()
         search()
-    }, [format, page, sortBy, cutoff, queryParams, groupParams, iconParams, attributeParams, typeParams])
+    }, [props, page, sortBy, cutoff, queryParams, groupParams, iconParams, attributeParams, typeParams])
 
     const advancedButtons = {
     icon: [
