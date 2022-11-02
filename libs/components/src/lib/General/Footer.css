@@ -26,7 +26,7 @@
     vertical-align: middle;
     background-size: 76px;
     background-position: center;
-    background-image: url('../../../../../apps/formatlibrary/src/assets/images/logos/Format Library.png');
+    background-image: url('https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Format Library.png');
 }
 
 .discord-logo {
@@ -37,7 +37,7 @@
     vertical-align: middle;
     background-size: 68px;
     background-position: center;
-    background-image: url('../../../../../apps/formatlibrary/src/assets/images/logos/Discord.png');
+    background-image: url('https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Discord.png');
 }
 
 .coffee-logo {

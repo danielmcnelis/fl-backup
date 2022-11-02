@@ -53,7 +53,7 @@ export const Navigation = () => {
                                 src={
                                     googlePfp ? `https://lh3.googleusercontent.com/a/${googlePfp}` :
                                     discordPfp && discordId ? `https://cdn.discordapp.com/avatars/${discordId}/${discordPfp}.webp` :
-                                    `/assets/images/pfps/${discordId || playerName}.png`}
+                                    `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${discordId || playerName}.png`}
                                 onError={(e) => {
                                         e.target.onerror = null
                                         e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"

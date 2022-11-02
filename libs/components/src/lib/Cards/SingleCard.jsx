@@ -135,24 +135,24 @@ export const SingleCard = () => {
     if (card === null) return <NotFound/>
     if (!card.id) return <div />
   
-    const template = card.category === 'Spell' ? `/assets/images/templates/spellCard.png` :
-      card.category === 'Trap' ? `/assets/images/templates/trapCard.jpeg` :
-      card.fusion ? `/assets/images/templates/fusionCard.jpg` :
-      card.ritual ? `/assets/images/templates/ritualCard.jpg` :
-      card.synchro ? `/assets/images/templates/synchroCard.png` :
-      card.xyz ? `/assets/images/templates/xyzCard.png` :
-      card.pendulum ? `/assets/images/templates/pendulumCard.png` :
-      card.link ? `/assets/images/templates/linkCard.png` :
-      card.normal ? `/assets/images/templates/monsterCard.jpg` :
-      card.effect ? `/assets/images/templates/effectCard.png` :
+    const template = card.category === 'Spell' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/spellCard.png` :
+      card.category === 'Trap' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/trapCard.jpeg` :
+      card.fusion ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/fusionCard.jpg` :
+      card.ritual ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/ritualCard.jpg` :
+      card.synchro ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/synchroCard.png` :
+      card.xyz ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/xyzCard.png` :
+      card.pendulum ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/pendulumCard.png` :
+      card.link ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/linkCard.png` :
+      card.normal ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/monsterCard.jpg` :
+      card.effect ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/templates/effectCard.png` :
       null
   
-    const attribute = card.attribute ? `/assets/images/symbols/${card.attribute.toLowerCase()}.png` : null
-    const type = card.type ? `/assets/images/symbols/${card.type.replace(/\s/g, '-').toLowerCase()}.png` : null
+    const attribute = card.attribute ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/${card.attribute.toLowerCase()}.png` : null
+    const type = card.type ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/${card.type.replace(/\s/g, '-').toLowerCase()}.png` : null
   
-    const starType = card.xyz ? `/assets/images/symbols/rank.png` : 
-      card.link ? `/assets/images/symbols/link.png` : 
-      card.category === 'Monster' ? `/assets/images/symbols/star.png` : 
+    const starType = card.xyz ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/rank.png` : 
+      card.link ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/link.png` : 
+      card.category === 'Monster' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/star.png` : 
       null
     
     const starWord = card.xyz ? `Rank` : 
@@ -161,16 +161,16 @@ export const SingleCard = () => {
       null
   
     const symbol = card.category === 'Monster' ? null :
-      card.icon === 'Continuous' ? `/assets/images/symbols/continuous.png` :
-      card.icon === 'Field' ? `/assets/images/symbols/field.png` : 
-      card.icon === 'Ritual' ? `/assets/images/symbols/ritual.png` : 
-      card.icon === 'Quick-Play' ? `/assets/images/symbols/quick-play.png` : 
-      card.icon === 'Normal' ? `/assets/images/symbols/normal.png` : 
-      card.icon === 'Equip' ? `/assets/images/symbols/equip.png` :  
-      card.icon === 'Counter' ? `/assets/images/symbols/counter.png` : 
+      card.icon === 'Continuous' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/continuous.png` :
+      card.icon === 'Field' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/field.png` : 
+      card.icon === 'Ritual' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/ritual.png` : 
+      card.icon === 'Quick-Play' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/quick-play.png` : 
+      card.icon === 'Normal' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/normal.png` : 
+      card.icon === 'Equip' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/equip.png` :  
+      card.icon === 'Counter' ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/counter.png` : 
       null
   
-      const imagePath = `/assets/images/cards/${card.ypdId}.jpg`
+      const imagePath = `https://formatlibrary.s3.us-east-2.amazonaws.com/images/cards/${card.ypdId}.jpg`
       let cardType = `${card.category}`
       if (card.fusion) cardType += ` / Fusion`
       if (card.ritual) cardType += ` / Ritual`

@@ -184,7 +184,7 @@ export const Settings = () => {
                         src={
                             googlePfp ? `https://lh3.googleusercontent.com/a/${googlePfp}` :
                             discordPfp && discordId ? `https://cdn.discordapp.com/avatars/${discordId}/${discordPfp}.webp` :
-                            `/assets/images/pfps/${discordId || name}.png`}
+                            `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${discordId || name}.png`}
                         onError={(e) => {
                                 e.target.onerror = null
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
@@ -211,7 +211,7 @@ export const Settings = () => {
                 style={{width: '180px', margin: '15px auto', textAlign: 'center'}}
             >
                 <b style={{padding: '0px 6px'}}>Edit Profile</b>
-                <img style={{width:'28px'}} src={`/assets/images/emojis/edit.png`} alt="edit"/>
+                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/edit.png`} alt="edit"/>
             </div>
         </div>
     </>

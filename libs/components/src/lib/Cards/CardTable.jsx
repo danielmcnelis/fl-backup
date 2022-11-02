@@ -518,12 +518,12 @@ export const CardTable = (props) => {
     return (
       <div className="body">
         <div className="card-database-flexbox">
-          <img src={`/assets/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium desktop-only" />
+          <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium desktop-only" />
           <div>
             <h1>{format.event ? format.name + ' ' : ''}Card Database</h1>
             <h2 className="desktop-only">{format.event || 'May 2002 - Present'}</h2>
           </div>
-          <img src={`/assets/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium" />
+          <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium" />
         </div>
         {
           isTabletOrMobile ? (

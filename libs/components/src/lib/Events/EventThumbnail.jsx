@@ -13,11 +13,11 @@ export const EventThumbnail = (props = {}) => {
               <div className="eventThumbnail-flexbox">
                   <img 
                     className="eventThumbnail-image" 
-                    src={`/assets/images/emojis/${event.format.icon}.png`}
+                    src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
                   />
                   <img 
                     className="eventThumbnail-player-pfp" 
-                    src={`/assets/images/pfps/${winner.discordId || winner.name}.png`} 
+                    src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${winner.discordId || winner.name}.png`} 
                     onError={(e) => {
                             e.target.onerror = null
                             e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
@@ -26,7 +26,7 @@ export const EventThumbnail = (props = {}) => {
                   />
                   <img 
                     className="eventThumbnail-image" 
-                    src={`/assets/images/logos/${event.community}.png`} 
+                    src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${event.community}.png`} 
                   />
               </div>
           </div>

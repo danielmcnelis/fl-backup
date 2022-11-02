@@ -54,7 +54,7 @@ export const MobileCardRow = (props) => {
     const line = card.type
     
     const symbol = symbols[card.attribute] || symbols[card.category]
-    const symbol2 = card.link ? `/assets/images/arrows/${card.arrows}.png` :
+    const symbol2 = card.link ? `https://formatlibrary.s3.us-east-2.amazonaws.com/images/arrows/${card.arrows}.png` :
       card.xyz ? symbols.Rank :
       category === 'Monster' ? symbols.Star :
       card.icon ? symbols[card.icon.replace('-', '')] :
@@ -67,7 +67,7 @@ export const MobileCardRow = (props) => {
   
     const symbol3 = category === 'Monster' && card.type ? symbols[card.type.replace(/[\s-]/g, '')] : null
     const evenOrOdd = props.index % 2 ? 'even' : 'odd'
-    const filePath = `/assets/images/cards/${card.ypdId}.jpg`
+    const filePath = `https://formatlibrary.s3.us-east-2.amazonaws.com/images/cards/${card.ypdId}.jpg`
     
     return (
         <tr className={`${evenOrOdd}-search-results-row`}>
@@ -94,7 +94,7 @@ export const MobileCardRow = (props) => {
                               status ? (
                                   <img
                                   className="small-status-icon"
-                                  src={`/assets/images/emojis/${status}.png`}
+                                  src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${status}.png`}
                                   alt={status}
                                   />
                               ) : ''

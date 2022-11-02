@@ -48,9 +48,9 @@ export const LeaderBoard = (props) => {
       <div className="body">
         <div id="leaderboard" className="leaderboard">
           <div className="subcategory-title-flexbox">
-            <img style={{ width:'64px'}} src={`/assets/images/emojis/${format.icon}.png`}/>
+            <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${format.icon}.png`}/>
             <h1 className="leaderboard-title">{capitalize(format.name, true)} Leaderboard</h1>
-            <img style={{ width:'64px'}} src={`/assets/images/emojis/${format.icon}.png`}/>
+            <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${format.icon}.png`}/>
           </div>
           <table id="leaderboard-table">
             <thead>

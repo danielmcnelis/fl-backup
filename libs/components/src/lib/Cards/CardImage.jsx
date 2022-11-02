@@ -8,7 +8,7 @@ export const CardImage = (props) => {
         {
           parseInt(width, 10) < 48 ? (
             <img
-              src={`/assets/images/cards/${card.ypdId}.jpg`}
+              src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/cards/${card.ypdId}.jpg`}
               card={card}
               style={{width, margin, padding}}
               className="SmallCardImages"
@@ -27,10 +27,10 @@ export const CardImage = (props) => {
               >
                 <div className="card-image-cell"  >
                   {
-                    status ? <img src={`/assets/images/emojis/${status}.png`} className="status-icon"/> : null
+                    status ? <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${status}.png`} className="status-icon"/> : null
                   }
                   <img
-                    src={`/assets/images/cards/${card.ypdId}.jpg`}
+                    src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/cards/${card.ypdId}.jpg`}
                     card={card}
                     onContextMenu={(e)=> {
                       e.preventDefault();

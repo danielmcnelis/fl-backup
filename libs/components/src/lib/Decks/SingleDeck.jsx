@@ -113,14 +113,14 @@ export const SingleDeck = () => {
         >                                    
             <div className="deck-button">
                 <b style={{padding: '0px 6px'}}>Download</b>
-                <img style={{width:'28px'}} src={`/assets/images/emojis/download.png`}/>
+                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/download.png`}/>
             </div>
         </a>
         <div className="single-deck-title">{deck.type || deck.name}</div>
         <Link to="/builder" state={{ deck: deck }} className="desktop-only">                                    
             <div className="deck-button">
                 <b style={{padding: '0px 6px'}}>Open Deck</b>
-                <img style={{width:'28px'}} src={`/assets/images/emojis/open-file.png`}/>
+                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/open-file.png`}/>
             </div>
         </Link>
       </div>
@@ -136,7 +136,7 @@ export const SingleDeck = () => {
                       <p>{displayName}</p>
                       <img 
                         className="single-deck-builder-cell-pfp"
-                        src={`/assets/images/pfps/${deck.player.discordId || deck.player.name}.png`}
+                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${deck.player.discordId || deck.player.name}.png`}
                         onError={(e) => {
                                 e.target.onerror = null
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
@@ -153,7 +153,7 @@ export const SingleDeck = () => {
             <td>
               <div onClick={() => goToFormat()} className="single-deck-cell">
                 <div className="single-deck-format-link" style={{paddingRight:'7px'}}><b>Format:</b> {deck.formatName}</div>
-                <img style={{width:'28px'}} src={`/assets/images/emojis/${deck.format.icon}.png`}/>
+                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${deck.format.icon}.png`}/>
               </div>       
             </td>
             {
@@ -180,7 +180,7 @@ export const SingleDeck = () => {
                 <td>
                   <div onClick={() => goToEvent()} className="single-deck-cell">
                     <div className="single-deck-event-link" style={{paddingRight:'7px'}}><b>Event:</b> {deck.eventName}</div> 
-                    <img style={{width:'28px'}} src={`/assets/images/logos/${deck.community}.png`}/>
+                    <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${deck.community}.png`}/>
                   </div>   
                 </td>
                 <td>

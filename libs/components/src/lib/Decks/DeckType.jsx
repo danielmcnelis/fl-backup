@@ -109,7 +109,7 @@ export const DeckType = () => {
               <td>
                 <div onClick={() => goToFormat()} className="single-deck-cell">
                   <div className="single-deck-format-link" style={{paddingRight:'7px'}}><b>Format:</b> {summary.format.name}</div>
-                  <img style={{width:'28px'}} src={`/assets/images/emojis/${summary.format.icon}.png`}/>
+                  <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${summary.format.icon}.png`}/>
                 </div>       
               </td>
               <td>
@@ -121,7 +121,7 @@ export const DeckType = () => {
               <td>
                 <div className="single-deck-cell">
                   <div className="single-deck-category" style={{paddingRight:'7px'}}><b>Frequency:</b> {summary.percent}%</div>
-                  <img className="single-deck-category-emoji" style={{width:'28px'}} src={`/assets/images/emojis/math.png`}/>
+                  <img className="single-deck-category-emoji" style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/math.png`}/>
                 </div>
               </td>
             </tr>

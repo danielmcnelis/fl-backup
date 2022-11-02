@@ -15,7 +15,7 @@ export const DeckRow = (props) => {
                   rel="noopener noreferrer"
               >
                 <div className="format-cell-flexbox">
-                  <img src={`/assets/images/emojis/${deck.format.icon}.png`} alt={deck.format.icon}/>
+                  <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${deck.format.icon}.png`} alt={deck.format.icon}/>
                   <div>{deck.formatName}</div>
                 </div>
               </Link>
@@ -51,7 +51,7 @@ export const DeckRow = (props) => {
                 <div className="player-cell">
                   <img 
                       className="player-cell-pfp"
-                      src={`/assets/images/pfps/${deck.player.discordId || deck.player.name}.png`}
+                      src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${deck.player.discordId || deck.player.name}.png`}
                       alt={`${deck.player.name}-pfp`}
                       onError={(e) => {
                               e.target.onerror = null
@@ -82,7 +82,7 @@ export const DeckRow = (props) => {
               >
                 <div className="community-cell-flexbox">
                   {
-                    deck.eventName ? <img src={`/assets/images/logos/${deck.community}.png`} alt={deck.community}/> : <img/>
+                    deck.eventName ? <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${deck.community}.png`} alt={deck.community}/> : <img/>
                   }
                   <div>{deck.eventName || '-'}</div>
                 </div>

@@ -78,7 +78,7 @@ export const StatsRow = (props) => {
                 <div className="player-cell">
                     <img
                         className="player-cell-pfp"
-                        src={`/assets/images/pfps/${stats.player.discordId}.png`}
+                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${stats.player.discordId}.png`}
                         onError={(e) => {
                                 e.target.onerror = null
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"

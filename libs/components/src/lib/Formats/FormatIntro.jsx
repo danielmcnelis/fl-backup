@@ -87,7 +87,7 @@ export const FormatIntro = (props = {}) => {
               <a href="#banlist">Ban List</a>
             </li>
           </div>
-          <img id="format-icon-large" src={`/assets/images/artworks/${format.icon}.jpg`} />
+          <img id="format-icon-large" src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${format.icon}.jpg`} />
         </div>
         {
           format.description ? (

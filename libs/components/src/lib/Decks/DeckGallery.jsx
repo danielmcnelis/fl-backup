@@ -33,9 +33,9 @@ export const DeckGallery = () => {
         <div className="body">
             <div id="popular-decks" className="popular-decks">
                 <div className="subcategory-title-flexbox">
-                    <img style={{ width:'64px'}} src={`/assets/images/emojis/${format.icon}.png`}/>
+                    <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${format.icon}.png`}/>
                     <h1 className="leaderboard-title">{format.name} Deck Gallery</h1>
-                    <img style={{ width:'64px'}} src={`/assets/images/emojis/${format.icon}.png`}/>
+                    <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${format.icon}.png`}/>
                 </div>
                 <div className="popular-decks-flexbox">
                 {
