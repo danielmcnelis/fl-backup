@@ -7,18 +7,18 @@ import axios from 'axios'
 import { dateToSimple, dateToVerbose, ordinalize } from '@fl/utils'
 
 const emojis = {
-  Helmet: '/assets/images/emojis/helmet.png',
-  Controller: '/assets/images/emojis/controller.png',
-  Orb: '/assets/images/emojis/orb.png',
-  Lock: '/assets/images/emojis/lock.png',
-  Thinking: '/assets/images/emojis/thinking.png',
-  First: '/assets/images/emojis/1st.png',
-  Second: '/assets/images/emojis/2nd.png',
-  Third: '/assets/images/emojis/3rd.png',
-  Consolation: '/assets/images/emojis/consolation.png',
-  Heart: '/assets/images/emojis/heart.png',
-  Disk: '/assets/images/emojis/disk.png',
-  Eye: '/assets/images/emojis/eye.png'
+  Helmet: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/helmet.png',
+  Controller: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/controller.png',
+  Orb: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/orb.png',
+  Lock: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/lock.png',
+  Thinking: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/thinking.png',
+  First: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/1st.png',
+  Second: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/2nd.png',
+  Third: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/3rd.png',
+  Consolation: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/consolation.png',
+  Heart: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/heart.png',
+  Disk: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/disk.png',
+  Eye: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/eye.png'
 }
 
 const { Helmet, Controller, Orb, Lock, Thinking, First, Second, Third, Consolation, Heart, Disk, Eye } = emojis

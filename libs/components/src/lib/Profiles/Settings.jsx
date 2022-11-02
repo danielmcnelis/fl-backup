@@ -199,7 +199,7 @@ export const Settings = () => {
                         <div className="profile-line"><b>Discord:</b> {discordName && discriminator ? (<><span>{discordName}</span><span style={{ color: 'gray' }}>#{discriminator}</span></>): 'N/A'}</div>
                         <div className="profile-line"><b>Country:</b> {country ? regionNames.of(country) : ''} {country ? <img className="country" src={`https://www.worldometers.info/img/flags/${country.toLowerCase()}-flag.gif`} alt={country + '-flag'}/> : ''}</div>
                         <div className="profile-line"><b>Time Zone:</b> {timeZone || ''}</div>
-                        <div className="profile-line"><b>YouTube:</b> {youtube ? <a href={youtube} target="_blank" rel="noopener noreferrer"><img className="social-icon" src="/assets/images/logos/youtube.png" alt="YouTube"/></a>: ''}</div>
+                        <div className="profile-line"><b>YouTube:</b> {youtube ? <a href={youtube} target="_blank" rel="noopener noreferrer"><img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/youtube.png" alt="YouTube"/></a>: ''}</div>
                         <div className="profile-line"><b>Twitch:</b> {twitch || ''}</div>
                         <div className="profile-line"><b>Twitter:</b> {twitter || ''}</div>
                     </div>

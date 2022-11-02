@@ -35,7 +35,7 @@ export const BlogPost = (props) => {
                   >
                     <div className="discord-link">
                       <img 
-                        src="/assets/images/logos/Discord.png" 
+                        src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Discord.png" 
                         alt="Discord" 
                         style={{height: "30%", width: "30%"}}
                       />
@@ -50,7 +50,7 @@ export const BlogPost = (props) => {
                     style={{margin: "16px 0px"}}
                   >
                     <img 
-                      src="/assets/images/logos/Twitter.png" 
+                      src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Twitter.png" 
                       alt="Twitter" 
                       style={{height: "30%", width: "30%"}}
                     />
@@ -78,7 +78,7 @@ export const BlogPost = (props) => {
                     style={{margin: "16px 0px 8px"}}
                   >
                     <img 
-                      src="/assets/images/logos/TCGPlayer.png" 
+                      src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/TCGPlayer.png" 
                       alt="TCG Player" 
                       style={{height: "18%", width: "70%"}}
                     />

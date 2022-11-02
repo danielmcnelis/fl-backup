@@ -3,17 +3,17 @@ import { capitalize, underscorize } from '@fl/utils'
 import { Link } from 'react-router-dom'
 
 const emojis = {
-  god: '/assets/images/emojis/god.png',
-  legend: '/assets/images/emojis/legend.png',
-  master: '/assets/images/emojis/master.png',
-  diamond: '/assets/images/emojis/diamond.png',
-  platinum: '/assets/images/emojis/platinum.png',
-  gold: '/assets/images/emojis/gold.png',
-  silver: '/assets/images/emojis/silver.png',
-  bronze: '/assets/images/emojis/bronze.png',
-  rock: '/assets/images/emojis/rock.png',
-  sad: '/assets/images/emojis/sad.png',
-  mad: '/assets/images/emojis/mad.png'
+  god: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/god.png',
+  legend: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/legend.png',
+  master: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/master.png',
+  diamond: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/diamond.png',
+  platinum: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/platinum.png',
+  gold: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/gold.png',
+  silver: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/silver.png',
+  bronze: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/bronze.png',
+  rock: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/rock.png',
+  sad: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/sad.png',
+  mad: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/mad.png'
 }
 const { god, legend, master, diamond, platinum, gold, silver, bronze, rock, sad, mad } = emojis
 

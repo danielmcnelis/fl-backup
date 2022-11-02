@@ -21,7 +21,7 @@ export const Navigation = () => {
         <div className="navigation-bar">
             <Link to="/">
             <div id="logo">
-                <img src={'/assets/images/logos/Format Library.png'} alt="logo"/>
+                <img src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Format Library.png'} alt="logo"/>
                 <h1>Format Library</h1>
             </div>
             </Link>

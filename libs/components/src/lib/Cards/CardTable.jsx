@@ -12,15 +12,15 @@ import { useMediaQuery } from 'react-responsive'
 import { useLocation } from 'react-router-dom'
 
 const symbols = {
-  Star: '/assets/images/symbols/star.png'
+  Star: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/star.png'
 }
 
 const { Star } = symbols
 
 const emojis = {
-  Calendar: '/assets/images/emojis/calendar.png',
-  Shield: '/assets/images/emojis/shield.png',
-  Swords: '/assets/images/emojis/swords.png'
+  Calendar: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/calendar.png',
+  Shield: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/shield.png',
+  Swords: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/swords.png'
 }
 
 const { Calendar, Shield, Swords } = emojis

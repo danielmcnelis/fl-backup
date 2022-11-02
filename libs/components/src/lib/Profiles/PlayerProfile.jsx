@@ -121,7 +121,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="/assets/images/logos/youtube.png" alt="youtube"/>
+                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/youtube.png" alt="youtube"/>
                         </a>
                     ) : ''
                 }
@@ -132,7 +132,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="/assets/images/logos/twitch.png" alt="twitch"/>
+                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/twitch.png" alt="twitch"/>
                         </a>
                     ) : ''
                 }
@@ -143,7 +143,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="/assets/images/logos/twitter.png" alt="twitter"/>
+                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/twitter.png" alt="twitter"/>
                         </a>
                     ) : ''
                 }

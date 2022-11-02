@@ -16,7 +16,7 @@ export const DeckThumbnail = (props) => {
                 src={`/assets/images/artworks/${deck.leftCardYpdId}.jpg`} 
                 onError={(e) => {
                   e.target.onerror = null
-                  e.target.src="/assets/images/artworks/question.jpg"
+                  e.target.src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/question.jpg"
                 }}
               />
               <img 
@@ -24,7 +24,7 @@ export const DeckThumbnail = (props) => {
                 src={`/assets/images/artworks/${deck.centerCardYpdId}.jpg`}
                 onError={(e) => {
                   e.target.onerror = null
-                  e.target.src="/assets/images/artworks/question.jpg"
+                  e.target.src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/question.jpg"
                 }}
               />
               <img 
@@ -32,7 +32,7 @@ export const DeckThumbnail = (props) => {
                 src={`/assets/images/artworks/${deck.rightCardYpdId}.jpg`}
                 onError={(e) => {
                   e.target.onerror = null
-                  e.target.src="/assets/images/artworks/question.jpg"
+                  e.target.src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/question.jpg"
                 }}
               />
           </div>

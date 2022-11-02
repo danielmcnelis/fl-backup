@@ -5,28 +5,28 @@ import { ordinalize } from '@fl/utils'
 //GET MEDAL
 const getMedal = (elo) => {
   return !elo
-    ? '/assets/images/emojis/gold.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/gold.png'
     : elo <= 230
-    ? '/assets/images/emojis/mad.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/mad.png'
     : elo > 230 && elo <= 290
-    ? '/assets/images/emojis/sad.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/sad.png'
     : elo > 290 && elo <= 350
-    ? '/assets/images/emojis/rock.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/rock.png'
     : elo > 350 && elo <= 410
-    ? '/assets/images/emojis/bronze.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/bronze.png'
     : elo > 410 && elo <= 470
-    ? '/assets/images/emojis/silver.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/silver.png'
     : elo > 470 && elo <= 530
-    ? '/assets/images/emojis/gold.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/gold.png'
     : elo > 530 && elo <= 590
-    ? '/assets/images/emojis/platinum.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/platinum.png'
     : elo > 590 && elo <= 650
-    ? '/assets/images/emojis/diamond.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/diamond.png'
     : elo > 650 && elo <= 710
-    ? '/assets/images/emojis/master.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/master.png'
     : elo > 710 && elo <= 770
-    ? '/assets/images/emojis/legend.png'
-    : '/assets/images/emojis/god.png'
+    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/legend.png'
+    : 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/god.png'
 }
 
 //GET TITLE

@@ -3,10 +3,10 @@ import { ordinalize } from "@fl/utils"
 import { Link } from "react-router-dom"
 
 const emojis = {
-  First: '/assets/images/emojis/1st.png',
-  Second: '/assets/images/emojis/2nd.png',
-  Third: '/assets/images/emojis/3rd.png',
-  Consolation: '/assets/images/emojis/consolation.png'
+  First: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/1st.png',
+  Second: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/2nd.png',
+  Third: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/3rd.png',
+  Consolation: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/consolation.png'
 }
 const { First, Second, Third, Consolation } = emojis
 

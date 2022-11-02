@@ -7,11 +7,11 @@ import { NotFound } from '../General/NotFound'
 import { useLocation } from 'react-router-dom'
 
 const emojis = {
-  Helmet: '/assets/images/emojis/helmet.png',
-  Controller: '/assets/images/emojis/controller.png',
-  Orb: '/assets/images/emojis/orb.png',
-  Lock: '/assets/images/emojis/lock.png',
-  Thinking: '/assets/images/emojis/thinking.png'
+  Helmet: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/helmet.png',
+  Controller: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/controller.png',
+  Orb: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/orb.png',
+  Lock: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/lock.png',
+  Thinking: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/thinking.png'
 }
 const { Helmet, Controller, Orb, Lock, Thinking } = emojis
 

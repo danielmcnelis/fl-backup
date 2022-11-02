@@ -157,7 +157,7 @@ export const EventTable = (props) => {
       <div className="body">
         <div className="event-database-flexbox">
           <h1>Event Database</h1>
-          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'} alt="trophy"/>
+          <img style={{ height:'80px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/event.png'} alt="trophy"/>
         </div>
   
         <div className="searchWrapper">
@@ -277,9 +277,9 @@ export const EventTable = (props) => {
     return (
       <div className="body">
         <div className="event-database-flexbox">
-          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'} alt="trophy"/>
+          <img style={{ height:'80px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/event.png'} alt="trophy"/>
           <h1>Event Database</h1>
-          <img style={{ height:'80px'}} src={'/assets/images/emojis/event.png'} alt="trophy"/>
+          <img style={{ height:'80px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/event.png'} alt="trophy"/>
         </div>
         
         <br />

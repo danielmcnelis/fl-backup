@@ -206,7 +206,7 @@ export const SingleEvent = (props) => {
         <div className="subcategory-title-flexbox">
           <img style={{ width:'64px'}} src={`/assets/images/emojis/${event.format.icon}.png`}/>
           <h2 className="subheading"><b>{event.abbreviation}</b> Bracket:</h2>
-          <img style={{ width:'64px'}} src={'/assets/images/logos/Challonge.png'}/>
+          <img style={{ width:'64px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Challonge.png'}/>
         </div>
         <img 
           style={{width:'800px'}}
@@ -215,7 +215,7 @@ export const SingleEvent = (props) => {
           onError={(e) => {
             e.target.onerror = null
             e.target.style.width = "300px"
-            e.target.src="/assets/images/artworks/dig.jpg"
+            e.target.src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/dig.jpg"
           }}
         />
         <a 
@@ -233,7 +233,7 @@ export const SingleEvent = (props) => {
             <div className="subcategory-title-flexbox">
               <img style={{ width:'64px'}} src={`/assets/images/emojis/${event.format.icon}.png`}/>
               <h2 className="subheading"><b>{event.abbreviation}</b> {topDecks.length > 1 ? `Top ${topDecks.length} Decks` : 'Winning Deck'}:</h2>
-              <img style={{ height:'64px'}} src={'/assets/images/emojis/deckbox.png'}/>
+              <img style={{ height:'64px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/deckbox.png'}/>
             </div>
             <div id="deckGalleryFlexBox">
             {
@@ -261,7 +261,7 @@ export const SingleEvent = (props) => {
             <div className="subcategory-title-flexbox">
               <img style={{ width:'64px'}} src={`/assets/images/emojis/${event.format.icon}.png`}/>
               <h2 className="subheading"><b>{event.abbreviation}</b> Metagame Stats:</h2>
-              <img style={{ height:'64px'}} src={'/assets/images/emojis/microscope.png'}/>
+              <img style={{ height:'64px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/microscope.png'}/>
             </div>
 
             <div className="chart-flexbox">

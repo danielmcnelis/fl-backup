@@ -23,7 +23,7 @@ export const imagesCreate = async (req, res, next) => {
       .replace(/^data:image\/jpg;base64,/, '')
       .replace(/^data:image\/jpeg;base64,/, '')
       .replace(/^data:image\/png;base64,/, '')
-    fs.writeFileSync(`./assets/images/${req.body.folder}/${req.body.fileName}`, buffer, 'base64')
+    fs.writeFileSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/${req.body.folder}/${req.body.fileName}`, buffer, 'base64')
     res.json({ success: true })
   } catch (err) {
     next(err)
