@@ -3,7 +3,7 @@ runauth
 runapi
 
 # compiled output
-#/dist
+/dist
 /tmp
 /out-tsc
 
