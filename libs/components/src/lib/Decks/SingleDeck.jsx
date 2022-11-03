@@ -161,7 +161,7 @@ export const SingleDeck = () => {
               </div>       
             </td>
             {
-                deck.category && deck.publishDate ? (
+                deck.category ? (
                     <td>
                       <div className="single-deck-cell">
                         <div className="single-deck-category" style={{paddingRight:'7px'}}><b>Category:</b> {deck.category}</div>
@@ -179,7 +179,7 @@ export const SingleDeck = () => {
             }
           </tr>
           {
-            deck.eventName && deck.placement && deck.publishDate ? (
+            deck.eventName && deck.placement ? (
                 <tr className="single-deck-info-2">
                 <td>
                   <div onClick={() => goToEvent()} className="single-deck-cell">

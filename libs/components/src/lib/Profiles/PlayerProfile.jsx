@@ -6,6 +6,7 @@ import { Placement } from './Placement'
 import { DeckThumbnail } from '../Decks/DeckThumbnail'
 import { NotFound } from '../General/NotFound'
 import { useLocation, useParams } from 'react-router-dom'
+import './PlayerProfile.css'
 
 export const PlayerProfile = () => {
   const [player, setPlayer] = useState({})
@@ -124,7 +125,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/youtube.png" alt="youtube"/>
+                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/YouTube.png" alt="youtube"/>
                         </a>
                     ) : ''
                 }
@@ -135,7 +136,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/twitch.png" alt="twitch"/>
+                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Twitch.png" alt="twitch"/>
                         </a>
                     ) : ''
                 }
@@ -146,7 +147,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/twitter.png" alt="twitter"/>
+                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Twitter.png" alt="twitter"/>
                         </a>
                     ) : ''
                 }
