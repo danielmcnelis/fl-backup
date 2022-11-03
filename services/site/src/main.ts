@@ -47,8 +47,8 @@ const port = config.service.port
 
 if (config.service.https === '1' || config.service.https === 'true') {
   // load key/cert
-  const privateKey = existsSync('certs/privkey.pem') ? readFileSync('certs/privkey.pem', 'utf8') : ''
-  const certificate = existsSync('certs/fullchain.pem') ? readFileSync('certs/fullchain.pem', 'utf8') : ''
+  const privateKey = existsSync('../../../certs/privkey.pem') ? readFileSync('../../../certs/privkey.pem', 'utf8') : ''
+  const certificate = existsSync('../../../certs/fullchain.pem') ? readFileSync('../../../certs/fullchain.pem', 'utf8') : ''
   const credentials = { key: privateKey, cert: certificate }
 
   // Wrap(proxy) http server with https server

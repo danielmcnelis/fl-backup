@@ -3,6 +3,7 @@ runauth
 runapi
 
 # compiled output
+/certs
 /dist
 /tmp
 /out-tsc
