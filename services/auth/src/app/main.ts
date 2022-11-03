@@ -18,7 +18,7 @@ if (config.siteProxy === 'true') {
     app.use('/auth', (req, _res, next) => {
         const from = req.url
         console.log('from', from)
-        const to = from.replace('/auth/', '/')
+        const to = from.replace(/auth/g, '/')
         console.log('to', to)
         req.url = to
         console.log('req.url', req.url)
