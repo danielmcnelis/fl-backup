@@ -158,6 +158,7 @@ export const Builder = () => {
                     playerId: getCookie('playerId'),
                     type: deck.type,
                     deckTypeId: deck.deckTypeId,
+                    category: deck.category,
                     suggestedType: deck.suggestedType,
                     formatName: format.name,
                     formatDate: format.date,
