@@ -320,8 +320,8 @@ app.use(middleware_1.error);
 const port = config_1.default.service.port;
 if (config_1.default.service.https === '1' || config_1.default.service.https === 'true') {
     // load key/cert
-    const privateKey = (0, fs_1.existsSync)('certs/privkey.pem') ? (0, fs_1.readFileSync)('certs/privkey.pem', 'utf8') : '';
-    const certificate = (0, fs_1.existsSync)('certs/fullchain.pem') ? (0, fs_1.readFileSync)('certs/fullchain.pem', 'utf8') : '';
+    const privateKey = (0, fs_1.existsSync)('../../../certs/privkey.pem') ? (0, fs_1.readFileSync)('../../../certs/privkey.pem', 'utf8') : '';
+    const certificate = (0, fs_1.existsSync)('../../../certs/fullchain.pem') ? (0, fs_1.readFileSync)('../../../certs/fullchain.pem', 'utf8') : '';
     const credentials = { key: privateKey, cert: certificate };
     // Wrap(proxy) http server with https server
     httpsServer = https.createServer(credentials, app);
