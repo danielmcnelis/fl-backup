@@ -29,14 +29,10 @@ export const DeckType = () => {
     // USE EFFECT SET CARD
     useEffect(() => {
       const fetchData = async () => {
-        const search = location ? location.search : null
-        const format = search ? search.slice(search.indexOf('?format=') + 8) : null
+        const format = location?.search?.slice(8)
   
         try {
-          const {data} = await axios.get(`/api/deckTypes/summary?id=${id}`, {
-              format: format
-          })
-  
+          const {data} = await axios.get(`/api/deckTypes/summary?id=${id}&format=${format}`)
           setSummary(data)
         } catch (err) {
           console.log(err)
@@ -51,7 +47,7 @@ export const DeckType = () => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const {data} = await axios.get(`/api/banlists/simple/${summary.format.banlist}`)
+          const {data} = await axios.get(`/api/banlists/simple/${summary?.format?.banlist}`)
           setBanList(data)
         } catch (err) {
           console.log(err)

@@ -48,7 +48,7 @@ export const deckTypesSummary = async (req, res, next) => {
     const topFormat = sortedFreqs[0][0]
     const format = await Format.findOne({
       where: {
-        name: { [Op.iLike]: req.body.format || topFormat }
+        name: { [Op.iLike]: req.query.format || topFormat }
       },
       attributes: ['id', 'name', 'banlist', 'date', 'icon']
     })

@@ -5458,7 +5458,7 @@ const deckTypesSummary = (req, res, next) => tslib_1.__awaiter(void 0, void 0, v
         const topFormat = sortedFreqs[0][0];
         const format = yield models_1.Format.findOne({
             where: {
-                name: { [sequelize_1.Op.iLike]: req.body.format || topFormat }
+                name: { [sequelize_1.Op.iLike]: req.query.format || topFormat }
             },
             attributes: ['id', 'name', 'banlist', 'date', 'icon']
         });

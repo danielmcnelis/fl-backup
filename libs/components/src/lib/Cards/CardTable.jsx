@@ -27,9 +27,10 @@ const { Calendar, Shield, Swords } = emojis
 
 const now = new Date()
 
-export const CardTable = (props) => {
+export const CardTable = () => {
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 860px)' })
-    const formatName = location && location.search ? location.search.slice(8) : null
+    const location = useLocation()
+    const formatName = location?.search?.slice(8)
     const [page, setPage] = useState(1)
     const [cards, setCards] = useState([])
     const [cardsPerPage, setCardsPerPage] = useState(10)
@@ -43,7 +44,6 @@ export const CardTable = (props) => {
     const [booster, setBooster] = useState(null)
     const [advanced, setAdvanced] = useState(false)
     const [cutoff, setCutoff] = useState(`${now.getFullYear()}-12-31`)
-    const location = useLocation()
   
     const [sliders, setSliders] = useState({
       year: now.getFullYear(),

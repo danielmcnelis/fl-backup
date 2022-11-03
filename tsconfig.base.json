@@ -17,6 +17,7 @@
     "paths": {
       "@fl/components": ["libs/components/src/index.ts"],
       "@fl/errors": ["libs/errors/src/index.ts"],
+      "@fl/jwt": ["libs/jwt/src/index.ts"],
       "@fl/logging": ["libs/logging/src/index.ts"],
       "@fl/middleware": ["libs/middleware/src/index.ts"],
       "@fl/middleware-auth": ["libs/middleware-auth/src/index.ts"],

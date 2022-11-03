@@ -15,7 +15,7 @@ import { config } from './config'
 	--jwt          JWT tp verify
 	--expires      Expires in
 	--verbose      Show keys
-	--help         Show available options	
+	--h         Show available options	
 	`)
     process.exit()
   }
