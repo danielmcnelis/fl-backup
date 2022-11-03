@@ -5531,7 +5531,7 @@ const app = express();
 if (config_1.default.siteProxy === 'true') {
     // rewrite
     console.log('rewrite', config_1.default.siteProxy);
-    app.use('/auth', (req, res, next) => {
+    app.use('/auth', (req, _res, next) => {
         const from = req.url;
         console.log('from', from);
         const to = from.replace('/auth/auth/', '/auth/');

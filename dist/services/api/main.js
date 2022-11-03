@@ -5005,7 +5005,7 @@ const app = express();
 if (config_1.default.siteProxy === 'true') {
     // rewrite
     console.log('rewrite', config_1.default.siteProxy);
-    app.use('/api', (req, res, next) => {
+    app.use('/api', (req, _res, next) => {
         const from = req.url;
         console.log('from', from);
         const to = from.replace('/api/api/', '/api/');

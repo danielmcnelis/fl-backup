@@ -24,7 +24,7 @@ const app = express()
 if (config.siteProxy === 'true') {
     // rewrite
     console.log('rewrite', config.siteProxy)
-    app.use('/api', (req, res, next) => {
+    app.use('/api', (req, _res, next) => {
         const from = req.url
         console.log('from', from)
         const to = from.replace('/api/api/', '/api/')

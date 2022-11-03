@@ -15,7 +15,7 @@ const app = express()
 if (config.siteProxy === 'true') {
     // rewrite
     console.log('rewrite', config.siteProxy)
-    app.use('/auth', (req, res, next) => {
+    app.use('/auth', (req, _res, next) => {
         const from = req.url
         console.log('from', from)
         const to = from.replace('/auth/auth/', '/auth/')
@@ -24,7 +24,7 @@ if (config.siteProxy === 'true') {
         console.log('req.url', req.url)
         next()
     })
-    
+
     console.log(chalk.cyan(`Rewrite /auth/auth/* to /auth/`))
 }
 
