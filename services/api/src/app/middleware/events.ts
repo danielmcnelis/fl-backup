@@ -24,7 +24,7 @@ export const eventsAll = async (req, res, next) => {
       ],
       include: [
         { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
       ],
       order: [['startDate', 'DESC']]
     })
@@ -99,7 +99,7 @@ export const eventsCommunity = async (req, res, next) => {
       ],
       include: [
         { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
       ],
       order: [['startDate', 'DESC']]
     })
@@ -120,7 +120,7 @@ export const eventsRecent = async (req, res, next) => {
       // attributes: ['id', 'name', 'abbreviation', 'winner', 'playerId', 'community', 'startDate', 'endDate'],
       include: [
         { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
       ],
       attributes: { exclude: ['createdAt', 'updatedAt'] },
       order: [['startDate', 'DESC']],
@@ -159,7 +159,7 @@ export const eventsFirst = async (req, res, next) => {
       ],
       include: [
         { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
       ],
       order: [['startDate', 'DESC']],
       limit: req.params.x
@@ -193,7 +193,7 @@ export const eventsId = async (req, res, next) => {
       ],
       include: [
         { model: Format, attributes: ['id', 'name', 'icon'] },
-        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+        { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
       ]
     })
 

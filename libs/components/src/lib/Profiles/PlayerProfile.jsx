@@ -87,7 +87,10 @@ export const PlayerProfile = () => {
           <div className="player-profile-title">{player.name}</div>
             <img
                 className="player-pfp"
-                src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${player.discordId}.png`} 
+                src={
+                  player.discordPfp ? `https://cdn.discordapp.com/avatars/${player.discordId}/${player.discordPfp}.webp` :
+                  `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${player.name}.png`
+                }
                 alt={player.name}
                 onError={(e) => {
                 e.target.onerror = null

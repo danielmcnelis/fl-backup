@@ -14,19 +14,25 @@ export const EventThumbnail = (props = {}) => {
                   <img 
                     className="eventThumbnail-image" 
                     src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                    alt={event.format.name}
                   />
                   <img 
                     className="eventThumbnail-player-pfp" 
-                    src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${winner.discordId || winner.name}.png`} 
+                    src={
+                      winner.discordPfp ? `https://cdn.discordapp.com/avatars/${winner.discordId}/${winner.discordPfp}.webp` :
+                      `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${winner.discordId || winner.name}.png`
+                    }
                     onError={(e) => {
                             e.target.onerror = null
                             e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
                         }
                     }
+                    alt={winner.name}
                   />
                   <img 
                     className="eventThumbnail-image" 
                     src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${event.community}.png`} 
+                    alt={event.community}
                   />
               </div>
           </div>

@@ -1,6 +1,6 @@
 
 import parse from 'html-react-parser'
-// import Adsense from 'react-adsense'
+import Adsense from 'react-adsense'
 import { useMediaQuery } from 'react-responsive'
 
 export const BlogPost = (props) => {
@@ -86,7 +86,7 @@ export const BlogPost = (props) => {
                   </a>
                 </div>
               ) : (
-                <ins
+                <Adsense.Google
                   className="vertical-adsense"
                   client="ca-pub-2048547741313745"
                   slot="8384346734"

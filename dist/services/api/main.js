@@ -5914,7 +5914,7 @@ const decksBuilderId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, voi
             attributes: ['id', 'name', 'url', 'ydk', 'builder', 'playerId', 'type', 'deckTypeId', 'suggestedType', 'formatName', 'formatId', 'display', 'shareLink', 'linkExpiration'],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'date', 'banlist', 'icon'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ],
         });
         const main = [];
@@ -6307,7 +6307,7 @@ const decksId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, fu
             ],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'icon', 'banlist'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ]
         });
         if (!deck)
@@ -6465,7 +6465,7 @@ const eventsAll = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, 
             ],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'icon'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ],
             order: [['startDate', 'DESC']]
         });
@@ -6539,7 +6539,7 @@ const eventsCommunity = (req, res, next) => tslib_1.__awaiter(void 0, void 0, vo
             ],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'icon'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ],
             order: [['startDate', 'DESC']]
         });
@@ -6560,7 +6560,7 @@ const eventsRecent = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 
             // attributes: ['id', 'name', 'abbreviation', 'winner', 'playerId', 'community', 'startDate', 'endDate'],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'icon'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ],
             attributes: { exclude: ['createdAt', 'updatedAt'] },
             order: [['startDate', 'DESC']],
@@ -6597,7 +6597,7 @@ const eventsFirst = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0
             ],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'icon'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ],
             order: [['startDate', 'DESC']],
             limit: req.params.x
@@ -6631,7 +6631,7 @@ const eventsId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, f
             ],
             include: [
                 { model: models_1.Format, attributes: ['id', 'name', 'icon'] },
-                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+                { model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
             ]
         });
         const topDecks = yield models_1.Deck.findAll({
@@ -6962,7 +6962,7 @@ const playersQuery = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 
             where: {
                 name: { [sequelize_1.Op.substring]: req.params.query }
             },
-            attributes: ['id', 'name', 'discriminator', 'discordId', 'firstName', 'lastName'],
+            attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp', 'firstName', 'lastName'],
             order: [['name', 'ASC']]
         });
         res.json(players);
@@ -6983,7 +6983,7 @@ const playersId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, 
                 id: { [sequelize_1.Op.iLike]: req.params.id },
                 hidden: false
             }),
-            attributes: ['id', 'email', 'name', 'discordId', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
+            attributes: ['id', 'email', 'name', 'discordId', 'discordPfp', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
         });
         res.json(player);
     }
@@ -6995,7 +6995,7 @@ exports.playersId = playersId;
 const playersAll = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     try {
         const players = yield models_1.Player.findAll({
-            attributes: ['id', 'name', 'discordId', 'discriminator', 'firstName', 'lastName', 'duelingBook'],
+            attributes: ['id', 'name', 'discordId', 'discordPfp', 'discriminator', 'firstName', 'lastName', 'duelingBook'],
             order: [['name', 'ASC']]
         });
         res.json(players);
@@ -7011,7 +7011,7 @@ const playersUpdateId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, vo
             where: {
                 id: req.params.id
             },
-            attributes: ['id', 'email', 'name', 'discordId', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
+            attributes: ['id', 'email', 'name', 'discordId', 'discordPfp', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
         });
         if (!req.body.name || !req.body.name.length) {
             res.sendStatus(400);
@@ -7128,7 +7128,7 @@ const statsLeaders = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 
                 '$player.hidden$': false
             },
             attributes: ['id', 'format', 'elo', 'wins', 'losses', 'playerId'],
-            include: [{ model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }],
+            include: [{ model: models_1.Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }],
             limit: parseInt(req.params.limit) || 10,
             order: [['elo', 'DESC']]
         });

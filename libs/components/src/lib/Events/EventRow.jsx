@@ -28,12 +28,16 @@ export const EventRow = (props) => {
               <div className="player-cell">
                 <img 
                     className="player-cell-pfp"
-                    src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${event.player.discordId || event.player.name}.png`}
+                    src={
+                      event.player.discordPfp ? `https://cdn.discordapp.com/avatars/${event.player.discordId}/${event.player.discordPfp}.webp` :
+                      `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${event.player.discordId || event.player.name}.png`
+                    }
                     onError={(e) => {
                             e.target.onerror = null
                             e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
                         }
                     }
+                    alt={event.player.name}
                 />
                 <div>{event.winner || 'N/A'}</div>
               </div>

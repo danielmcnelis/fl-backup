@@ -27,7 +27,7 @@ export const playersQuery = async (req, res, next) => {
       where: {
         name: { [Op.substring]: req.params.query }
       },
-      attributes: ['id', 'name', 'discriminator', 'discordId', 'firstName', 'lastName'],
+      attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp', 'firstName', 'lastName'],
       order: [['name', 'ASC']]
     })
 
@@ -48,7 +48,7 @@ export const playersId = async (req, res, next) => {
                 id: { [Op.iLike]: req.params.id },
                 hidden: false            
         }),
-        attributes: ['id', 'email', 'name', 'discordId', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
+        attributes: ['id', 'email', 'name', 'discordId', 'discordPfp', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
     })
 
     res.json(player)
@@ -60,7 +60,7 @@ export const playersId = async (req, res, next) => {
 export const playersAll = async (req, res, next) => {
   try {
     const players = await Player.findAll({
-      attributes: ['id', 'name', 'discordId', 'discriminator', 'firstName', 'lastName', 'duelingBook'],
+      attributes: ['id', 'name', 'discordId', 'discordPfp', 'discriminator', 'firstName', 'lastName', 'duelingBook'],
       order: [['name', 'ASC']]
     })
 
@@ -76,7 +76,7 @@ export const playersUpdateId = async (req, res, next) => {
             where: {
                 id: req.params.id
             },
-            attributes: ['id', 'email', 'name', 'discordId', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
+            attributes: ['id', 'email', 'name', 'discordId', 'discordPfp', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
         })
 
         if (!req.body.name || !req.body.name.length) {

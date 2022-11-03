@@ -133,22 +133,33 @@ export const SingleEvent = (props) => {
                       <div onClick={() => goToPlayer()} className="single-event-winner-link">
                         <b>Winner: </b>{event.winner}
                         <img 
-                          className="single-event-winner-cell-pfp"
-                          src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${event.player.discordId || event.player.name}.png`}
-                          onError={(e) => {
-                                  e.target.onerror = null
-                                  e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
-                              }
-                          }
+                            className="single-event-winner-cell-pfp"
+                            src={
+                                event.player.discordPfp ? `https://cdn.discordapp.com/avatars/${event.player.discordId}/${event.player.discordPfp}.webp` :
+                                `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${event.player.name}.png`
+                            }
+                            onError={(e) => {
+                                e.target.onerror = null
+                                e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
+                            }}
+                            alt={event.player.name}
                         />
                       </div>
-                      <img style={{width:'32px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/1st.png`}/>
+                      <img 
+                        style={{width:'32px'}} 
+                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/1st.png`}
+                        alt="1st"
+                      />
                   </div>
                 </td>
                 <td className="desktop-only">
                   <div className="single-event-cell">
                     <div style={{paddingRight:'7px'}}><b>Community:</b> {event.community}</div> 
-                    <img style={{width:'32px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${event.community}.png`}/>
+                    <img 
+                        style={{width:'32px'}} 
+                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${event.community}.png`}
+                        alt={event.community}
+                    />
                   </div>   
                 </td>
                 <td>   
@@ -161,7 +172,11 @@ export const SingleEvent = (props) => {
                 <td>
                   <div className="single-event-cell">
                     <div onClick={() => goToFormat()} className="single-event-format-link" style={{paddingRight:'7px'}}><b>Format:</b> {capitalize(event.formatName, true)}</div>
-                    <img style={{width:'32px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}/>
+                    <img 
+                        style={{width:'32px'}} 
+                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                        alt={event.format.name}
+                    />
                   </div>     
                 </td>
                 <td className="desktop-only">
@@ -204,9 +219,17 @@ export const SingleEvent = (props) => {
 
       <div id="bracket">
         <div className="subcategory-title-flexbox">
-          <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}/>
+          <img 
+            style={{ width:'64px'}} 
+            src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+            alt={event.format.name}
+          />
           <h2 className="subheading"><b>{event.abbreviation}</b> Bracket:</h2>
-          <img style={{ width:'64px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Challonge.png'}/>
+          <img 
+            style={{ width:'64px'}} 
+            src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Challonge.png'}
+            alt="challonge"
+          />
         </div>
         <img 
           style={{width:'800px'}}
@@ -217,11 +240,13 @@ export const SingleEvent = (props) => {
             e.target.style.width = "300px"
             e.target.src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/dig.jpg"
           }}
+          alt="bracket"
         />
         <a 
           className="bracket-link"
           href={event.referenceUrl} 
           target="_blank"
+          rel="noreferrer"
         >
           Click Here for Full Bracket
         </a>
@@ -231,9 +256,17 @@ export const SingleEvent = (props) => {
         topDecks.length ? (
           <div id="top-decks">
             <div className="subcategory-title-flexbox">
-              <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}/>
+              <img 
+                style={{ width:'64px'}} 
+                src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                alt={event.format.name}
+              />
               <h2 className="subheading"><b>{event.abbreviation}</b> {topDecks.length > 1 ? `Top ${topDecks.length} Decks` : 'Winning Deck'}:</h2>
-              <img style={{ height:'64px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/deckbox.png'}/>
+              <img 
+                style={{ height:'64px'}} 
+                src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/deckbox.png'}
+                alt="deckbox"
+              />
             </div>
             <div id="deckGalleryFlexBox">
             {
@@ -259,9 +292,17 @@ export const SingleEvent = (props) => {
         metagame.deckTypes.length ? (
           <div id="metagame-stats">
             <div className="subcategory-title-flexbox">
-              <img style={{ width:'64px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}/>
+              <img 
+                style={{ width:'64px'}} 
+                src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                alt={event.format.name}
+              />
               <h2 className="subheading"><b>{event.abbreviation}</b> Metagame Stats:</h2>
-              <img style={{ height:'64px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/microscope.png'}/>
+              <img 
+                style={{ height:'64px'}} 
+                src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/microscope.png'}
+                alt="microscope"
+              />
             </div>
 
             <div className="chart-flexbox">

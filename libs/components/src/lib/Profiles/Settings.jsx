@@ -190,7 +190,7 @@ export const Settings = () => {
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
                             }
                         }
-                        alt="profile"
+                        alt="your pfp"
                     />
                     <div className="profile-info"> 
                         <div className="profile-line"><b>Name:</b> {firstName && lastName ? `${firstName} ${lastName}` : ''}</div>

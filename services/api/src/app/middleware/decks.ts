@@ -174,7 +174,7 @@ export const decksBuilderId = async (req, res, next) => {
             attributes: ['id', 'name', 'url', 'ydk', 'builder', 'playerId', 'type', 'deckTypeId', 'suggestedType', 'formatName', 'formatId', 'display', 'shareLink', 'linkExpiration'],            
             include: [
                 { model: Format, attributes: ['id', 'name', 'date', 'banlist', 'icon']},
-                { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId']}
+                { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp']}
             ],
         })
 
@@ -592,7 +592,7 @@ export const decksId = async (req, res, next) => {
         ],
         include: [
             { model: Format, attributes: ['id', 'name', 'icon', 'banlist'] },
-            { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId'] }
+            { model: Player, attributes: ['id', 'name', 'discriminator', 'discordId', 'discordPfp'] }
         ]
     })
 

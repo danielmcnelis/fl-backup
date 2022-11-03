@@ -78,7 +78,10 @@ export const StatsRow = (props) => {
                 <div className="player-cell">
                     <img
                         className="player-cell-pfp"
-                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${stats.player.discordId}.png`}
+                        src={
+                          stats.player.discordPfp ? `https://cdn.discordapp.com/avatars/${stats.player.discordId}/${stats.player.discordPfp}.webp` :
+                          `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${stats.player.name}.png`
+                        }
                         onError={(e) => {
                                 e.target.onerror = null
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
@@ -93,7 +96,7 @@ export const StatsRow = (props) => {
             <td className="leaderboard-cell-4">
                 <div className="medal-cell">
                     <div className="medal-title">{getTitle(elo)}</div>
-                    <img width="32px" src={getMedal(elo)}/>
+                    <img width="32px" src={getMedal(elo)} alt="medal"/>
                 </div>
             </td>
             <td className="leaderboard-cell-5">{wins}</td>
