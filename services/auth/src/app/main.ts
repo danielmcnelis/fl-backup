@@ -12,7 +12,7 @@ import config from './config'
 
 const app = express()
 
-if (config.siteProxy === 'true') {
+// if (config.siteProxy === 'true') {
     // rewrite
     console.log('rewrite', config.siteProxy)
     app.use('/auth', (req, _res, next) => {
@@ -25,8 +25,8 @@ if (config.siteProxy === 'true') {
         next()
     })
 
-    console.log(chalk.cyan(`Rewrite /auth/* to /`))
-}
+//     console.log(chalk.cyan(`Rewrite /auth/* to /`))
+// }
 
 // body parsing
 app.use(express.urlencoded())
