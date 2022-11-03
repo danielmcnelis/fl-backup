@@ -62,14 +62,14 @@ export const FormatIntro = (props = {}) => {
             {
               deckCount ? (
                 <li>
-                  <a href="#popular-decks">Popular Decks</a>
+                  <a href={`/formats/${format.name}#popular-decks`}>Popular Decks</a>
                 </li>
               ) : ''
             }
             {
               eventCount ? (
                 <li>
-                  <a href="#recent-events">Recent Events</a>
+                  <a href={`/formats/${format.name}#recent-events`}>Recent Events</a>
                 </li>
               ) : ''
             }

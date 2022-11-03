@@ -5002,15 +5002,20 @@ const routes_1 = __webpack_require__("./services/api/src/app/routes/index.ts");
 const middleware_1 = __webpack_require__("./libs/middleware/src/index.ts");
 const config_1 = __webpack_require__("./services/api/src/app/config/index.ts");
 const app = express();
-// if (config.siteProxy === 'true') {
-// rewrite
-app.use('/api', (req, _res, next) => {
-    const from = req.url;
-    const to = from.replace('/api/', '/');
-    req.url = to;
-    next();
-});
-// }
+if (config_1.default.siteProxy === 'true') {
+    // rewrite
+    console.log('rewrite', config_1.default.siteProxy);
+    app.use('/api', (req, res, next) => {
+        const from = req.url;
+        console.log('from', from);
+        const to = from.replace('/api/api/', '/api/');
+        console.log('to', to);
+        req.url = to;
+        console.log('req.url', req.url);
+        next();
+    });
+    console.log(chalk.cyan(`Rewrite /api/api/* to /api/`));
+}
 // logging
 app.use(morgan('dev'));
 // compression
@@ -6406,13 +6411,15 @@ exports.decksId = decksId;
 const decksCreate = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     try {
         const format = yield models_1.Format.findOne({ where: { name: { [sequelize_1.Op.iLike]: req.body.format || req.body.formatName } } });
+        const player = yield models_1.Player.findOne({ where: { id: req.body.playerId } });
         const deck = yield models_1.Deck.create({
-            builder: req.body.builder,
-            playerId: req.body.playerId,
+            builder: player.name,
+            playerId: player.id,
             type: req.body.type,
+            suggestedType: req.body.suggestedType,
             deckTypeId: req.body.deckTypeId,
             category: req.body.category,
-            formatName: req.body.format,
+            formatName: format.name,
             formatId: format.id,
             ydk: req.body.ydk,
             eventName: req.body.eventName,

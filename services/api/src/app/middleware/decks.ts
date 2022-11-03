@@ -697,13 +697,16 @@ export const decksId = async (req, res, next) => {
 export const decksCreate = async (req, res, next) => {
   try {
     const format = await Format.findOne({ where: { name: { [Op.iLike]: req.body.format || req.body.formatName } } })
+    const player = await Player.findOne({ where: { id: req.body.playerId } })
+
     const deck = await Deck.create({
-      builder: req.body.builder,
-      playerId: req.body.playerId,
+      builder: player.name,
+      playerId: player.id,
       type: req.body.type,
+      suggestedType: req.body.suggestedType,
       deckTypeId: req.body.deckTypeId,
       category: req.body.category,
-      formatName: req.body.format,
+      formatName: format.name,
       formatId: format.id,
       ydk: req.body.ydk,
       eventName: req.body.eventName,

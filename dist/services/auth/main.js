@@ -5528,15 +5528,20 @@ const routes_1 = __webpack_require__("./services/auth/src/app/routes/index.ts");
 const middleware_1 = __webpack_require__("./libs/middleware/src/index.ts");
 const config_1 = __webpack_require__("./services/auth/src/app/config/index.ts");
 const app = express();
-// if (config.siteProxy === 'true') {
-app.use('/auth', (req, _res, next) => {
-    const from = req.url;
-    const to = from.replace('/auth/', '/');
-    req.url = to;
-    next();
-});
-// console.log(chalk.cyan(`Rewrite /auth/.* to /`))
-// }
+if (config_1.default.siteProxy === 'true') {
+    // rewrite
+    console.log('rewrite', config_1.default.siteProxy);
+    app.use('/auth', (req, res, next) => {
+        const from = req.url;
+        console.log('from', from);
+        const to = from.replace('/auth/auth/', '/auth/');
+        console.log('to', to);
+        req.url = to;
+        console.log('req.url', req.url);
+        next();
+    });
+    console.log(chalk.cyan(`Rewrite /auth/auth/* to /auth/`));
+}
 // body parsing
 app.use(express.urlencoded());
 // app.use(express.json())

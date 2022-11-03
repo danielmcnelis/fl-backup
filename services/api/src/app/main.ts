@@ -21,15 +21,20 @@ import config from './config'
 
 const app = express()
 
-// if (config.siteProxy === 'true') {
+if (config.siteProxy === 'true') {
     // rewrite
-    app.use('/api', (req, _res, next) => {
+    console.log('rewrite', config.siteProxy)
+    app.use('/api', (req, res, next) => {
         const from = req.url
-        const to = from.replace('/api/', '/')
+        console.log('from', from)
+        const to = from.replace('/api/api/', '/api/')
+        console.log('to', to)
         req.url = to
+        console.log('req.url', req.url)
         next()
     })
-// }
+    console.log(chalk.cyan(`Rewrite /api/api/* to /api/`))
+}
   
 // logging
 app.use(morgan('dev'))
