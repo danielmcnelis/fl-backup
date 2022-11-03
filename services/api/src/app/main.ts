@@ -27,13 +27,13 @@ if (config.siteProxy === 'true') {
     app.use('/api', (req, _res, next) => {
         const from = req.url
         console.log('from', from)
-        const to = from.replace('/api/api/', '/api/')
+        const to = from.replace('/api/', '/')
         console.log('to', to)
         req.url = to
         console.log('req.url', req.url)
         next()
     })
-    console.log(chalk.cyan(`Rewrite /api/api/* to /api/`))
+    console.log(chalk.cyan(`Rewrite /api/* to /`))
 }
   
 // logging

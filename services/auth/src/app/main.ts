@@ -18,14 +18,14 @@ if (config.siteProxy === 'true') {
     app.use('/auth', (req, _res, next) => {
         const from = req.url
         console.log('from', from)
-        const to = from.replace('/auth/auth/', '/auth/')
+        const to = from.replace('/auth/', '/')
         console.log('to', to)
         req.url = to
         console.log('req.url', req.url)
         next()
     })
 
-    console.log(chalk.cyan(`Rewrite /auth/auth/* to /auth/`))
+    console.log(chalk.cyan(`Rewrite /auth/* to /`))
 }
 
 // body parsing
