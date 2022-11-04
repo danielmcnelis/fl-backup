@@ -4,7 +4,7 @@ runapi
 
 # compiled output
 /certs
-/dist
+#/dist
 /tmp
 /out-tsc
 
