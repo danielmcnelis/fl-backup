@@ -495,6 +495,9 @@ exports.Deck = db_1.db.define('decks', {
     formatId: {
         type: sequelize_1.Sequelize.INTEGER
     },
+    origin: {
+        type: sequelize_1.Sequelize.STRING
+    },
     ydk: {
         type: sequelize_1.Sequelize.TEXT
     },

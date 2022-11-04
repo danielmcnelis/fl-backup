@@ -58,15 +58,8 @@ export const oauth2Response = (options) => {
       console.error('middleware.oauth2Response: error: ', error.message)
     }
 
-    console.log('middleware.oauth2Response: userinfo: ', userinfo.data)
-    console.log('returnTo', returnTo)
-    
     const {id, discordId, discordPfp, name} = await Player.discordLogin(userinfo.data)
-    console.log('id', id)
-    console.log('discordId', discordId)
-    console.log('discordPfp', discordPfp)
-    console.log('name', name)
-
+    
     res.cookie('playerId', id, {
         maxAge: 24 * 60 * 60 * 1000
     }).cookie('discordId', discordId, {

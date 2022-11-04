@@ -37,17 +37,6 @@ export const DeckRow = (props) => {
                   target="_blank" 
                   rel="noopener noreferrer"
               >
-                <div className="deckCategory-cell">
-                  {deck.category || '-'}
-                </div>
-              </Link>
-            </td>
-            <td className="no-padding">
-              <Link className="black-text" 
-                  to={`/decks/${deck.id}`}
-                  target="_blank" 
-                  rel="noopener noreferrer"
-              >
                 <div className="player-cell">
                   <img 
                       className="player-cell-pfp"
@@ -88,6 +77,28 @@ export const DeckRow = (props) => {
                     deck.eventName ? <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${deck.community}.png`} alt={deck.community}/> : <img/>
                   }
                   <div>{deck.eventName || '-'}</div>
+                </div>
+              </Link>
+            </td>
+            <td className="no-padding">
+              <Link className="black-text" 
+                  to={`/decks/${deck.id}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+              >
+                <div className="placement-cell">
+                  {deck.rating} <img style={{width: '20px'}} src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/heart.png" alt="heart"/>
+                </div>
+              </Link>
+            </td>
+            <td className="no-padding">
+              <Link className="black-text" 
+                  to={`/decks/${deck.id}`}
+                  target="_blank" 
+                  rel="noopener noreferrer"
+              >
+                <div className="placement-cell">
+                  {deck.downloads} <img style={{width: '20px'}} src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/disk.png" alt="disk"/>
                 </div>
               </Link>
             </td>

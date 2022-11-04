@@ -14,7 +14,7 @@ export const DeckTable = () => {
     const [decksPerPage, setDecksPerPage] = useState(12)
     const [view, setView] = useState('table')
     const [sortBy, setSortBy] = useState('publishDate:desc')
-    const [category, setCategory] = useState(null)
+    const [origin, setOrigin] = useState(null)
     const [format, setFormat] = useState(null)
     const [formats, setFormats] = useState([])
   
@@ -61,10 +61,10 @@ export const DeckTable = () => {
         let url = `/api/decks/count`
         let filter = ''
   
-        if (queryParams.name) filter += `,name:inc:${queryParams.name}`
+        if (queryParams.eventName) filter += `,eventName:inc:${queryParams.eventName}`
         if (queryParams.builder) filter += `,builder:inc:${queryParams.builder}`
         if (queryParams.type) filter += `,type:inc:${queryParams.type}`
-        if (category) filter += `,category:eq:${category}`
+        if (origin) filter += `,origin:eq:${origin}`
         if (format) filter += `,formatName:eq:${format}`
         if (filter.length) url += ('?filter=' + filter.slice(1))
 
@@ -77,10 +77,10 @@ export const DeckTable = () => {
       let url = `/api/decks?page=${page}&limit=${decksPerPage}&sort=${sortBy}`
       let filter = ''
 
-      if (queryParams.name) filter += `,name:inc:${queryParams.name}`
+      if (queryParams.eventName) filter += `,eventName:inc:${queryParams.eventName}`
       if (queryParams.builder) filter += `,builder:inc:${queryParams.builder}`
       if (queryParams.type) filter += `,type:inc:${queryParams.type}`
-      if (category) filter += `,category:eq:${category}`
+      if (origin) filter += `,origin:eq:${origin}`
       if (format) filter += `,formatName:eq:${format}`
       if (filter.length) url += ('&filter=' + filter.slice(1))
 
@@ -93,7 +93,7 @@ export const DeckTable = () => {
       document.getElementById('format').value = null
       document.getElementById('searchBar').value = null
       setPage(1)
-      setCategory(null)
+      setOrigin(null)
       setFormat(null)
       setQueryParams({
         name: null,
@@ -142,12 +142,12 @@ export const DeckTable = () => {
     // USE EFFECT SEARCH
     useEffect(() => {
       search()
-    }, [format, category, queryParams, page, decksPerPage, sortBy])
+    }, [format, origin, queryParams, page, decksPerPage, sortBy])
   
     // USE EFFECT COUNT
     useEffect(() => {
         count()
-      }, [format, category, queryParams])
+      }, [format, origin, queryParams])
 
     // RENDER
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1224px)' })
@@ -185,16 +185,14 @@ export const DeckTable = () => {
             </select>
   
             <select
-              id="category"
-              defaultValue="All Categories"
+              id="origin"
+              defaultValue="All Decks"
               className="filter desktop-only"
-              onChange={(e) => setCategory(e.target.value)}
+              onChange={(e) => setOrigin(e.target.value)}
             >
-              <option value={null}>All Categories</option>
-              <option value="Aggro">Aggro</option>
-              <option value="Combo">Combo</option>
-              <option value="Control">Control</option>
-              <option value="Lockdown">Lockdown</option>
+              <option value={null}>All Decks</option>
+              <option value="event">Event Decks</option>
+              <option value="user">User Decks</option>
             </select>
   
             <select
@@ -255,6 +253,12 @@ export const DeckTable = () => {
             >
               <option value="publishDate:desc">Sort Uploaded: New ⮕ Old</option>
               <option value="publishDate:asc">Sort Uploaded: Old ⮕ New</option>
+              <option value="placement:asc">Sort Place: Hi ⮕ Low</option>
+              <option value="placement:desc">Sort Place: Low ⮕ Hi</option>
+              <option value="downloads:desc">Sort Downloads: Hi ⮕ Low</option>
+              <option value="downloads:asc">Sort Downloads: Low ⮕ Hi</option>
+              <option value="rating:desc">Sort Likes: Hi ⮕ Low</option>
+              <option value="rating:asc">Sort Likes: Low ⮕ Hi</option>
               <option value="builder:asc">Sort Builder: A ⮕ Z</option>
               <option value="builder:desc">Sort Builder: Z ⮕ A</option>
               <option value="eventName:asc">Sort Event: A ⮕ Z</option>
@@ -310,10 +314,11 @@ export const DeckTable = () => {
                 <tr>
                   <th>Format</th>
                   <th>Deck Type</th>
-                  <th>Deck Category</th>
                   <th>Builder</th>
                   <th>Place</th>
                   <th>Event</th>
+                  <th>Likes</th>
+                  <th>Downloads</th>
                   <th>Uploaded</th>
                 </tr>
               </thead>

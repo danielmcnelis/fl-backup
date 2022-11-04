@@ -37,14 +37,9 @@ export const oidcResponse = (options) => {
 
     const { id_token: idToken } = tokenSet
     const payload = decodeJwt(idToken)
-    console.log('payload', payload)
-    console.log('returnTo', returnTo)
+    
     const {id, googleId, googlePfp, name} = await Player.googleLogin(payload)
-    console.log('id', id)
-    console.log('googleId', googleId)
-    console.log('googlePfp', googlePfp)
-    console.log('name', name)
-
+    
     res.cookie('playerId', id, {
         maxAge: 24 * 60 * 60 * 1000
     }).cookie('googleId', googleId, {

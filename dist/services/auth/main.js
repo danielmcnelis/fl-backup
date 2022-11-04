@@ -131,13 +131,7 @@ const discordResponse = (options) => {
         catch (error) {
             console.error('middleware.discordResponse: error: ', error.message);
         }
-        console.log('userinfo.data', userinfo.data);
-        console.log('returnTo', returnTo);
         const { id, discordId, discordPfp, name } = yield models_1.Player.discordLogin(userinfo.data);
-        console.log('id', id);
-        console.log('discordId', discordId);
-        console.log('discordPfp', discordPfp);
-        console.log('name', name);
         res.cookie('playerId', id, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('discordId', discordId, {
@@ -375,13 +369,7 @@ const oauth2Response = (options) => {
         catch (error) {
             console.error('middleware.oauth2Response: error: ', error.message);
         }
-        console.log('middleware.oauth2Response: userinfo: ', userinfo.data);
-        console.log('returnTo', returnTo);
         const { id, discordId, discordPfp, name } = yield models_1.Player.discordLogin(userinfo.data);
-        console.log('id', id);
-        console.log('discordId', discordId);
-        console.log('discordPfp', discordPfp);
-        console.log('name', name);
         res.cookie('playerId', id, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('discordId', discordId, {
@@ -492,13 +480,7 @@ const oidcResponse = (options) => {
             }));
         const { id_token: idToken } = tokenSet;
         const payload = (0, jose_1.decodeJwt)(idToken);
-        console.log('payload', payload);
-        console.log('returnTo', returnTo);
         const { id, googleId, googlePfp, name } = yield models_1.Player.googleLogin(payload);
-        console.log('id', id);
-        console.log('googleId', googleId);
-        console.log('googlePfp', googlePfp);
-        console.log('name', name);
         res.cookie('playerId', id, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('googleId', googleId, {
@@ -1023,6 +1005,9 @@ exports.Deck = db_1.db.define('decks', {
     },
     formatId: {
         type: sequelize_1.Sequelize.INTEGER
+    },
+    origin: {
+        type: sequelize_1.Sequelize.STRING
     },
     ydk: {
         type: sequelize_1.Sequelize.TEXT
