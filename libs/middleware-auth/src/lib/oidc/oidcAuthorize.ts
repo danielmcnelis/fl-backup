@@ -2,15 +2,8 @@ import { Issuer, generators } from 'openid-client'
 
 export const oidcAuthorize = (options) => {
   const { clientId, clientSecret, redirectUrl, discoveryUrl, returnTo } = options
-  // console.log('middleware.oidcAuthorize: clientId: ', clientId)
-  // console.log('middleware.oidcAuthorize: clientSecret: ', clientSecret)
-  // console.log('middleware.oidcAuthorize: redirectUrl: ', redirectUrl)
-  // console.log('middleware.oidcAuthorize: discoveryUrl: ', discoveryUrl)
-  // console.log('middleware.oidcAuthorize: returnTo: ', returnTo)
 
   return async (req, res, next) => {
-    // console.log('middleware.oidcAuthorize:')
-
     const issuer = await Issuer.discover(discoveryUrl)
     const client = new issuer.Client({
       client_id: clientId,
@@ -24,10 +17,6 @@ export const oidcAuthorize = (options) => {
     const nonce = generators.nonce()
     const codeVerifier = generators.codeVerifier()
     const codeChallenge = generators.codeChallenge(codeVerifier)
-    // console.log('middleware.oidcAuthorize: state: ', state)
-    // console.log('middleware.oidcAuthorize: nonce: ', nonce)
-    // console.log('middleware.oidcAuthorize: codeVerifier: ', codeVerifier)
-    // console.log('middleware.oidcAuthorize: codeChallenge: ', codeChallenge)
 
     const authorizationUrl = client.authorizationUrl({
       scope: 'openid profile email address',
@@ -38,7 +27,8 @@ export const oidcAuthorize = (options) => {
       code_challenge_method: 'S256',
       prompt: 'login'
     })
-    // console.log('middleware.oidcAuthorize: authorizationUrl: ', authorizationUrl)
+
+    console.log('middleware.oidcAuthorize: authorizationUrl: ', authorizationUrl)
 
     req.session = {
       state,
@@ -49,7 +39,6 @@ export const oidcAuthorize = (options) => {
     }
 
     res.redirect(authorizationUrl)
-
-    // next()
+    next()
   }
 }

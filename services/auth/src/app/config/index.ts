@@ -28,10 +28,10 @@ const config = {
     userInfoUrl: 'https://discord.com/api/users/@me'
   },
   challonge: {
-    'Format Library': process.env.CHALLONGE_FORMAT_LIBRARY_API_KEY, // formatLibraryChallongeAPIKey or challongeAPIKeys.'Format Library'
-    'GoatFormat.com': process.env.CHALLONGE_GOAT_FORMAT_API_KEY, // goatformatChallongeAPIKey or challongeAPIKeys.'GoatFormat.com'
-    'EdisonFormat.com': process.env.CHALLONGE_EDISON_FORMAT_API_KEY, // challongeAPIKeys.'EdisonFormat.com'
-    'Crows Nest': process.env.CHALLONGE_CROWS_NEST_API_KEY // challongeAPIKeys.'Crows Nest'
+    'Format Library': process.env.CHALLONGE_FORMAT_LIBRARY_API_KEY,
+    'GoatFormat.com': process.env.CHALLONGE_GOAT_FORMAT_API_KEY,
+    'EdisonFormat.com': process.env.CHALLONGE_EDISON_FORMAT_API_KEY,
+    'Crows Nest': process.env.CHALLONGE_CROWS_NEST_API_KEY
   }
 }
 

@@ -17,10 +17,17 @@ export const login = (options) => {
         signup: false
       })
     } else if (method === 'POST') {
-        const {name, id, discordId, discordPfp, googlePfp} = await Player.verifyLogin({
+        const {id, name, discordId, discordPfp, googleId, googlePfp} = await Player.verifyLogin({
             email: email,
             password: password
         })
+
+        console.log('id', id)
+        console.log('googleId', googleId)
+        console.log('googlePfp', googlePfp)
+        console.log('discordId', discordId)
+        console.log('discordPfp', discordPfp)
+        console.log('name', name)
 
         if (id) {
             res.cookie('playerId', id, {
@@ -28,10 +35,12 @@ export const login = (options) => {
             }).cookie('discordId', discordId, {
         	    maxAge: 24 * 60 * 60 * 1000
             }).cookie('discordPfp', discordPfp, {
-                maxAge: 24 * 60 * 60 * 1000
-            }).cookie('playerName', name, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).cookie('googleId', googleId, {
         	    maxAge: 24 * 60 * 60 * 1000
             }).cookie('googlePfp', googlePfp, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).cookie('playerName', name, {
         	    maxAge: 24 * 60 * 60 * 1000
             }).redirect(`https://formatlibrary.com`)
         } else {

@@ -40,7 +40,6 @@ export const oauth2Authorize = (options) => {
     }
 
     res.redirect(authorizationUrl)
-
-    // next()
+    next()
   }
 }

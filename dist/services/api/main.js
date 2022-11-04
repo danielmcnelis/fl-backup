@@ -1275,6 +1275,7 @@ exports.Player.findByEmail = (email) => {
     }
 };
 exports.Player.discordLogin = (user) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     const existingPlayer = (yield exports.Player.findOne({
         where: {
             discordId: user.id
@@ -1285,7 +1286,7 @@ exports.Player.discordLogin = (user) => tslib_1.__awaiter(void 0, void 0, void 0
         }
     }));
     if (existingPlayer) {
-        const googleId = user.email.includes('@gmail.com') ? user.email.slice(0, -10) : null;
+        const googleId = ((_a = user.email) === null || _a === void 0 ? void 0 : _a.includes('@gmail.com')) ? (_b = user.email) === null || _b === void 0 ? void 0 : _b.slice(0, -10) : null;
         yield existingPlayer.update({
             name: existingPlayer.name || user.username,
             discordName: user.username,

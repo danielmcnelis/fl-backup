@@ -10,7 +10,6 @@ const toggle = () => {
 }
 
 const playerId = getCookie('playerId')
-const playerName = getCookie('playerName')
 const discordId = getCookie('discordId')
 const discordPfp = getCookie('discordPfp')
 const googlePfp = getCookie('googlePfp')

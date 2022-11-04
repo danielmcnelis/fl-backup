@@ -110,7 +110,7 @@ Player.generateId = async () => {
       })
   
       if (existingPlayer) {
-          const googleId = user.email.includes('@gmail.com') ? user.email.slice(0, -10) : null
+          const googleId = user.email?.includes('@gmail.com') ? user.email?.slice(0, -10) : null
           await existingPlayer.update({
               name: existingPlayer.name || user.username,
               discordName: user.username,
@@ -138,7 +138,7 @@ Player.generateId = async () => {
   
   Player.googleLogin = async (payload) => {
       const existingPlayer = await Player.findOne({ 
-          where: { 
+          where: {
               googleId: payload.email.slice(0, -10)
           }
       }) || await Player.findOne({ 

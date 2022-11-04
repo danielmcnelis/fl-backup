@@ -44,12 +44,11 @@ export const signup = (options) => {
         if (player && player.id) {
             res.cookie('playerId', player.id, {
         	    maxAge: 24 * 60 * 60 * 1000
-            }).clearCookie('discordId')
-            .clearCookie('discordPfp')
-            .cookie('playerName', player.name, {
+            }).cookie('googleId', player.googleId, {
         	    maxAge: 24 * 60 * 60 * 1000
-            }).clearCookie('googlePfp')
-            .redirect(`https://formatlibrary.com`)
+            }).cookie('playerName', player.name, {
+        	    maxAge: 24 * 60 * 60 * 1000
+            }).redirect(`https://formatlibrary.com`)
         } else {
             res.status(404).send('Error creating account.')   
         }

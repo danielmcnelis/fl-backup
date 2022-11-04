@@ -12,8 +12,8 @@ export const discordResponse = (options) => {
   const tokenPath = token_url.pathname
 
   return async (req, res, next) => {
-    const { state, code } = req.query
-    const { state: sessionState, returnTo } = req.session
+    const { code } = req.query
+    const { returnTo } = req.session
 
     const tokenParams = {
       code,
@@ -55,18 +55,23 @@ export const discordResponse = (options) => {
       console.error('middleware.discordResponse: error: ', error.message)
     }
 
-    const {playerName, playerId, discordId, discordPfp} = await Player.discordLogin(userinfo.data)
+    console.log('userinfo.data', userinfo.data)
+    console.log('returnTo', returnTo)
+    const {id, discordId, discordPfp, name} = await Player.discordLogin(userinfo.data)
+    console.log('id', id)
+    console.log('discordId', discordId)
+    console.log('discordPfp', discordPfp)
+    console.log('name', name)
 
-    res.cookie('playerId', playerId, {
+    res.cookie('playerId', id, {
         maxAge: 24 * 60 * 60 * 1000
     }).cookie('discordId', discordId, {
         maxAge: 24 * 60 * 60 * 1000
     }).cookie('discordPfp', discordPfp, {
         maxAge: 24 * 60 * 60 * 1000
-    }).cookie('playerName', playerName, {
+    }).cookie('playerName', name, {
         maxAge: 24 * 60 * 60 * 1000
     }).clearCookie('googlePfp')
     .redirect(returnTo)
-    next()
   }
 }

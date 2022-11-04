@@ -92,8 +92,8 @@ const discordResponse = (options) => {
     const tokenHost = token_url.origin;
     const tokenPath = token_url.pathname;
     return (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        const { state, code } = req.query;
-        const { state: sessionState, returnTo } = req.session;
+        const { code } = req.query;
+        const { returnTo } = req.session;
         const tokenParams = {
             code,
             redirect_uri: redirectUrl,
@@ -131,18 +131,23 @@ const discordResponse = (options) => {
         catch (error) {
             console.error('middleware.discordResponse: error: ', error.message);
         }
-        const { playerName, playerId, discordId, discordPfp } = yield models_1.Player.discordLogin(userinfo.data);
-        res.cookie('playerId', playerId, {
+        console.log('userinfo.data', userinfo.data);
+        console.log('returnTo', returnTo);
+        const { id, discordId, discordPfp, name } = yield models_1.Player.discordLogin(userinfo.data);
+        console.log('id', id);
+        console.log('discordId', discordId);
+        console.log('discordPfp', discordPfp);
+        console.log('name', name);
+        res.cookie('playerId', id, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('discordId', discordId, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('discordPfp', discordPfp, {
             maxAge: 24 * 60 * 60 * 1000
-        }).cookie('playerName', playerName, {
+        }).cookie('playerName', name, {
             maxAge: 24 * 60 * 60 * 1000
         }).clearCookie('googlePfp')
             .redirect(returnTo);
-        next();
     });
 };
 exports.discordResponse = discordResponse;
@@ -303,7 +308,7 @@ const oauth2Authorize = (options) => {
             returnTo
         };
         res.redirect(authorizationUrl);
-        // next()
+        next();
     });
 };
 exports.oauth2Authorize = oauth2Authorize;
@@ -371,8 +376,12 @@ const oauth2Response = (options) => {
             console.error('middleware.oauth2Response: error: ', error.message);
         }
         console.log('middleware.oauth2Response: userinfo: ', userinfo.data);
-        console.log('middleware.discordResponse: userinfo: ', userinfo.data);
-        const { name, id, discordId, discordPfp } = yield models_1.Player.discordLogin(userinfo.data);
+        console.log('returnTo', returnTo);
+        const { id, discordId, discordPfp, name } = yield models_1.Player.discordLogin(userinfo.data);
+        console.log('id', id);
+        console.log('discordId', discordId);
+        console.log('discordPfp', discordPfp);
+        console.log('name', name);
         res.cookie('playerId', id, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('discordId', discordId, {
@@ -412,13 +421,7 @@ const tslib_1 = __webpack_require__("tslib");
 const openid_client_1 = __webpack_require__("openid-client");
 const oidcAuthorize = (options) => {
     const { clientId, clientSecret, redirectUrl, discoveryUrl, returnTo } = options;
-    // console.log('middleware.oidcAuthorize: clientId: ', clientId)
-    // console.log('middleware.oidcAuthorize: clientSecret: ', clientSecret)
-    // console.log('middleware.oidcAuthorize: redirectUrl: ', redirectUrl)
-    // console.log('middleware.oidcAuthorize: discoveryUrl: ', discoveryUrl)
-    // console.log('middleware.oidcAuthorize: returnTo: ', returnTo)
     return (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
-        // console.log('middleware.oidcAuthorize:')
         const issuer = yield openid_client_1.Issuer.discover(discoveryUrl);
         const client = new issuer.Client({
             client_id: clientId,
@@ -431,10 +434,6 @@ const oidcAuthorize = (options) => {
         const nonce = openid_client_1.generators.nonce();
         const codeVerifier = openid_client_1.generators.codeVerifier();
         const codeChallenge = openid_client_1.generators.codeChallenge(codeVerifier);
-        // console.log('middleware.oidcAuthorize: state: ', state)
-        // console.log('middleware.oidcAuthorize: nonce: ', nonce)
-        // console.log('middleware.oidcAuthorize: codeVerifier: ', codeVerifier)
-        // console.log('middleware.oidcAuthorize: codeChallenge: ', codeChallenge)
         const authorizationUrl = client.authorizationUrl({
             scope: 'openid profile email address',
             response_mode: 'query',
@@ -444,7 +443,7 @@ const oidcAuthorize = (options) => {
             code_challenge_method: 'S256',
             prompt: 'login'
         });
-        // console.log('middleware.oidcAuthorize: authorizationUrl: ', authorizationUrl)
+        console.log('middleware.oidcAuthorize: authorizationUrl: ', authorizationUrl);
         req.session = {
             state,
             nonce,
@@ -453,7 +452,7 @@ const oidcAuthorize = (options) => {
             returnTo
         };
         res.redirect(authorizationUrl);
-        // next()
+        next();
     });
 };
 exports.oidcAuthorize = oidcAuthorize;
@@ -493,16 +492,23 @@ const oidcResponse = (options) => {
             }));
         const { id_token: idToken } = tokenSet;
         const payload = (0, jose_1.decodeJwt)(idToken);
-        const { name, id, googlePfp } = yield models_1.Player.googleLogin(payload);
+        console.log('payload', payload);
+        console.log('returnTo', returnTo);
+        const { id, googleId, googlePfp, name } = yield models_1.Player.googleLogin(payload);
+        console.log('id', id);
+        console.log('googleId', googleId);
+        console.log('googlePfp', googlePfp);
+        console.log('name', name);
         res.cookie('playerId', id, {
             maxAge: 24 * 60 * 60 * 1000
-        }).clearCookie('discordId')
-            .clearCookie('discordPfp')
-            .cookie('playerName', name, {
+        }).cookie('googleId', googleId, {
             maxAge: 24 * 60 * 60 * 1000
         }).cookie('googlePfp', googlePfp, {
             maxAge: 24 * 60 * 60 * 1000
-        }).redirect(returnTo);
+        }).cookie('playerName', name, {
+            maxAge: 24 * 60 * 60 * 1000
+        }).clearCookie('discordPfp')
+            .redirect(returnTo);
     });
 };
 exports.oidcResponse = oidcResponse;
@@ -1798,6 +1804,7 @@ exports.Player.findByEmail = (email) => {
     }
 };
 exports.Player.discordLogin = (user) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    var _a, _b;
     const existingPlayer = (yield exports.Player.findOne({
         where: {
             discordId: user.id
@@ -1808,7 +1815,7 @@ exports.Player.discordLogin = (user) => tslib_1.__awaiter(void 0, void 0, void 0
         }
     }));
     if (existingPlayer) {
-        const googleId = user.email.includes('@gmail.com') ? user.email.slice(0, -10) : null;
+        const googleId = ((_a = user.email) === null || _a === void 0 ? void 0 : _a.includes('@gmail.com')) ? (_b = user.email) === null || _b === void 0 ? void 0 : _b.slice(0, -10) : null;
         yield existingPlayer.update({
             name: existingPlayer.name || user.username,
             discordName: user.username,
@@ -5504,7 +5511,7 @@ const config = {
         'Format Library': process.env.CHALLONGE_FORMAT_LIBRARY_API_KEY,
         'GoatFormat.com': process.env.CHALLONGE_GOAT_FORMAT_API_KEY,
         'EdisonFormat.com': process.env.CHALLONGE_EDISON_FORMAT_API_KEY,
-        'Crows Nest': process.env.CHALLONGE_CROWS_NEST_API_KEY // challongeAPIKeys.'Crows Nest'
+        'Crows Nest': process.env.CHALLONGE_CROWS_NEST_API_KEY
     }
 };
 exports["default"] = config;
@@ -5656,10 +5663,16 @@ const login = (options) => {
             });
         }
         else if (method === 'POST') {
-            const { name, id, discordId, discordPfp, googlePfp } = yield models_1.Player.verifyLogin({
+            const { id, name, discordId, discordPfp, googleId, googlePfp } = yield models_1.Player.verifyLogin({
                 email: email,
                 password: password
             });
+            console.log('id', id);
+            console.log('googleId', googleId);
+            console.log('googlePfp', googlePfp);
+            console.log('discordId', discordId);
+            console.log('discordPfp', discordPfp);
+            console.log('name', name);
             if (id) {
                 res.cookie('playerId', id, {
                     maxAge: 24 * 60 * 60 * 1000
@@ -5667,9 +5680,11 @@ const login = (options) => {
                     maxAge: 24 * 60 * 60 * 1000
                 }).cookie('discordPfp', discordPfp, {
                     maxAge: 24 * 60 * 60 * 1000
-                }).cookie('playerName', name, {
+                }).cookie('googleId', googleId, {
                     maxAge: 24 * 60 * 60 * 1000
                 }).cookie('googlePfp', googlePfp, {
+                    maxAge: 24 * 60 * 60 * 1000
+                }).cookie('playerName', name, {
                     maxAge: 24 * 60 * 60 * 1000
                 }).redirect(`https://formatlibrary.com`);
             }
@@ -5736,12 +5751,11 @@ const signup = (options) => {
             if (player && player.id) {
                 res.cookie('playerId', player.id, {
                     maxAge: 24 * 60 * 60 * 1000
-                }).clearCookie('discordId')
-                    .clearCookie('discordPfp')
-                    .cookie('playerName', player.name, {
+                }).cookie('googleId', player.googleId, {
                     maxAge: 24 * 60 * 60 * 1000
-                }).clearCookie('googlePfp')
-                    .redirect(`https://formatlibrary.com`);
+                }).cookie('playerName', player.name, {
+                    maxAge: 24 * 60 * 60 * 1000
+                }).redirect(`https://formatlibrary.com`);
             }
             else {
                 res.status(404).send('Error creating account.');
