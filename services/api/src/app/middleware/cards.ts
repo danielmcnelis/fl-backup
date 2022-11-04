@@ -109,7 +109,7 @@ export const cardsCreate = async (req, res, next) => {
             .replace(/^data:image\/jpg;base64,/, '')
             .replace(/^data:image\/jpeg;base64,/, '')
             .replace(/^data:image\/png;base64,/, '')            
-            fs.writeFileSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/cards/${req.body.ypdId}.jpg`, buffer, 'base64')
+            fs.writeFileSync(`https://cdn.formatlibrary.com/images/cards/${req.body.ypdId}.jpg`, buffer, 'base64')
         }
 
         const alreadyExists = await Card.count({

@@ -20,7 +20,7 @@ export const Navigation = () => {
         <div className="navigation-bar">
             <Link to="/">
             <div id="logo">
-                <img src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Format Library.png'} alt="logo"/>
+                <img src={'https://cdn.formatlibrary.com/images/logos/Format Library.png'} alt="logo"/>
                 <h1>Format Library</h1>
             </div>
             </Link>
@@ -52,7 +52,7 @@ export const Navigation = () => {
                                 src={
                                     googlePfp ? `https://lh3.googleusercontent.com/a/${googlePfp}` :
                                     discordPfp && discordId ? `https://cdn.discordapp.com/avatars/${discordId}/${discordPfp}.webp` :
-                                    `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${discordId || playerName}.png`}
+                                    `https://cdn.formatlibrary.com/images/pfps/${discordId || playerName}.png`}
                                 onError={(e) => {
                                         e.target.onerror = null
                                         e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"

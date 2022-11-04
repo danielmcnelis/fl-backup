@@ -155,9 +155,9 @@ export const DeckTable = () => {
     return (
       <div className="body">
         <div className="event-database-flexbox">
-          <img className="desktop-only" style={{ height:'80px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/deckbox.png'} alt="deck-box"/>
+          <img className="desktop-only" style={{ height:'80px'}} src={'https://cdn.formatlibrary.com/images/emojis/deckbox.png'} alt="deck-box"/>
           <h1>Deck Database</h1>
-          <img style={{ height:'80px'}} src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/deckbox.png'} alt="deck-box"/>
+          <img style={{ height:'80px'}} src={'https://cdn.formatlibrary.com/images/emojis/deckbox.png'} alt="deck-box"/>
         </div>
   
         <div className="searchWrapper">

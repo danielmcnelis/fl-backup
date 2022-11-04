@@ -5354,7 +5354,7 @@ const cardsCreate = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0
                 .replace(/^data:image\/jpg;base64,/, '')
                 .replace(/^data:image\/jpeg;base64,/, '')
                 .replace(/^data:image\/png;base64,/, '');
-            fs.writeFileSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/cards/${req.body.ypdId}.jpg`, buffer, 'base64');
+            fs.writeFileSync(`https://cdn.formatlibrary.com/images/cards/${req.body.ypdId}.jpg`, buffer, 'base64');
         }
         const alreadyExists = yield models_1.Card.count({
             where: {
@@ -5692,43 +5692,43 @@ const deckTypesCreate = (req, res, next) => tslib_1.__awaiter(void 0, void 0, vo
             (deckThumb.rightCard = req.body.rightCardName),
             (deckThumb.rightCardYpdId = req.body.rightCardYpdId),
             yield deckThumb.save();
-        if (!fs.existsSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`)) {
+        if (!fs.existsSync(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`)) {
             try {
                 const { data } = yield (0, axios_1.default)({
                     method: 'GET',
                     url: `https://storage.googleapis.com/ygoprodeck.com/pics_artgame/${deckThumb.leftCardYpdId}.jpg`,
                     responseType: 'stream'
                 });
-                data.pipe(fs.createWriteStream(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`));
-                console.log(`saved ${deckThumb.leftCard} artwork to ${`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`}`);
+                data.pipe(fs.createWriteStream(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`));
+                console.log(`saved ${deckThumb.leftCard} artwork to ${`https://cdn.formatlibrary.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`}`);
             }
             catch (err) {
                 console.log(err);
             }
         }
-        if (!fs.existsSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`)) {
+        if (!fs.existsSync(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`)) {
             try {
                 const { data } = yield (0, axios_1.default)({
                     method: 'GET',
                     url: `https://storage.googleapis.com/ygoprodeck.com/pics_artgame/${deckThumb.centerCardYpdId}.jpg`,
                     responseType: 'stream'
                 });
-                data.pipe(fs.createWriteStream(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`));
-                console.log(`saved ${deckThumb.centerCard} artwork to ${`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`}`);
+                data.pipe(fs.createWriteStream(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`));
+                console.log(`saved ${deckThumb.centerCard} artwork to ${`https://cdn.formatlibrary.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`}`);
             }
             catch (err) {
                 console.log(err);
             }
         }
-        if (!fs.existsSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`)) {
+        if (!fs.existsSync(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`)) {
             try {
                 const { data } = yield (0, axios_1.default)({
                     method: 'GET',
                     url: `https://storage.googleapis.com/ygoprodeck.com/pics_artgame/${deckThumb.rightCardYpdId}.jpg`,
                     responseType: 'stream'
                 });
-                data.pipe(fs.createWriteStream(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`));
-                console.log(`saved ${deckThumb.rightCard} artwork to ${`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`}`);
+                data.pipe(fs.createWriteStream(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`));
+                console.log(`saved ${deckThumb.rightCard} artwork to ${`https://cdn.formatlibrary.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`}`);
             }
             catch (err) {
                 console.log(err);
@@ -6754,7 +6754,7 @@ exports.eventsId = eventsId;
 const eventsCreate = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     try {
         const buffer = req.body.bracket.replace(/^data:image\/png;base64,/, '');
-        fs.writeFileSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/brackets/${req.body.abbreviation}.png`, buffer, 'base64');
+        fs.writeFileSync(`https://cdn.formatlibrary.com/images/brackets/${req.body.abbreviation}.png`, buffer, 'base64');
         if (req.body.id) {
             yield models_1.Tournament.create({
                 id: req.body.id,
@@ -6901,7 +6901,7 @@ const imagesCreate = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 
             .replace(/^data:image\/jpg;base64,/, '')
             .replace(/^data:image\/jpeg;base64,/, '')
             .replace(/^data:image\/png;base64,/, '');
-        fs.writeFileSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/${req.body.folder}/${req.body.fileName}`, buffer, 'base64');
+        fs.writeFileSync(`https://cdn.formatlibrary.com/images/${req.body.folder}/${req.body.fileName}`, buffer, 'base64');
         res.json({ success: true });
     }
     catch (err) {

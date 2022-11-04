@@ -14,7 +14,7 @@ export const FormatButton = (props) => {
       <Link 
         to={underscorize(`/formats/${format.name}`)} 
         className="format-link" 
-        style={{ backgroundImage: `url(https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${format.icon}.png)`}}
+        style={{ backgroundImage: `url(https://cdn.formatlibrary.com/images/emojis/${format.icon}.png)`}}
       >
         <div className="format-button">
           <div>{format.name}</div>

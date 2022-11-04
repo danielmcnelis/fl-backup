@@ -7,11 +7,11 @@ import { NotFound } from '../General/NotFound'
 import { useLocation } from 'react-router-dom'
 
 const emojis = {
-  Helmet: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/helmet.png',
-  Controller: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/controller.png',
-  Orb: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/orb.png',
-  Lock: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/lock.png',
-  Thinking: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/thinking.png'
+  Helmet: 'https://cdn.formatlibrary.com/images/emojis/helmet.png',
+  Controller: 'https://cdn.formatlibrary.com/images/emojis/controller.png',
+  Orb: 'https://cdn.formatlibrary.com/images/emojis/orb.png',
+  Lock: 'https://cdn.formatlibrary.com/images/emojis/lock.png',
+  Thinking: 'https://cdn.formatlibrary.com/images/emojis/thinking.png'
 }
 const { Helmet, Controller, Orb, Lock, Thinking } = emojis
 
@@ -105,7 +105,7 @@ export const DeckType = () => {
               <td>
                 <div onClick={() => goToFormat()} className="single-deck-cell">
                   <div className="single-deck-format-link" style={{paddingRight:'7px'}}><b>Format:</b> {summary.format.name}</div>
-                  <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${summary.format.icon}.png`}/>
+                  <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/${summary.format.icon}.png`}/>
                 </div>       
               </td>
               <td>
@@ -117,7 +117,7 @@ export const DeckType = () => {
               <td>
                 <div className="single-deck-cell">
                   <div className="single-deck-category" style={{paddingRight:'7px'}}><b>Frequency:</b> {summary.percent}%</div>
-                  <img className="single-deck-category-emoji" style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/math.png`}/>
+                  <img className="single-deck-category-emoji" style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/math.png`}/>
                 </div>
               </td>
             </tr>

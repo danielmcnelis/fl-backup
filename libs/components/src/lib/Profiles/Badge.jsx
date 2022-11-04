@@ -3,17 +3,17 @@ import { capitalize, underscorize } from '@fl/utils'
 import { Link } from 'react-router-dom'
 
 const emojis = {
-  god: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/god.png',
-  legend: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/legend.png',
-  master: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/master.png',
-  diamond: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/diamond.png',
-  platinum: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/platinum.png',
-  gold: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/gold.png',
-  silver: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/silver.png',
-  bronze: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/bronze.png',
-  rock: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/rock.png',
-  sad: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/sad.png',
-  mad: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/mad.png'
+  god: 'https://cdn.formatlibrary.com/images/emojis/god.png',
+  legend: 'https://cdn.formatlibrary.com/images/emojis/legend.png',
+  master: 'https://cdn.formatlibrary.com/images/emojis/master.png',
+  diamond: 'https://cdn.formatlibrary.com/images/emojis/diamond.png',
+  platinum: 'https://cdn.formatlibrary.com/images/emojis/platinum.png',
+  gold: 'https://cdn.formatlibrary.com/images/emojis/gold.png',
+  silver: 'https://cdn.formatlibrary.com/images/emojis/silver.png',
+  bronze: 'https://cdn.formatlibrary.com/images/emojis/bronze.png',
+  rock: 'https://cdn.formatlibrary.com/images/emojis/rock.png',
+  sad: 'https://cdn.formatlibrary.com/images/emojis/sad.png',
+  mad: 'https://cdn.formatlibrary.com/images/emojis/mad.png'
 }
 const { god, legend, master, diamond, platinum, gold, silver, bronze, rock, sad, mad } = emojis
 

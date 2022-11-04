@@ -320,7 +320,7 @@ export const eventsId = async (req, res, next) => {
 export const eventsCreate = async (req, res, next) => {
   try {
     const buffer = req.body.bracket.replace(/^data:image\/png;base64,/, '')
-    fs.writeFileSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/brackets/${req.body.abbreviation}.png`, buffer, 'base64')
+    fs.writeFileSync(`https://cdn.formatlibrary.com/images/brackets/${req.body.abbreviation}.png`, buffer, 'base64')
 
     if (req.body.id) {
       await Tournament.create({

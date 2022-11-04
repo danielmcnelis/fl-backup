@@ -23,7 +23,7 @@ module.exports = {
           for (const post of results) {
             const id = post?.id
             let content = post?.content
-            content = content.replaceAll(`src="/images/`, `src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/`)
+            content = content.replaceAll(`src="/images/`, `src="https://cdn.formatlibrary.com/images/`)
             const [results, metadata] = await sequelize.query('UPDATE blogposts SET content = $content WHERE id = $id', {
               bind: { id, content },
               type: Sequelize.QueryTypes.SELECT

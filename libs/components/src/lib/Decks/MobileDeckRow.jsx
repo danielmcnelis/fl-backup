@@ -15,7 +15,7 @@ export const MobileDeckRow = (props) => {
               rel="noopener noreferrer"
           >
             <div className="format-cell-flexbox">
-              <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${deck.format.icon}.png`}/>
+              <img src={`https://cdn.formatlibrary.com/images/emojis/${deck.format.icon}.png`}/>
             </div>
           </Link>
         </td>
@@ -41,7 +41,7 @@ export const MobileDeckRow = (props) => {
                   className="player-cell-pfp"
                   src={
                     deck.player.discordPfp ? `https://cdn.discordapp.com/avatars/${deck.player.discordId}/${deck.player.discordPfp}.webp` :
-                    `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${deck.player.discordId || deck.builder}.png`
+                    `https://cdn.formatlibrary.com/images/pfps/${deck.player.discordId || deck.builder}.png`
                   }
                   onError={(e) => {
                           e.target.onerror = null

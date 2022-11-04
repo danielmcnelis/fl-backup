@@ -290,7 +290,7 @@ export const deckTypesCreate = async (req, res, next) => {
       (deckThumb.rightCardYpdId = req.body.rightCardYpdId),
       await deckThumb.save()
 
-    if (!fs.existsSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`)) {
+    if (!fs.existsSync(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`)) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -298,16 +298,16 @@ export const deckTypesCreate = async (req, res, next) => {
           responseType: 'stream'
         })
 
-        data.pipe(fs.createWriteStream(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`))
+        data.pipe(fs.createWriteStream(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`))
         console.log(
-          `saved ${deckThumb.leftCard} artwork to ${`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`}`
+          `saved ${deckThumb.leftCard} artwork to ${`https://cdn.formatlibrary.com/images/artworks/${deckThumb.leftCardYpdId}.jpg`}`
         )
       } catch (err) {
         console.log(err)
       }
     }
 
-    if (!fs.existsSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`)) {
+    if (!fs.existsSync(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`)) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -315,16 +315,16 @@ export const deckTypesCreate = async (req, res, next) => {
           responseType: 'stream'
         })
 
-        data.pipe(fs.createWriteStream(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`))
+        data.pipe(fs.createWriteStream(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`))
         console.log(
-          `saved ${deckThumb.centerCard} artwork to ${`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`}`
+          `saved ${deckThumb.centerCard} artwork to ${`https://cdn.formatlibrary.com/images/artworks/${deckThumb.centerCardYpdId}.jpg`}`
         )
       } catch (err) {
         console.log(err)
       }
     }
 
-    if (!fs.existsSync(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`)) {
+    if (!fs.existsSync(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`)) {
       try {
         const { data } = await axios({
           method: 'GET',
@@ -332,9 +332,9 @@ export const deckTypesCreate = async (req, res, next) => {
           responseType: 'stream'
         })
 
-        data.pipe(fs.createWriteStream(`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`))
+        data.pipe(fs.createWriteStream(`https://cdn.formatlibrary.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`))
         console.log(
-          `saved ${deckThumb.rightCard} artwork to ${`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`}`
+          `saved ${deckThumb.rightCard} artwork to ${`https://cdn.formatlibrary.com/images/artworks/${deckThumb.rightCardYpdId}.jpg`}`
         )
       } catch (err) {
         console.log(err)

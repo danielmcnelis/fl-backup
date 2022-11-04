@@ -7,18 +7,18 @@ import axios from 'axios'
 import { dateToSimple, dateToVerbose, ordinalize } from '@fl/utils'
 
 const emojis = {
-  Helmet: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/helmet.png',
-  Controller: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/controller.png',
-  Orb: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/orb.png',
-  Lock: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/lock.png',
-  Thinking: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/thinking.png',
-  First: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/1st.png',
-  Second: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/2nd.png',
-  Third: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/3rd.png',
-  Consolation: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/consolation.png',
-  Heart: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/heart.png',
-  Disk: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/disk.png',
-  Eye: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/eye.png'
+  Helmet: 'https://cdn.formatlibrary.com/images/emojis/helmet.png',
+  Controller: 'https://cdn.formatlibrary.com/images/emojis/controller.png',
+  Orb: 'https://cdn.formatlibrary.com/images/emojis/orb.png',
+  Lock: 'https://cdn.formatlibrary.com/images/emojis/lock.png',
+  Thinking: 'https://cdn.formatlibrary.com/images/emojis/thinking.png',
+  First: 'https://cdn.formatlibrary.com/images/emojis/1st.png',
+  Second: 'https://cdn.formatlibrary.com/images/emojis/2nd.png',
+  Third: 'https://cdn.formatlibrary.com/images/emojis/3rd.png',
+  Consolation: 'https://cdn.formatlibrary.com/images/emojis/consolation.png',
+  Heart: 'https://cdn.formatlibrary.com/images/emojis/heart.png',
+  Disk: 'https://cdn.formatlibrary.com/images/emojis/disk.png',
+  Eye: 'https://cdn.formatlibrary.com/images/emojis/eye.png'
 }
 
 const { Helmet, Controller, Orb, Lock, Thinking, First, Second, Third, Consolation, Heart, Disk, Eye } = emojis
@@ -113,14 +113,14 @@ export const SingleDeck = () => {
         >                                    
             <div className="deck-button">
                 <b style={{padding: '0px 6px'}}>Download</b>
-                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/download.png`}/>
+                <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/download.png`}/>
             </div>
         </a>
         <div className="single-deck-title">{deck.type || deck.name}</div>
         <Link to="/builder" state={{ deck: deck }} className="desktop-only">                                    
             <div className="deck-button">
                 <b style={{padding: '0px 6px'}}>Open Deck</b>
-                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/open-file.png`}/>
+                <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/open-file.png`}/>
             </div>
         </Link>
       </div>
@@ -138,7 +138,7 @@ export const SingleDeck = () => {
                         className="single-deck-builder-cell-pfp"
                         src={
                             deck.player.discordPfp ? `https://cdn.discordapp.com/avatars/${deck.player.discordId}/${deck.player.discordPfp}.webp` :
-                            `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${deck.player.discordId || deck.player.name}.png`
+                            `https://cdn.formatlibrary.com/images/pfps/${deck.player.discordId || deck.player.name}.png`
                         }
                         onError={(e) => {
                                 e.target.onerror = null
@@ -157,7 +157,7 @@ export const SingleDeck = () => {
             <td>
               <div onClick={() => goToFormat()} className="single-deck-cell">
                 <div className="single-deck-format-link" style={{paddingRight:'7px'}}><b>Format:</b> {deck.formatName}</div>
-                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${deck.format.icon}.png`}/>
+                <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/${deck.format.icon}.png`}/>
               </div>       
             </td>
             {
@@ -184,7 +184,7 @@ export const SingleDeck = () => {
                 <td>
                   <div onClick={() => goToEvent()} className="single-deck-cell">
                     <div className="single-deck-event-link" style={{paddingRight:'7px'}}><b>Event:</b> {deck.eventName}</div> 
-                    <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${deck.community}.png`}/>
+                    <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/logos/${deck.community}.png`}/>
                   </div>   
                 </td>
                 <td>

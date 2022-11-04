@@ -12,15 +12,15 @@ import { useMediaQuery } from 'react-responsive'
 import { useLocation } from 'react-router-dom'
 
 const symbols = {
-  Star: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/star.png'
+  Star: 'https://cdn.formatlibrary.com/images/symbols/star.png'
 }
 
 const { Star } = symbols
 
 const emojis = {
-  Calendar: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/calendar.png',
-  Shield: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/shield.png',
-  Swords: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/swords.png'
+  Calendar: 'https://cdn.formatlibrary.com/images/emojis/calendar.png',
+  Shield: 'https://cdn.formatlibrary.com/images/emojis/shield.png',
+  Swords: 'https://cdn.formatlibrary.com/images/emojis/swords.png'
 }
 
 const { Calendar, Shield, Swords } = emojis
@@ -518,12 +518,12 @@ export const CardTable = () => {
     return (
       <div className="body">
         <div className="card-database-flexbox">
-          <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium desktop-only" />
+          <img src={`https://cdn.formatlibrary.com/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium desktop-only" />
           <div>
             <h1>{format.event ? format.name + ' ' : ''}Card Database</h1>
             <h2 className="desktop-only">{format.event || 'May 2002 - Present'}</h2>
           </div>
-          <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium" />
+          <img src={`https://cdn.formatlibrary.com/images/artworks/${format.icon ? `${format.icon}.jpg` : 'nibiru.jpg'}`} className="format-icon-medium" />
         </div>
         {
           isTabletOrMobile ? (

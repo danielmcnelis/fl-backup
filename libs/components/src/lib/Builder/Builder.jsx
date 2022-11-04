@@ -467,7 +467,7 @@ export const Builder = () => {
   return (
     <>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossOrigin="anonymous"/>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/assets/css/styles.css" />
     <div className="body" style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
         <Modal show={showOpenModal} onHide={() => {setShowOpenModal(false); setControlPanelFormat(null)}}>
             <Modal.Header closeButton>
@@ -650,7 +650,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => newDeck()}
             >                                    
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/new-file.png`} alt="new-file"/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/new-file.png`} alt="new-file"/></div> 
                 <div className="control-panel-text"><b>New Deck</b></div> 
             </div> 
             
@@ -660,7 +660,7 @@ export const Builder = () => {
                     setShowOpenModal(true)
                 }}
             >                                    
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/open-file.png`} alt="open-file"/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/open-file.png`} alt="open-file"/></div> 
                 <div className="control-panel-text"><b>Open Deck</b></div> 
             </div> 
 
@@ -668,7 +668,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => setShowUploadModal(true)}
             >                                    
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/upload.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/upload.png`}/></div> 
                 <div className="control-panel-text"><b>Upload Deck</b></div> 
             </div>
 
@@ -676,7 +676,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => setShowSaveModal(true)}
             >                                   
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/edit.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/edit.png`}/></div> 
                 <div className="control-panel-text"><b>Edit Labels</b></div> 
             </div>
 
@@ -684,7 +684,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => clearDeck()}
             >                                    
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/erase.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/erase.png`}/></div> 
                 <div className="control-panel-text"><b>Clear Deck</b></div> 
             </div> 
 
@@ -692,7 +692,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => copyDeck()}
             >                  
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/copy.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/copy.png`}/></div> 
                 <div className="control-panel-text"><b>Copy Deck</b></div> 
             </div> 
 
@@ -700,7 +700,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => getDeck(deck.id)}
             >                  
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/revert.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/revert.png`}/></div> 
                 <div className="control-panel-text"><b>Revert Deck</b></div> 
             </div> 
 
@@ -708,7 +708,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => sortDeck()}
             >                         
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/sort.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/sort.png`}/></div> 
                 <div className="control-panel-text"><b>Sort Deck</b></div> 
             </div>
 
@@ -716,7 +716,7 @@ export const Builder = () => {
                 className={"show-cursor control-panel-button"}
                 onClick={() => deck.id ? saveDeck() : setShowSaveModal(true)}
             >                  
-                <div><img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/save.png`}/></div> 
+                <div><img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/save.png`}/></div> 
                 <div className="control-panel-text"><b>Save Deck</b></div> 
             </div> 
         </div>
@@ -724,7 +724,7 @@ export const Builder = () => {
         <div>
             <div className="single-deck-title-flexbox">
                 <div style={{width: '80px'}}/>
-                <div className="single-deck-title">{deck.name || 'New Deck'} <img style={{width:'32px', margin: '10px 20px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${deck.format ? format.icon : 'master'}.png`}/></div>
+                <div className="single-deck-title">{deck.name || 'New Deck'} <img style={{width:'32px', margin: '10px 20px'}} src={`https://cdn.formatlibrary.com/images/emojis/${deck.format ? format.icon : 'master'}.png`}/></div>
                 <div style={{width: '80px', color: '#CBC5C3', margin: '0px', alignSelf: 'center'}}>{edited ? <i>Edited</i> : ''}</div>
             </div>
 
@@ -790,7 +790,7 @@ export const Builder = () => {
                                 onClick={() => setShowDeleteModal(true)}
                             >
                                 <b style={{padding: '0px 6px'}}>Delete</b>
-                                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/delete.png`}/>
+                                <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/delete.png`}/>
                             </div>   
                                 
                             <div>
@@ -801,7 +801,7 @@ export const Builder = () => {
                                 >                                    
                                     <div className="deck-button">
                                         <b style={{padding: '0px 6px'}}>Download</b>
-                                        <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/download.png`}/>
+                                        <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/download.png`}/>
                                     </div> 
                                 </a>
                             </div>   
@@ -820,7 +820,7 @@ export const Builder = () => {
                                     }}
                                 >
                                     <b style={{padding: '0px 6px'}}>Share</b>
-                                    <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/share.png`}/>
+                                    <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/share.png`}/>
                                 </div>
                             </div>
                                 
@@ -832,12 +832,12 @@ export const Builder = () => {
                                     deck.display ? (
                                         <div className="deck-button">
                                             <b style={{padding: '0px 6px'}}>Unpublish</b>
-                                            <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/hide.png`}/>
+                                            <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/hide.png`}/>
                                         </div> 
                                     ) : (
                                         <div className="deck-button">
                                             <b style={{padding: '0px 6px'}}>Publish</b>
-                                            <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/globe.png`}/>
+                                            <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/globe.png`}/>
                                         </div> 
                                     )
                                 }

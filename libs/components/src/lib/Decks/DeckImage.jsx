@@ -20,7 +20,7 @@ export const DeckImage = (props) => {
               <div id="main" className="DeckImages">
               <h4 style={{width}}>{title}</h4>
               <div id="main" style={{width, margin, padding}} className="deck-flexbox">
-                  <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/decks/thumbnails/${deck.id}.png`}></img>
+                  <img src={`https://cdn.formatlibrary.com/images/decks/thumbnails/${deck.id}.png`}></img>
               </div>
               </div>
           </Link>

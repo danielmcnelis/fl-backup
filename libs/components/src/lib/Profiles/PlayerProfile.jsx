@@ -90,7 +90,7 @@ export const PlayerProfile = () => {
                 className="player-pfp"
                 src={
                   player.discordPfp ? `https://cdn.discordapp.com/avatars/${player.discordId}/${player.discordPfp}.webp` :
-                  `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${player.name}.png`
+                  `https://cdn.formatlibrary.com/images/pfps/${player.name}.png`
                 }
                 alt={player.name}
                 onError={(e) => {
@@ -125,7 +125,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/YouTube.png" alt="youtube"/>
+                            <img className="social-icon" src="https://cdn.formatlibrary.com/images/logos/YouTube.png" alt="youtube"/>
                         </a>
                     ) : ''
                 }
@@ -136,7 +136,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Twitch.png" alt="twitch"/>
+                            <img className="social-icon" src="https://cdn.formatlibrary.com/images/logos/Twitch.png" alt="twitch"/>
                         </a>
                     ) : ''
                 }
@@ -147,7 +147,7 @@ export const PlayerProfile = () => {
                             target="_blank" 
                             rel="noopener noreferrer"
                         >
-                            <img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Twitter.png" alt="twitter"/>
+                            <img className="social-icon" src="https://cdn.formatlibrary.com/images/logos/Twitter.png" alt="twitter"/>
                         </a>
                     ) : ''
                 }

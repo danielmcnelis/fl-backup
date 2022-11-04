@@ -10,14 +10,14 @@ import { capitalize } from '@fl/utils'
 import { useMediaQuery } from 'react-responsive'
 
 const symbols = {
-    Star: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/symbols/star.png'
+    Star: 'https://cdn.formatlibrary.com/images/symbols/star.png'
 }
 
 const { Star } = symbols
 
 const emojis = {
-    Shield: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/shield.png',
-    Swords: 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/swords.png'
+    Shield: 'https://cdn.formatlibrary.com/images/emojis/shield.png',
+    Swords: 'https://cdn.formatlibrary.com/images/emojis/swords.png'
 }
 
 const { Shield, Swords } = emojis

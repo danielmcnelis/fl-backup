@@ -5,28 +5,28 @@ import { ordinalize } from '@fl/utils'
 //GET MEDAL
 const getMedal = (elo) => {
   return !elo
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/gold.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/gold.png'
     : elo <= 230
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/mad.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/mad.png'
     : elo > 230 && elo <= 290
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/sad.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/sad.png'
     : elo > 290 && elo <= 350
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/rock.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/rock.png'
     : elo > 350 && elo <= 410
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/bronze.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/bronze.png'
     : elo > 410 && elo <= 470
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/silver.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/silver.png'
     : elo > 470 && elo <= 530
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/gold.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/gold.png'
     : elo > 530 && elo <= 590
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/platinum.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/platinum.png'
     : elo > 590 && elo <= 650
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/diamond.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/diamond.png'
     : elo > 650 && elo <= 710
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/master.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/master.png'
     : elo > 710 && elo <= 770
-    ? 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/legend.png'
-    : 'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/god.png'
+    ? 'https://cdn.formatlibrary.com/images/emojis/legend.png'
+    : 'https://cdn.formatlibrary.com/images/emojis/god.png'
 }
 
 //GET TITLE
@@ -80,7 +80,7 @@ export const StatsRow = (props) => {
                         className="player-cell-pfp"
                         src={
                           stats.player.discordPfp ? `https://cdn.discordapp.com/avatars/${stats.player.discordId}/${stats.player.discordPfp}.webp` :
-                          `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${stats.player.name}.png`
+                          `https://cdn.formatlibrary.com/images/pfps/${stats.player.name}.png`
                         }
                         onError={(e) => {
                                 e.target.onerror = null

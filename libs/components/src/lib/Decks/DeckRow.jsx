@@ -15,7 +15,7 @@ export const DeckRow = (props) => {
                   rel="noopener noreferrer"
               >
                 <div className="format-cell-flexbox">
-                  <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${deck.format.icon}.png`} alt={deck.format.icon}/>
+                  <img src={`https://cdn.formatlibrary.com/images/emojis/${deck.format.icon}.png`} alt={deck.format.icon}/>
                   <div>{deck.formatName}</div>
                 </div>
               </Link>
@@ -42,7 +42,7 @@ export const DeckRow = (props) => {
                       className="player-cell-pfp"
                       src={
                         deck.player.discordPfp ? `https://cdn.discordapp.com/avatars/${deck.player.discordId}/${deck.player.discordPfp}.webp` :
-                        `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${deck.player.discordId || deck.player.name}.png`
+                        `https://cdn.formatlibrary.com/images/pfps/${deck.player.discordId || deck.player.name}.png`
                       }                    
                       alt={`${deck.builder}`}
                       onError={(e) => {
@@ -74,7 +74,7 @@ export const DeckRow = (props) => {
               >
                 <div className="community-cell-flexbox">
                   {
-                    deck.eventName ? <img src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${deck.community}.png`} alt={deck.community}/> : <img/>
+                    deck.eventName ? <img src={`https://cdn.formatlibrary.com/images/logos/${deck.community}.png`} alt={deck.community}/> : <img/>
                   }
                   <div>{deck.eventName || '-'}</div>
                 </div>
@@ -87,7 +87,7 @@ export const DeckRow = (props) => {
                   rel="noopener noreferrer"
               >
                 <div className="placement-cell">
-                  {deck.rating} <img style={{width: '20px'}} src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/heart.png" alt="heart"/>
+                  {deck.rating} <img style={{width: '20px'}} src="https://cdn.formatlibrary.com/images/emojis/heart.png" alt="heart"/>
                 </div>
               </Link>
             </td>
@@ -98,7 +98,7 @@ export const DeckRow = (props) => {
                   rel="noopener noreferrer"
               >
                 <div className="placement-cell">
-                  {deck.downloads} <img style={{width: '20px'}} src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/disk.png" alt="disk"/>
+                  {deck.downloads} <img style={{width: '20px'}} src="https://cdn.formatlibrary.com/images/emojis/disk.png" alt="disk"/>
                 </div>
               </Link>
             </td>

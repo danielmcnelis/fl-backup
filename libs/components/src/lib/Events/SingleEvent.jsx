@@ -56,7 +56,7 @@ export const SingleEvent = (props) => {
   if (!event.name) return <div></div>
   if (!event.format) return <div></div>
 
-  const formatArtwork = `https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/${event.format.icon}.jpg` || ''
+  const formatArtwork = `https://cdn.formatlibrary.com/images/artworks/${event.format.icon}.jpg` || ''
   
   const colors = [
       '#3d72e3', '#ff3c2e', '#ffd000', '#47ad53', '#43578f', '#b25cd6',
@@ -136,7 +136,7 @@ export const SingleEvent = (props) => {
                             className="single-event-winner-cell-pfp"
                             src={
                                 event.player.discordPfp ? `https://cdn.discordapp.com/avatars/${event.player.discordId}/${event.player.discordPfp}.webp` :
-                                `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${event.player.name}.png`
+                                `https://cdn.formatlibrary.com/images/pfps/${event.player.name}.png`
                             }
                             onError={(e) => {
                                 e.target.onerror = null
@@ -147,7 +147,7 @@ export const SingleEvent = (props) => {
                       </div>
                       <img 
                         style={{width:'32px'}} 
-                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/1st.png`}
+                        src={`https://cdn.formatlibrary.com/images/emojis/1st.png`}
                         alt="1st"
                       />
                   </div>
@@ -157,7 +157,7 @@ export const SingleEvent = (props) => {
                     <div style={{paddingRight:'7px'}}><b>Community:</b> {event.community}</div> 
                     <img 
                         style={{width:'32px'}} 
-                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/${event.community}.png`}
+                        src={`https://cdn.formatlibrary.com/images/logos/${event.community}.png`}
                         alt={event.community}
                     />
                   </div>   
@@ -174,7 +174,7 @@ export const SingleEvent = (props) => {
                     <div onClick={() => goToFormat()} className="single-event-format-link" style={{paddingRight:'7px'}}><b>Format:</b> {capitalize(event.formatName, true)}</div>
                     <img 
                         style={{width:'32px'}} 
-                        src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                        src={`https://cdn.formatlibrary.com/images/emojis/${event.format.icon}.png`}
                         alt={event.format.name}
                     />
                   </div>     
@@ -221,24 +221,24 @@ export const SingleEvent = (props) => {
         <div className="subcategory-title-flexbox">
           <img 
             style={{ width:'64px'}} 
-            src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+            src={`https://cdn.formatlibrary.com/images/emojis/${event.format.icon}.png`}
             alt={event.format.name}
           />
           <h2 className="subheading"><b>{event.abbreviation}</b> Bracket:</h2>
           <img 
             style={{ width:'64px'}} 
-            src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/Challonge.png'}
+            src={'https://cdn.formatlibrary.com/images/logos/Challonge.png'}
             alt="challonge"
           />
         </div>
         <img 
           style={{width:'800px'}}
           className="bracket" 
-          src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/brackets/${event.abbreviation}.png`}
+          src={`https://cdn.formatlibrary.com/images/brackets/${event.abbreviation}.png`}
           onError={(e) => {
             e.target.onerror = null
             e.target.style.width = "300px"
-            e.target.src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/artworks/dig.jpg"
+            e.target.src="https://cdn.formatlibrary.com/images/artworks/dig.jpg"
           }}
           alt="bracket"
         />
@@ -258,13 +258,13 @@ export const SingleEvent = (props) => {
             <div className="subcategory-title-flexbox">
               <img 
                 style={{ width:'64px'}} 
-                src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                src={`https://cdn.formatlibrary.com/images/emojis/${event.format.icon}.png`}
                 alt={event.format.name}
               />
               <h2 className="subheading"><b>{event.abbreviation}</b> {topDecks.length > 1 ? `Top ${topDecks.length} Decks` : 'Winning Deck'}:</h2>
               <img 
                 style={{ height:'64px'}} 
-                src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/deckbox.png'}
+                src={'https://cdn.formatlibrary.com/images/emojis/deckbox.png'}
                 alt="deckbox"
               />
             </div>
@@ -294,13 +294,13 @@ export const SingleEvent = (props) => {
             <div className="subcategory-title-flexbox">
               <img 
                 style={{ width:'64px'}} 
-                src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/${event.format.icon}.png`}
+                src={`https://cdn.formatlibrary.com/images/emojis/${event.format.icon}.png`}
                 alt={event.format.name}
               />
               <h2 className="subheading"><b>{event.abbreviation}</b> Metagame Stats:</h2>
               <img 
                 style={{ height:'64px'}} 
-                src={'https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/microscope.png'}
+                src={'https://cdn.formatlibrary.com/images/emojis/microscope.png'}
                 alt="microscope"
               />
             </div>

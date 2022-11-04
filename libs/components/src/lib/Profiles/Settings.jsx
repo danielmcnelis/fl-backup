@@ -184,7 +184,7 @@ export const Settings = () => {
                         src={
                             googlePfp ? `https://lh3.googleusercontent.com/a/${googlePfp}` :
                             discordPfp && discordId ? `https://cdn.discordapp.com/avatars/${discordId}/${discordPfp}.webp` :
-                            `https://formatlibrary.s3.us-east-2.amazonaws.com/images/pfps/${discordId || name}.png`}
+                            `https://cdn.formatlibrary.com/images/pfps/${discordId || name}.png`}
                         onError={(e) => {
                                 e.target.onerror = null
                                 e.target.src="https://cdn.discordapp.com/embed/avatars/1.png"
@@ -199,7 +199,7 @@ export const Settings = () => {
                         <div className="profile-line"><b>Discord:</b> {discordName && discriminator ? (<><span>{discordName}</span><span style={{ color: 'gray' }}>#{discriminator}</span></>): 'N/A'}</div>
                         <div className="profile-line"><b>Country:</b> {country ? regionNames.of(country) : ''} {country ? <img className="country" src={`https://www.worldometers.info/img/flags/${country.toLowerCase()}-flag.gif`} alt={country + '-flag'}/> : ''}</div>
                         <div className="profile-line"><b>Time Zone:</b> {timeZone || ''}</div>
-                        <div className="profile-line"><b>YouTube:</b> {youtube ? <a href={youtube} target="_blank" rel="noopener noreferrer"><img className="social-icon" src="https://formatlibrary.s3.us-east-2.amazonaws.com/images/logos/youtube.png" alt="YouTube"/></a>: ''}</div>
+                        <div className="profile-line"><b>YouTube:</b> {youtube ? <a href={youtube} target="_blank" rel="noopener noreferrer"><img className="social-icon" src="https://cdn.formatlibrary.com/images/logos/youtube.png" alt="YouTube"/></a>: ''}</div>
                         <div className="profile-line"><b>Twitch:</b> {twitch || ''}</div>
                         <div className="profile-line"><b>Twitter:</b> {twitter || ''}</div>
                     </div>
@@ -211,7 +211,7 @@ export const Settings = () => {
                 style={{width: '180px', margin: '15px auto', textAlign: 'center'}}
             >
                 <b style={{padding: '0px 6px'}}>Edit Profile</b>
-                <img style={{width:'28px'}} src={`https://formatlibrary.s3.us-east-2.amazonaws.com/images/emojis/edit.png`} alt="edit"/>
+                <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/edit.png`} alt="edit"/>
             </div>
         </div>
     </>
