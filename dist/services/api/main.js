@@ -1350,7 +1350,7 @@ exports.Player.verifyLogin = (payload) => tslib_1.__awaiter(void 0, void 0, void
             email: payload.email
         }
     });
-    if (player && (yield bcrypt.compare(payload.password, player.hash))) {
+    if (player && payload.password && player.hash && (yield bcrypt.compare(payload.password, player.hash))) {
         return player;
     }
     else {

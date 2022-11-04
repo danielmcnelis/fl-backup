@@ -180,7 +180,7 @@ Player.generateId = async () => {
         }
     })
     
-    if (player && await bcrypt.compare(payload.password, player.hash)) {
+    if (player && payload.password && player.hash && await bcrypt.compare(payload.password, player.hash)) {
         return player
     } else {
         return false

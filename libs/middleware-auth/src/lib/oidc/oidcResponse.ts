@@ -54,6 +54,6 @@ export const oidcResponse = (options) => {
     }).cookie('playerName', name, {
         maxAge: 24 * 60 * 60 * 1000
     }).clearCookie('discordPfp')
-    .redirect(returnTo)
+    .redirect(returnTo || 'https://formatlibrary.com')
   }
 }

@@ -3,7 +3,7 @@ export const logout = (options) => {
 
   return (req, res, next) => {
     // TODO: delete token cookies here
-    res.redirect(returnTo)
+    res.redirect(returnTo || 'https://formatlibrary.com')
 
     next()
   }

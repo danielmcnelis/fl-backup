@@ -147,7 +147,7 @@ const discordResponse = (options) => {
         }).cookie('playerName', name, {
             maxAge: 24 * 60 * 60 * 1000
         }).clearCookie('googlePfp')
-            .redirect(returnTo);
+            .redirect(returnTo || 'https://formatlibrary.com');
     });
 };
 exports.discordResponse = discordResponse;
@@ -246,7 +246,7 @@ const logout = (options) => {
     const { returnTo } = options;
     return (req, res, next) => {
         // TODO: delete token cookies here
-        res.redirect(returnTo);
+        res.redirect(returnTo || 'https://formatlibrary.com');
         next();
     };
 };
@@ -391,7 +391,7 @@ const oauth2Response = (options) => {
         }).cookie('playerName', name, {
             maxAge: 24 * 60 * 60 * 1000
         }).clearCookie('googlePfp')
-            .redirect(returnTo);
+            .redirect(returnTo || 'https://formatlibrary.com');
     });
 };
 exports.oauth2Response = oauth2Response;
@@ -508,7 +508,7 @@ const oidcResponse = (options) => {
         }).cookie('playerName', name, {
             maxAge: 24 * 60 * 60 * 1000
         }).clearCookie('discordPfp')
-            .redirect(returnTo);
+            .redirect(returnTo || 'https://formatlibrary.com');
     });
 };
 exports.oidcResponse = oidcResponse;
@@ -1879,7 +1879,7 @@ exports.Player.verifyLogin = (payload) => tslib_1.__awaiter(void 0, void 0, void
             email: payload.email
         }
     });
-    if (player && (yield bcrypt.compare(payload.password, player.hash))) {
+    if (player && payload.password && player.hash && (yield bcrypt.compare(payload.password, player.hash))) {
         return player;
     }
     else {
