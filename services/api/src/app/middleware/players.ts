@@ -1,6 +1,7 @@
 import { Player } from '@fl/models'
 import { Op } from 'sequelize'
 import * as fs from 'fs'
+import * as bcrypt from 'bcrypt'
 
 export const playersAdmin = async (req, res, next) => {
     try {
@@ -51,7 +52,14 @@ export const playersId = async (req, res, next) => {
         attributes: ['id', 'email', 'name', 'discordId', 'discordPfp', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
     })
 
-    res.json(player)
+    const hasPassword = await Player.count({
+        where: {
+            id: player.id,
+            hash: {[Op.not]: null}
+        }
+    })
+
+    res.json({...player.dataValues, hasPassword: !!hasPassword})
   } catch (err) {
     next(err)
   }
@@ -68,6 +76,32 @@ export const playersAll = async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+}
+
+export const playersPassword = async (req, res, next) => {
+    try {
+        const player = await Player.findOne({ 
+            where: {
+                id: req.params.id
+            },
+            attributes: ['id', 'hash']
+        })
+
+        const newPassword = req.body.newPassword
+        const oldPassword = req.body.oldPassword
+        const salt = newPassword ? await bcrypt.genSalt(10) : null
+        const hash = salt ? await bcrypt.hash(newPassword, salt) : null
+
+        if (!player.hash || (player.hash && await bcrypt.compare(oldPassword, player.hash))) {
+            player.hash = hash
+            await player.save()
+            res.sendStatus(200)
+        } else {
+            res.sendStatus(400)
+        }
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 export const playersUpdateId = async (req, res, next) => {

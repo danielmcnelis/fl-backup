@@ -63,7 +63,7 @@ export const Footer = () => (
         className="desktop-only"
       >
         <img src="https://cdn.formatlibrary.com/images/logos/TCGPlayer.png" alt="TCG Player" className="tcgplayer-logo" />
-        <p className="tcgplayer-desc" >Shop to support our site!</p>
+        <p className="tcgplayer-desc" >Shop to support us!</p>
       </a>
     </div>
   </div>

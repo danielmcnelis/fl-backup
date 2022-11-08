@@ -5619,6 +5619,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__("tslib");
 tslib_1.__exportStar(__webpack_require__("./services/auth/src/app/middleware/error.ts"), exports);
 tslib_1.__exportStar(__webpack_require__("./services/auth/src/app/middleware/login.ts"), exports);
+tslib_1.__exportStar(__webpack_require__("./services/auth/src/app/middleware/logout.ts"), exports);
 tslib_1.__exportStar(__webpack_require__("./services/auth/src/app/middleware/signup.ts"), exports);
 tslib_1.__exportStar(__webpack_require__("./services/auth/src/app/middleware/stub.ts"), exports);
 
@@ -5652,12 +5653,6 @@ const login = (options) => {
                 email: email,
                 password: password
             });
-            console.log('id', id);
-            console.log('googleId', googleId);
-            console.log('googlePfp', googlePfp);
-            console.log('discordId', discordId);
-            console.log('discordPfp', discordPfp);
-            console.log('name', name);
             if (id) {
                 res.cookie('playerId', id, {
                     maxAge: 24 * 60 * 60 * 1000
@@ -5681,6 +5676,29 @@ const login = (options) => {
     });
 };
 exports.login = login;
+
+
+/***/ }),
+
+/***/ "./services/auth/src/app/middleware/logout.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.logout = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const logout = () => {
+    return (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+        res.clearCookie('playerId')
+            .clearCookie('discordId')
+            .clearCookie('discordPfp')
+            .clearCookie('googleId')
+            .clearCookie('googlePfp')
+            .clearCookie('playerName')
+            .redirect(`https://formatlibrary.com`);
+    });
+};
+exports.logout = logout;
 
 
 /***/ }),
@@ -5820,6 +5838,7 @@ router.get('/auth/login', (0, middleware_1.login)({
     ]
 }));
 router.post('/auth/login', (0, middleware_1.login)({}));
+router.post('/auth/logout', (0, middleware_1.logout)());
 router.get('/auth/signup', (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     res.render('auth/signup', {
         app: 'Format Library',

@@ -16,6 +16,51 @@ export const Settings = () => {
   const [detectedCountry, setDetectedCountry] = useState(null)
   const [detectedTimeZone, setDetectedTimeZone] = useState(null)
   const [showEditModal, setShowEditModal] = useState(false)
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
+
+  const togglePasswordFields = () => {
+    const oldPasswordInput = document.getElementById('old-password')
+    const newPasswordInput = document.getElementById('new-password')
+    const confirmPasswordInput = document.getElementById('confirm-password')
+    if (oldPasswordInput.type === 'password') {
+        oldPasswordInput.type = 'name'
+        newPasswordInput.type = 'name'
+        confirmPasswordInput.type = 'name'
+    } else {
+        oldPasswordInput.type = 'password'
+        newPasswordInput.type = 'password'
+        confirmPasswordInput.type = 'password'
+    }
+
+}
+
+    // CHANGE PASSWORD
+    const changePassword = async () => {
+        const oldPassword = document.getElementById('old-password').value
+        const newPassword = document.getElementById('new-password').value
+        const confirmPassword = document.getElementById('confirm-password').value
+        if (player.hasPassword && !oldPassword) return alert('Please enter old password.')        
+        if (!newPassword) return alert('Password cannot be blank.')
+        if (!confirmPassword) return alert('Please confirm your password.')
+        if (newPassword !== confirmPassword) return alert('Passwords do not match.')
+        
+        try {
+            await axios.put(`/api/players/password/${playerId}`, {
+                oldPassword: oldPassword,
+                newPassword: newPassword
+            })
+
+            alert('Saved Password!')
+            setShowPasswordModal(false)
+        } catch (err) {
+            console.log(err)
+            if (err.response.status === 400) {
+                alert('Invalid Password.')  
+            } else {
+                alert('Error Saving Password.')  
+            }  
+        }
+    }
 
     // SAVE PROFILE
     const saveProfile = async () => {
@@ -44,6 +89,14 @@ export const Settings = () => {
             } else {
                 alert('Error Saving Profile.')
             }
+        }
+    }
+
+    const logOut = async () => {
+        try {
+            await axios.post(`/auth/logout`)
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -176,6 +229,57 @@ export const Settings = () => {
                     </Modal.Footer>
                 </Modal>        
 
+                <Modal show={showPasswordModal} onHide={() => setShowPasswordModal(false)}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Edit Password:</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body style={{width: '640px'}}>
+                        <Form style={{width: '640px'}}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Old Password:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    id="old-password"
+                                    disabled={player && !player.hasPassword}
+                                    defaultValue={null}
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>New Password:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    id="new-password"
+                                    defaultValue={null}
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Confirm Password:</Form.Label>
+                                <Form.Control
+                                    type="password"
+                                    id="confirm-password"
+                                    defaultValue={null}
+                                />
+                            </Form.Group>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Show Passwords: <input
+                                    type="checkbox"
+                                    id="show-passwords"
+                                    defaultValue={null}
+                                    onChange={() => togglePasswordFields()}
+                                /></Form.Label>
+                            </Form.Group>
+                        </Form>
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowPasswordModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button variant="primary" onClick={() => changePassword()}>
+                        Save
+                    </Button>
+                    </Modal.Footer>
+                </Modal>        
+
             <div className="player-profile-flexbox">
                 <div className="player-info">
                     <div className="player-profile-title">{name}</div>
@@ -205,14 +309,33 @@ export const Settings = () => {
                     </div>
                 </div>
             </div>
-            <div 
-                className="show-cursor deck-button"
-                onClick={() => setShowEditModal(true)}
-                style={{width: '180px', margin: '15px auto', textAlign: 'center'}}
-            >
-                <b style={{padding: '0px 6px'}}>Edit Profile</b>
-                <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/edit.png`} alt="edit"/>
+            <div className="builder-bottom-panel">
+                <div 
+                    className="show-cursor deck-button"
+                    onClick={() => setShowPasswordModal(true)}
+                    style={{width: '220px', margin: '15px auto', textAlign: 'center'}}
+                >
+                    <b style={{padding: '0px 6px'}}>Edit Password</b>
+                    <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/lock.png`} alt="edit"/>
+                </div>
+                <div 
+                    className="show-cursor deck-button"
+                    onClick={() => setShowEditModal(true)}
+                    style={{width: '180px', margin: '15px auto', textAlign: 'center'}}
+                >
+                    <b style={{padding: '0px 6px'}}>Edit Profile</b>
+                    <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/edit.png`} alt="edit"/>
+                </div>
+                <div 
+                    className="show-cursor deck-button"
+                    onClick={() => logOut()}
+                    style={{width: '180px', margin: '15px auto', textAlign: 'center'}}
+                >
+                    <b style={{padding: '0px 6px'}}>Log Out</b>
+                    <img style={{width:'28px'}} src={`https://cdn.formatlibrary.com/images/emojis/owl.png`} alt="edit"/>
+                </div>
             </div>
+           
         </div>
     </>
   )

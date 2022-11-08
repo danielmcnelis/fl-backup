@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { oauth2Authorize, oauth2Response, oidcAuthorize, oidcResponse } from '@fl/middleware-auth'
-import { login, signup } from '../middleware'
+import { login, logout, signup } from '../middleware'
 import config from '../config'
 
 const { siteUrl, google, discord } = config
@@ -45,6 +45,8 @@ router.get(
 )
 
 router.post('/auth/login', login({}))
+
+router.post('/auth/logout', logout())
 
 router.get('/auth/signup', async (req, res, next) => {
   res.render('auth/signup', {

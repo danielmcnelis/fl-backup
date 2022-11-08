@@ -1,6 +1,5 @@
 
 import parse from 'html-react-parser'
-import Adsense from 'react-adsense'
 import { useMediaQuery } from 'react-responsive'
 
 export const BlogPost = (props) => {
@@ -82,18 +81,11 @@ export const BlogPost = (props) => {
                       alt="TCG Player" 
                       style={{height: "18%", width: "70%"}}
                     />
-                    <p className="ad-desc">Shop to support our site!</p>
+                    <p className="ad-desc">Shop to support us!</p>
                   </a>
                 </div>
-              ) : (
-                <Adsense.Google
-                  className="vertical-adsense"
-                  client="ca-pub-2048547741313745"
-                  slot="8384346734"
-                  key={props.key}
-                  style={{ width: '100%', height: '75%' }}
-                /> 
-              )
+              ) : 
+              <div className="vertical-ads-flexbox"/>
             }
           </div>
         <div className="blog-divider"/>

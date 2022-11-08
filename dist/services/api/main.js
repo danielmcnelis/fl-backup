@@ -5011,11 +5011,8 @@ if (config_1.default.siteProxy === 'true') {
     console.log('rewrite', config_1.default.siteProxy);
     app.use('/api', (req, _res, next) => {
         const from = req.url;
-        console.log('from', from);
         const to = from.replace(/\/api\//g, '/');
-        console.log('to', to);
         req.url = to;
-        console.log('req.url', req.url);
         next();
     });
     console.log(chalk.cyan(`Rewrite /api/* to /`));
@@ -6942,11 +6939,12 @@ tslib_1.__exportStar(__webpack_require__("./services/api/src/app/middleware/tour
 
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.playersCreate = exports.playersUpdateId = exports.playersAll = exports.playersId = exports.playersQuery = exports.playersAdmin = void 0;
+exports.playersCreate = exports.playersUpdateId = exports.playersPassword = exports.playersAll = exports.playersId = exports.playersQuery = exports.playersAdmin = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const models_1 = __webpack_require__("./libs/models/src/index.ts");
 const sequelize_1 = __webpack_require__("sequelize");
 const fs = __webpack_require__("fs");
+const bcrypt = __webpack_require__("bcrypt");
 const playersAdmin = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     try {
         const player = yield models_1.Player.findOne({
@@ -6996,7 +6994,13 @@ const playersId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, 
             }),
             attributes: ['id', 'email', 'name', 'discordId', 'discordPfp', 'discordName', 'discriminator', 'firstName', 'lastName', 'googleId', 'googlePfp', 'duelingBook', 'duelingBookPfp', 'country', 'timeZone', 'youtube', 'twitch', 'twitter']
         });
-        res.json(player);
+        const hasPassword = yield models_1.Player.count({
+            where: {
+                id: player.id,
+                hash: { [sequelize_1.Op.not]: null }
+            }
+        });
+        res.json(Object.assign(Object.assign({}, player.dataValues), { hasPassword: !!hasPassword }));
     }
     catch (err) {
         next(err);
@@ -7016,6 +7020,32 @@ const playersAll = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0,
     }
 });
 exports.playersAll = playersAll;
+const playersPassword = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const player = yield models_1.Player.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: ['id', 'hash']
+        });
+        const newPassword = req.body.newPassword;
+        const oldPassword = req.body.oldPassword;
+        const salt = newPassword ? yield bcrypt.genSalt(10) : null;
+        const hash = salt ? yield bcrypt.hash(newPassword, salt) : null;
+        if (!player.hash || (player.hash && (yield bcrypt.compare(oldPassword, player.hash)))) {
+            player.hash = hash;
+            yield player.save();
+            res.sendStatus(200);
+        }
+        else {
+            res.sendStatus(400);
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
+});
+exports.playersPassword = playersPassword;
 const playersUpdateId = (req, res, next) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
     try {
         const player = yield models_1.Player.findOne({
@@ -7435,6 +7465,7 @@ const middleware_1 = __webpack_require__("./services/api/src/app/middleware/inde
 const router = (0, express_1.Router)();
 router.get('/api/players/query/:query', middleware_1.playersQuery);
 router.put('/api/players/update/:id', middleware_1.playersUpdateId);
+router.put('/api/players/password/:id', middleware_1.playersPassword);
 router.get('/api/players/admin/:id', middleware_1.playersAdmin);
 router.get('/api/players/:id', middleware_1.playersId);
 router.get('/api/players/', middleware_1.playersAll);

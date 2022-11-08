@@ -22,13 +22,6 @@ export const login = (options) => {
             password: password
         })
 
-        console.log('id', id)
-        console.log('googleId', googleId)
-        console.log('googlePfp', googlePfp)
-        console.log('discordId', discordId)
-        console.log('discordPfp', discordPfp)
-        console.log('name', name)
-
         if (id) {
             res.cookie('playerId', id, {
         	    maxAge: 24 * 60 * 60 * 1000
