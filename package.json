@@ -8,7 +8,7 @@
     "test": "nx test",
     "aws": "nx build formatlibrary --no-cache && nx build site --no-cache && nx build api --no-cache && nx build auth --no-cache && dotenv ./runsite && dotenv ./runapi && dotenv ./runauth",
     "runall": "dotenv ./runsite && dotenv ./runapi && dotenv ./runauth",
-    "buildall": "nx build formatlibrary && nx build site && nx build api && nx build auth"
+    "buildall": "nx build formatlibrary --no-cache && nx build site --no-cache && nx build api --no-cache && nx build auth --no-cache"
   },
   "private": true,
   "dependencies": {
